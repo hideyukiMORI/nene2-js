@@ -13,9 +13,9 @@ Establish nene2-js as a sibling repository with clear scope, Issue-driven workfl
 - [x] Workflow and commit conventions
 - [x] ADR 0001 — relationship to NENE2
 - [x] README with sibling clone layout
-- [ ] GitHub repo `hideyukiMORI/nene2-js` and remote `main`
-- [ ] Issue #1 governance verification (optional duplicate of bootstrap PR)
-- [ ] Phase 1: ESLint, Prettier, Vitest wired (`npm run check` green)
+- [x] GitHub repo `hideyukiMORI/nene2-js` and remote `main`
+- [x] ESLint, Prettier, Vitest wired (`npm run check` green)
+- [ ] Starter Issues #1–#3 triaged or in progress
 
 ## Acceptance criteria
 
