@@ -1,0 +1,24 @@
+name: Bug report
+description: Report incorrect client behavior or contract drift
+labels: ['bug']
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: input
+    id: nene2_version
+    attributes:
+      label: NENE2 version or tag (if known)
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce

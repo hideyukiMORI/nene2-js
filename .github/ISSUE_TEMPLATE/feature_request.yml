@@ -1,0 +1,29 @@
+name: Feature request
+description: Propose typed client, types, or tooling aligned with NENE2 OpenAPI
+labels: ['enhancement']
+body:
+  - type: checkboxes
+    id: scope_check
+    attributes:
+      label: Scope check (see docs/scope.md)
+      options:
+        - label: This is client/types/tooling for NENE2 HTTP APIs (in scope)
+          required: true
+        - label: This is NOT a Node port of NENE2 server / MCP server duplicate
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: input
+    id: openapi_operation
+    attributes:
+      label: OpenAPI operationId or path (if applicable)
