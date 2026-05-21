@@ -4,18 +4,17 @@ Last updated: 2026-05-22 (repository bootstrap)
 
 ## Active
 
-- Bootstrap local repo at `../nene2-js` (sibling of `../NENE2`).
-- Create GitHub remote `hideyukiMORI/nene2-js` and push `main` when ready.
+- [x] Bootstrap at `/home/xi/docker/nene2-js` (sibling of `NENE2`)
+- [x] GitHub: https://github.com/hideyukiMORI/nene2-js
+- [x] `npm run check` passes locally
 
-## Suggested first Issues (create on GitHub)
+## Next Issues
 
-| Title                                          | Type         | Notes                                |
-| ---------------------------------------------- | ------------ | ------------------------------------ |
-| Initial governance and scope docs              | `docs`       | Verify links to NENE2 / nene-mcp     |
-| Add ESLint + Prettier + Vitest devDependencies | `build`      | Wire `npm run check`                 |
-| OpenAPI pin strategy for types                 | `docs` / ADR | Submodule vs copy vs URL fetch       |
-| Problem Details type guards                    | `feat`       | `validation-failed`, generic problem |
-| Health + ping typed client smoke               | `feat`       | Fixtures + optional live NENE2       |
+| #                                                    | Title                                |
+| ---------------------------------------------------- | ------------------------------------ |
+| [#1](https://github.com/hideyukiMORI/nene2-js/issues/1) | OpenAPI 取り込み方針を ADR で決める |
+| [#2](https://github.com/hideyukiMORI/nene2-js/issues/2) | Problem Details 型ガード（RFC 9457） |
+| [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) | health / ping の typed client        |
 
 ## Handoff
 
