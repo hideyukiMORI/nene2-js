@@ -4,9 +4,8 @@ Last updated: 2026-05-22 (JST)
 
 ## Active
 
-- [ ] [#59](https://github.com/hideyukiMORI/nene2-js/issues/59) — VitePress locale `strictService` + `install-nene2-python` (`/examples/*`)
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
-- [ ] nene2-js-FT FT3+ — blank-slate consumer app trials (`../nene2-js-FT/`)
+- [ ] nene2-js-FT FT4+ — blank-slate new app from ja docs only (`../nene2-js-FT/`)
 
 ## Completed
 
@@ -19,6 +18,8 @@ Last updated: 2026-05-22 (JST)
 - [x] [nene2-python#578](https://github.com/hideyukiMORI/nene2-python/issues/578) / [#579](https://github.com/hideyukiMORI/nene2-python/pull/579) — `/examples/*` API path parity
 - [x] nene2-js-FT FT1–2 live (`../nene2-js-FT/`) — NENE2 + python evac
 - [x] PR [#54](https://github.com/hideyukiMORI/nene2-js/pull/54) VitePress locales · [#55](https://github.com/hideyukiMORI/nene2-js/pull/55) verify:backends
+- [x] [#59](https://github.com/hideyukiMORI/nene2-js/issues/59) / PR [#60](https://github.com/hideyukiMORI/nene2-js/pull/60) — locale `strictService` + `install-nene2-python`
+- [x] nene2-js-FT FT3 dual-backend smoke (`../nene2-js-FT/docs/field-trials/2026-05-field-trial-3.md`)
 
 ## Handoff
 
