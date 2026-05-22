@@ -77,6 +77,16 @@ async function runCheck(pin) {
   );
 }
 
+function syncedFromLabel(source) {
+  if (source === defaultSibling || resolve(source) === resolve(defaultSibling)) {
+    return '../NENE2/docs/openapi/openapi.yaml';
+  }
+  if (source.startsWith('http')) {
+    return source;
+  }
+  return source;
+}
+
 async function runSync(pin) {
   const { content, source } = await loadSource(pin);
   const infoVersion = parseInfoVersion(content);
@@ -85,7 +95,7 @@ async function runSync(pin) {
     openapiInfoVersion: infoVersion ?? pin.openapiInfoVersion,
     contractSha256: sha256(content),
     syncedAt: new Date().toISOString().slice(0, 10),
-    syncedFrom: source,
+    syncedFrom: syncedFromLabel(source),
   };
 
   writeFileSync(contractPath, content.endsWith('\n') ? content : `${content}\n`, 'utf8');

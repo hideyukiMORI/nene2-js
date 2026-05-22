@@ -21,6 +21,7 @@ import {
   problemResponse,
   sequentialFetch,
 } from './helpers/mock-fetch.js';
+import { BULK_HANDLERS, isBulkHandler } from './runners-bulk.js';
 
 const BASE = 'http://localhost:18080';
 const API_KEY = 'ft-evac-local-machine-api-key-32ch!!';
@@ -886,7 +887,7 @@ const HANDLERS: Record<string, () => void | Promise<void>> = {
 };
 
 export async function runFtHandler(handler: string): Promise<void> {
-  const fn = HANDLERS[handler];
+  const fn = isBulkHandler(handler) ? BULK_HANDLERS[handler] : HANDLERS[handler];
   if (fn === undefined) {
     throw new Error(`Unknown FT handler: ${handler}`);
   }

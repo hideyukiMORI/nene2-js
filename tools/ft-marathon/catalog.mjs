@@ -1,6 +1,7 @@
 /**
- * FT30–FT129 catalog (100 scenarios).
+ * FT marathon catalog (500 scenarios: FT30–FT529).
  */
+import { buildBulkTemplates } from './generate-bulk-catalog.mjs';
 
 /** @typedef {{ ft: number, category: string, theme: string, handler: string, mode: 'fixture'|'live', personaA: string, personaB: string }} FtCatalogEntry */
 
@@ -846,8 +847,16 @@ add({
   personaB: pb,
 });
 
-if (FT_CATALOG.length !== 100) {
-  throw new Error(`FT catalog must have 100 entries, got ${FT_CATALOG.length}`);
+let bulkFt = 130;
+for (const tmpl of buildBulkTemplates()) {
+  FT_CATALOG.push({ ft: bulkFt, ...tmpl });
+  bulkFt += 1;
 }
 
-export const FT_RANGE = { start: 30, end: 129, issue: 31 };
+export const MARATHON_SIZE = 500;
+
+if (FT_CATALOG.length !== MARATHON_SIZE) {
+  throw new Error(`FT catalog must have ${MARATHON_SIZE} entries, got ${FT_CATALOG.length}`);
+}
+
+export const FT_RANGE = { start: 30, end: 30 + MARATHON_SIZE - 1, issue: 42 };

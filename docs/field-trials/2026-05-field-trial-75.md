@@ -1,7 +1,7 @@
 # FT75: X-NENE2-API-Key name
 
 **Date**: 2026-05-22  
-**Issues / PRs**: [#31](https://github.com/hideyukiMORI/nene2-js/issues/31) (marathon 100)
+**Issues / PRs**: [#42](https://github.com/hideyukiMORI/nene2-js/issues/42) (marathon 500)
 
 ---
 
@@ -31,6 +31,6 @@ No actionable friction — automated scenario passed.
 
 | Repo                  | Issue | Status |
 | --------------------- | ----- | ------ |
-| hideyukiMORI/nene2-js | #31   | merged |
+| hideyukiMORI/nene2-js | #42   | merged |
 
 **FT completion:** done

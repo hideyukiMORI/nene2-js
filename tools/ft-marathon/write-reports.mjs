@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Generate FT30–FT129 markdown reports + INDEX rows.
+ * Generate FT marathon markdown reports + INDEX rows (FT30–FT529).
  */
 import { writeFileSync, readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { FT_CATALOG, FT_RANGE } from './catalog.mjs';
+import { FT_CATALOG, FT_RANGE, MARATHON_SIZE } from './catalog.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const reportsDir = resolve(__dirname, '../../docs/field-trials');
@@ -15,7 +15,7 @@ for (const e of FT_CATALOG) {
   const md = `# FT${e.ft}: ${e.theme}
 
 **Date**: 2026-05-22  
-**Issues / PRs**: [#${issue}](https://github.com/hideyukiMORI/nene2-js/issues/${issue}) (marathon 100)
+**Issues / PRs**: [#${issue}](https://github.com/hideyukiMORI/nene2-js/issues/${issue}) (marathon ${MARATHON_SIZE})
 
 ---
 
