@@ -51,11 +51,12 @@ The contract source of truth remains **NENE2** `docs/openapi/openapi.yaml`. This
          +-- optional --> [nene-mcp] (stdio, PHP) for AI tools
 ```
 
-## Versioning (planned)
+## Versioning
 
-- `0.x` while public package API is forming.
-- Align **major** bumps with breaking OpenAPI or client surface changes; document mapping to NENE2 release tags in CHANGELOG.
-- Pin OpenAPI input revision in codegen config when codegen lands (ADR follow-up).
+- **`1.0.0`** — first stable `@hideyukimori/nene2-client` on npm ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84)); semver applies to the public client surface.
+- **Major** bumps align with breaking OpenAPI or client API changes; document NENE2 contract mapping in [CHANGELOG.md](../CHANGELOG.md).
+- **Minor / patch** — additive client features or fixes; OpenAPI optional fields may evolve per [ADR 0002](adr/0002-openapi-pin-policy.md).
+- OpenAPI input is pinned under `contracts/` with `npm run contracts:sync|check` and codegen drift gates (`codegen:check`, `codegen:guards:check`).
 
 ## When to open an Issue here vs NENE2
 

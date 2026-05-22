@@ -21,3 +21,7 @@
 | Direct DB from SDK  | Forbidden — API boundary only                            |
 
 Full matrix: [docs/scope.md](https://github.com/hideyukiMORI/nene2-js/blob/main/docs/scope.md) in the repository.
+
+## Versioning
+
+Stable npm release: **`@hideyukimori/nene2-client@1.0.0`**. Semver applies to the public client surface; see [CHANGELOG](https://github.com/hideyukiMORI/nene2-js/blob/main/CHANGELOG.md).
