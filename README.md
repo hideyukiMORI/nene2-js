@@ -30,7 +30,7 @@ See [docs/scope.md](docs/scope.md) for the full in-scope / out-of-scope matrix.
 ## Install (npm)
 
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@0.1.2
 ```
 
 Requires **Node 22+** (native `fetch`) or a browser with `fetch`. TypeScript consumers get `.d.ts` from the package.
@@ -104,15 +104,18 @@ curl -sS http://localhost:8080/health | jq .
 # expect: { "status": "ok", "service": "NENE2" }
 ```
 
+Or in TypeScript: `await client.health({ strictService: true })` rejects wrong `service` values.
+
 If you see a different JSON wrapper, point `NENE2_JS_API_BASE_URL` at a running NENE2 PHP instance (sibling `../NENE2`).
 
 **Multi-backend live smoke** (same client, OpenAPI contract — see [ADR 0003](docs/adr/0003-multi-backend-live-verification.md)):
 
 ```bash
-export NENE2_JS_API_BASE_URL=http://localhost:8080      # NENE2 PHP
-export NENE2_JS_PYTHON_BASE_URL=http://localhost:8000   # optional: nene2-python
-# export NENE2_JS_NODE_BASE_URL=http://localhost:3000   # optional: nene2-node
+export NENE2_JS_API_BASE_URL=http://localhost:18080     # NENE2 evac (see ft-evac-ports.md)
+export NENE2_JS_PYTHON_BASE_URL=http://localhost:18000  # optional: nene2-python
+# export NENE2_JS_NODE_BASE_URL=http://localhost:13000  # optional: nene2-node
 
+npm run verify:backends   # curl /health, /examples/ping, /examples/notes
 npm test -- tests/client/live-smoke-matrix.test.ts
 ```
 
@@ -134,7 +137,7 @@ Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.m
 
 AI agents: start at [AGENTS.md](AGENTS.md).
 
-Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT1–129; see [methodology](docs/development/field-trials.md)). Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
+Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT30–529 marathon; see [methodology](docs/development/field-trials.md)). Local app sandbox: sibling `../nene2-js-FT/`. Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
 
 **Release:** [docs/development/publish.md](docs/development/publish.md) · Phase history: [docs/phase-2.md](docs/phase-2.md).
 
