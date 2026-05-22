@@ -1,46 +1,55 @@
 # Publishing `@hideyukimori/nene2-client`
 
-Manual release flow for Phase 2. CI builds and runs [pack smoke](../../tools/smoke-pack.mjs); registry publish is a maintainer step.
+Release flow after the first public publish (`0.1.0` on npm). CI uses [Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC) — no long-lived `NPM_TOKEN`.
 
-## Prerequisites
+## First publish (done once)
 
-- npm account with publish access to scope `@hideyukimori`
-- `npm login` or `NPM_TOKEN` with publish scope
-- `npm run check` green on `main`
-
-## Pre-release checks
-
-```bash
-npm run build
-npm run pack:smoke
-npm publish --dry-run
-```
-
-`--dry-run` lists files that would ship (`dist/`, `README.md`, `LICENSE` per `package.json` `files`).
-
-## Version bump
-
-1. Update `version` in `package.json` (semver; first public line was `0.1.0`).
-2. Commit: `chore(release): 0.1.0 を npm 公開準備 #33` (or patch/minor as needed).
-
-## Publish to npm
+Local publish with account 2FA (recovery code, OTP, or temporary write-2FA preference):
 
 ```bash
 npm run build
 npm publish --access public
 ```
 
-Scoped packages require `--access public` on first publish.
+Verify: `npm view @hideyukimori/nene2-client version`
 
-Verify:
+## Trusted Publisher (required for GitHub Actions)
+
+On [npm package settings](https://www.npmjs.com/package/@hideyukimori/nene2-client):
+
+| Field             | Value                   |
+| ----------------- | ----------------------- |
+| Provider          | GitHub Actions          |
+| Repository        | `hideyukiMORI/nene2-js` |
+| Workflow filename | `publish.yml`           |
+
+Enable publish permission for the trusted publisher. After this, remove repository secret `NPM_TOKEN` if present (not used anymore).
+
+## Pre-release checks (every version)
+
+1. Bump `version` in `package.json` on `main`.
+2. Locally or via CI:
 
 ```bash
-npm view @hideyukimori/nene2-client version
+npm run check
+npm publish --dry-run
 ```
 
-## GitHub Actions (optional)
+## Publish from GitHub Actions
 
-[`.github/workflows/publish.yml`](../../.github/workflows/publish.yml) supports **workflow_dispatch** with repository secret `NPM_TOKEN`. Use when you prefer CI publish over local `npm publish`.
+1. Actions → **Publish npm** → Run workflow on `main`.
+2. Optional: `dry_run: true` first.
+3. Release: `dry_run: false` (uses OIDC; requires Trusted Publisher configured).
+
+Workflow: [`.github/workflows/publish.yml`](../../.github/workflows/publish.yml) — `permissions.id-token: write`, `npm install -g npm@latest` before publish.
+
+## Publish locally (maintainer)
+
+```bash
+npm run build
+npm publish --access public
+# If write 2FA is required: --otp=<authenticator or recovery code>
+```
 
 ## Consumer install
 
@@ -48,4 +57,4 @@ npm view @hideyukimori/nene2-client version
 npm install @hideyukimori/nene2-client
 ```
 
-See [howto/consume-client.md](../howto/consume-client.md) and [README.md](../../README.md).
+See [howto/consume-client.md](../howto/consume-client.md).
