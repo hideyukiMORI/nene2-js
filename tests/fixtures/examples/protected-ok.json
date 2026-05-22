@@ -1,0 +1,7 @@
+{
+  "message": "Welcome, authenticated user.",
+  "claims": {
+    "sub": "user-42",
+    "scope": "read:system"
+  }
+}

@@ -38,6 +38,7 @@ export type {
   HealthResponse,
   HealthStatus,
   ListNotesParams,
+  ProtectedResponse,
 } from './types/index.js';
 export {
   isCreateNoteRequest,
@@ -45,5 +46,6 @@ export {
   isExampleNoteResponse,
   isExamplePingResponse,
   isHealthResponse,
+  isProtectedResponse,
 } from './types/index.js';
 export type { HealthOptions } from './client/create-nene2-client.js';

@@ -13,12 +13,13 @@ Last updated: 2026-05-22 (FT3 notes client)
 - [x] [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) + [FT2](docs/field-trials/2026-05-field-trial-2.md) health / ping client
 - [x] [#13](https://github.com/hideyukiMORI/nene2-js/issues/13) ADR 0004 FT friction cycle
 - [x] [#16](https://github.com/hideyukiMORI/nene2-js/issues/16) + [#17](https://github.com/hideyukiMORI/nene2-js/issues/17) + [FT3](docs/field-trials/2026-05-field-trial-3.md) notes client
+- [x] [#19](https://github.com/hideyukiMORI/nene2-js/issues/19) + [FT4](docs/field-trials/2026-05-field-trial-4.md) getProtected
 
 ## Next Issues
 
-| #   | Title                                      |
-| --- | ------------------------------------------ |
-| —   | FT4: note update/delete or protected route |
+| #   | Title                                |
+| --- | ------------------------------------ |
+| —   | FT5: note update/delete or tags CRUD |
 
 ## Handoff
 
@@ -26,7 +27,7 @@ Last updated: 2026-05-22 (FT3 notes client)
 - Sync: `npm run contracts:sync` (source: sibling `../NENE2/...` or GitHub raw at pin ref)
 - Authoritative author: `../NENE2/docs/openapi/openapi.yaml`
 - Do not duplicate MCP server work from `../nene-mcp`
-- Field trials: `docs/field-trials/INDEX.md` — FT4 candidate: update/delete notes or protected route
-- Client: `health()` / `ping()` / `listNotes()` / `getNote()` / `createNote()`; `health({ allowDegraded: true })`
+- Field trials: `docs/field-trials/INDEX.md` — FT5 candidate: update/delete notes or tags
+- Client: `health()` / `ping()` / notes CRUD / `getProtected()`; parity Issues [nene2-python#552](https://github.com/hideyukiMORI/nene2-python/issues/552), [#553](https://github.com/hideyukiMORI/nene2-python/issues/553)
 - Live matrix: `NENE2_JS_*_BASE_URL` → `npm test -- tests/client/live-smoke-matrix.test.ts` (ADR 0003)
 - FT friction cycle: report → Issue (owning repo) → PR → close → next FT (ADR 0004)
