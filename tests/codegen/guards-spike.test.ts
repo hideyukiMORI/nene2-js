@@ -1,20 +1,29 @@
 import { readFileSync } from 'node:fs';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
 import { resolve, dirname } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { generateGuardModuleSource } from '../../tools/codegen-guards-spike.mjs';
 import {
+  validateCreateNoteRequest,
+  validateCreateTagRequest,
+  validateExampleNoteListResponse,
+  validateExampleNoteResponse,
+  validateExamplePingResponse,
+  validateExampleTagListResponse,
+  validateExampleTagResponse,
+  validateFrameworkSmokeResponse,
+  validateHealthResponse,
+  validateMachineHealthResponse,
+  validateProtectedResponse,
+} from '../../src/generated/guards.js';
+import {
+  isCreateNoteRequest,
   isExampleNoteListResponse,
   isExampleNoteResponse,
-  isCreateNoteRequest,
-} from '../../src/types/examples/notes.js';
+} from '../../src/index.js';
 import {
+  isCreateTagRequest,
   isExampleTagListResponse,
   isExampleTagResponse,
-  isCreateTagRequest,
 } from '../../src/types/examples/tags.js';
 import { isProtectedResponse } from '../../src/types/examples/protected.js';
 import {
@@ -25,10 +34,23 @@ import {
 } from '../../src/types/system.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const openapiPath = resolve(root, 'contracts/openapi.yaml');
 const fixturesRoot = resolve(root, 'tests/fixtures');
 
-const HAND_GUARDS = {
+const VALIDATORS = {
+  validateHealthResponse,
+  validateExamplePingResponse,
+  validateFrameworkSmokeResponse,
+  validateMachineHealthResponse,
+  validateExampleNoteResponse,
+  validateExampleNoteListResponse,
+  validateCreateNoteRequest,
+  validateExampleTagResponse,
+  validateExampleTagListResponse,
+  validateCreateTagRequest,
+  validateProtectedResponse,
+};
+
+const PUBLIC_GUARDS = {
   isHealthResponse,
   isExamplePingResponse,
   isFrameworkSmokeResponse,
@@ -42,57 +64,82 @@ const HAND_GUARDS = {
   isProtectedResponse,
 };
 
-const FIXTURE_CASES: { guard: keyof typeof HAND_GUARDS; fixture: string }[] = [
-  { guard: 'isHealthResponse', fixture: 'system/health-ok.json' },
-  { guard: 'isHealthResponse', fixture: 'system/health-degraded.json' },
-  { guard: 'isExamplePingResponse', fixture: 'system/ping-ok.json' },
-  { guard: 'isFrameworkSmokeResponse', fixture: 'system/framework-smoke-ok.json' },
-  { guard: 'isMachineHealthResponse', fixture: 'system/machine-health-ok.json' },
-  { guard: 'isExampleNoteResponse', fixture: 'examples/note-ok.json' },
-  { guard: 'isExampleNoteListResponse', fixture: 'examples/notes-list-ok.json' },
-  { guard: 'isExampleTagResponse', fixture: 'examples/tag-ok.json' },
-  { guard: 'isExampleTagListResponse', fixture: 'examples/tags-list-ok.json' },
-  { guard: 'isProtectedResponse', fixture: 'examples/protected-ok.json' },
+const FIXTURE_CASES: {
+  validator: keyof typeof VALIDATORS;
+  guard: keyof typeof PUBLIC_GUARDS;
+  fixture: string;
+}[] = [
+  {
+    validator: 'validateHealthResponse',
+    guard: 'isHealthResponse',
+    fixture: 'system/health-ok.json',
+  },
+  {
+    validator: 'validateHealthResponse',
+    guard: 'isHealthResponse',
+    fixture: 'system/health-degraded.json',
+  },
+  {
+    validator: 'validateExamplePingResponse',
+    guard: 'isExamplePingResponse',
+    fixture: 'system/ping-ok.json',
+  },
+  {
+    validator: 'validateFrameworkSmokeResponse',
+    guard: 'isFrameworkSmokeResponse',
+    fixture: 'system/framework-smoke-ok.json',
+  },
+  {
+    validator: 'validateMachineHealthResponse',
+    guard: 'isMachineHealthResponse',
+    fixture: 'system/machine-health-ok.json',
+  },
+  {
+    validator: 'validateExampleNoteResponse',
+    guard: 'isExampleNoteResponse',
+    fixture: 'examples/note-ok.json',
+  },
+  {
+    validator: 'validateExampleNoteListResponse',
+    guard: 'isExampleNoteListResponse',
+    fixture: 'examples/notes-list-ok.json',
+  },
+  {
+    validator: 'validateExampleTagResponse',
+    guard: 'isExampleTagResponse',
+    fixture: 'examples/tag-ok.json',
+  },
+  {
+    validator: 'validateExampleTagListResponse',
+    guard: 'isExampleTagListResponse',
+    fixture: 'examples/tags-list-ok.json',
+  },
+  {
+    validator: 'validateProtectedResponse',
+    guard: 'isProtectedResponse',
+    fixture: 'examples/protected-ok.json',
+  },
 ];
 
-describe('guard codegen spike (#86 Phase A)', () => {
-  it('generates ESM standalone module for client schemas', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call -- mjs spike
-    const { moduleSource, schemaNames } = await generateGuardModuleSource(openapiPath);
-    expect(schemaNames).toHaveLength(11);
-    expect(moduleSource).not.toContain('require(');
-    expect(moduleSource).toContain('function validateHealthResponse');
-    expect(moduleSource).toContain('isHealthResponseGenerated');
+describe('generated guards (ADR 0007, #86 Phase B)', () => {
+  it('committed guards.ts has no require() and exports validators', () => {
+    const source = readFileSync(resolve(root, 'src/generated/guards.ts'), 'utf8');
+    expect(source).not.toContain('require(');
+    expect(source).toContain('export function validateHealthResponse');
   });
 
-  it('generated guards agree with hand guards on OpenAPI fixtures', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call -- mjs spike
-    const { moduleSource } = await generateGuardModuleSource(openapiPath);
-    const dir = mkdtempSync(resolve(tmpdir(), 'nene2-guard-spike-test-'));
-    const modulePath = resolve(dir, 'guards.generated.mjs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- generated JS module body
-    writeFileSync(modulePath, moduleSource, 'utf8');
-
-    try {
-      const generated = (await import(pathToFileURL(modulePath).href)) as Record<
-        string,
-        (value: unknown) => boolean
-      >;
-
-      for (const { guard, fixture } of FIXTURE_CASES) {
-        const json = JSON.parse(readFileSync(resolve(fixturesRoot, fixture), 'utf8')) as unknown;
-        const hand = HAND_GUARDS[guard](json);
-        const generatedFn = generated[`${guard}Generated`];
-        expect(generatedFn, `${guard}Generated missing`).toBeTypeOf('function');
-        expect(generatedFn(json)).toBe(hand);
-      }
-
-      expect(generated.isCreateNoteRequestGenerated({ title: 'a', body: 'b' })).toBe(true);
-      expect(generated.isCreateNoteRequestGenerated({ title: '', body: 'b' })).toBe(false);
-      expect(generated.isCreateTagRequestGenerated({ name: 'x' })).toBe(true);
-      expect(generated.isCreateTagRequestGenerated({ name: '' })).toBe(false);
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
+  it('validators and public is* guards agree on fixtures', () => {
+    for (const { validator, guard, fixture } of FIXTURE_CASES) {
+      const json = JSON.parse(readFileSync(resolve(fixturesRoot, fixture), 'utf8')) as unknown;
+      const validateFn = VALIDATORS[validator];
+      const guardFn = PUBLIC_GUARDS[guard];
+      expect(validateFn(json)).toBe(true);
+      expect(guardFn(json)).toBe(true);
     }
+
+    expect(validateCreateNoteRequest({ title: 'a', body: 'b' })).toBe(true);
+    expect(isCreateNoteRequest({ title: '', body: 'b' })).toBe(false);
+    expect(validateCreateTagRequest({ name: 'x' })).toBe(true);
+    expect(isCreateTagRequest({ name: '' })).toBe(false);
   });
 });

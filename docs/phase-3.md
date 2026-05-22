@@ -19,6 +19,8 @@
 npm run contracts:sync   # after NENE2 contract bump
 npm run codegen          # refresh src/generated/openapi.ts
 npm run codegen:check    # CI drift gate
+npm run codegen:guards   # refresh src/generated/guards.ts (ADR 0007)
+npm run codegen:guards:check
 ```
 
 ## Non-goals (this phase)
