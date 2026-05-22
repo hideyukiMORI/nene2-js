@@ -83,9 +83,12 @@ Link cross-repo Issues in the FT report (e.g. “blocked by NENE2 #NNN”).
 
 | Situation                                                        | Next FT allowed?                     |
 | ---------------------------------------------------------------- | ------------------------------------ |
-| All F-n Issues **merged** (or fixed in same FT PR with Closes #) | Yes                                  |
+| **No friction** (explicit in report)                             | Yes                                  |
+| Friction found → **Issue opened first** → PR merged (`Closes #`) | Yes after verify + registry update   |
 | F-n **deferred** with reason + Issue in backlog                  | Yes, only if noted in report + INDEX |
 | Open friction Issues without defer                               | **No**                               |
+
+**Order:** Issue → fix → verify → next FT. See [ft-friction-registry.md](ft-friction-registry.md).
 
 After server fixes that change the contract: bump `contracts/` in nene2-js in a separate focused PR.
 
