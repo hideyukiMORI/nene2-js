@@ -2,13 +2,15 @@
 
 ## Nene2ClientError
 
-| Property  | Description                             |
-| --------- | --------------------------------------- |
-| `status`  | HTTP status                             |
-| `url`     | Request URL                             |
-| `problem` | Parsed Problem Details, if body matched |
+| Property  | Description                               |
+| --------- | ----------------------------------------- |
+| `status`  | HTTP status (`0` = network/abort/timeout) |
+| `url`     | Request URL                               |
+| `problem` | Parsed Problem Details, if body matched   |
 
-`isNene2ClientError(error)` type guard.
+`isNene2ClientError(error)` type guard — use for **all** client failures including DNS and connection errors.
+
+**Known gap:** 429 responses parse `problem` from the body but **do not** expose `Retry-After` or `X-RateLimit-*` headers on the error object yet. Use a custom `fetch` wrapper if you need header-based backoff.
 
 ## Validation helpers
 

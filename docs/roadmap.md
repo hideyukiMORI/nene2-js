@@ -51,3 +51,15 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 - Hosting consumer application code
 
 See `docs/scope.md` for the authoritative boundary list.
+
+## 1.0.0 criteria (planned)
+
+Ship **`1.0.0`** when all of the following hold:
+
+1. Public client surface stable for two minor releases without breaking changes (except OpenAPI-driven optional fields).
+2. Documented error model: HTTP errors + `status: 0` network/abort (Issue #79).
+3. `timeoutMs` + `signal` documented; retry/rate-limit header story either implemented or explicitly deferred in ADR.
+4. OpenAPI pin + codegen types exported on npm; hand guards migration per ADR 0006 follow-up.
+5. Consumer sandbox (nene2-js-FT) matrix green on NENE2 + nene2-python evac ports.
+
+Until then, **`0.x`** — pin exact version in production apps and read [production-readiness.md](development/production-readiness.md).

@@ -2,13 +2,14 @@
 
 ## Nene2ClientConfig
 
-| Field     | Type            | Description                                |
-| --------- | --------------- | ------------------------------------------ |
-| `baseUrl` | `string`        | API origin, no trailing slash (normalized) |
-| `apiKey`  | `string?`       | Sent as `X-NENE2-API-Key`                  |
-| `bearer`  | `string?`       | `Authorization: Bearer …`                  |
-| `fetch`   | `typeof fetch?` | Test double or polyfill                    |
-| `signal`  | `AbortSignal?`  | Forwarded to every request                 |
+| Field       | Type            | Description                                 |
+| ----------- | --------------- | ------------------------------------------- |
+| `baseUrl`   | `string`        | API origin, no trailing slash (normalized)  |
+| `apiKey`    | `string?`       | Sent as `X-NENE2-API-Key`                   |
+| `bearer`    | `string?`       | `Authorization: Bearer …`                   |
+| `fetch`     | `typeof fetch?` | Test double or polyfill                     |
+| `signal`    | `AbortSignal?`  | Forwarded to every request                  |
+| `timeoutMs` | `number?`       | Per-request timeout (`AbortSignal.timeout`) |
 
 ## Environment variables (apps)
 
