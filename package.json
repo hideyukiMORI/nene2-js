@@ -20,6 +20,9 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "vitest run",
+    "test:ft-marathon": "vitest run tests/field-trials/ft-marathon.test.ts",
+    "ft:reports": "node tools/ft-marathon/write-reports.mjs",
+    "ft:marathon": "npm run test:ft-marathon && npm run ft:reports",
     "contracts:sync": "node tools/sync-openapi.mjs",
     "contracts:check": "node tools/sync-openapi.mjs --check",
     "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run test"

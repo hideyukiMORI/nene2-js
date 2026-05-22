@@ -26,6 +26,7 @@ export type {
 
 export {
   createNene2Client,
+  isNene2ClientError,
   Nene2ClientError,
   validationErrorsByField,
   validationErrorsFromClientError,

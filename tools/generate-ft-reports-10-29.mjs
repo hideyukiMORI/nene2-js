@@ -46,7 +46,7 @@ for (const [n, theme, api, personaNote] of FTS) {
   const md = `# FT${n}: ${theme}
 
 **Date**: 2026-05-22  
-**Issues / PRs**: [#30](https://github.com/hideyukiMORI/nene2-js/issues/30) (marathon)
+**Issues / PRs**: [#29](https://github.com/hideyukiMORI/nene2-js/issues/29) (marathon), PR #30
 
 ---
 
@@ -76,7 +76,7 @@ No actionable friction — FT complete (or fixed in marathon PR).
 
 | Repo | Issue | Status |
 | ---- | ----- | ------ |
-| hideyukiMORI/nene2-js | #30 | merged |
+| hideyukiMORI/nene2-js | #29 | merged |
 
 **FT completion:** done
 `;
