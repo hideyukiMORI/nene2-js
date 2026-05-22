@@ -1,7 +1,7 @@
 # FT21: parallel listNotes+listTags
 
 **Date**: 2026-05-22  
-**Issues / PRs**: [#30](https://github.com/hideyukiMORI/nene2-js/issues/29) (marathon)
+**Issues / PRs**: [#29](https://github.com/hideyukiMORI/nene2-js/issues/29) (marathon)
 
 ---
 
