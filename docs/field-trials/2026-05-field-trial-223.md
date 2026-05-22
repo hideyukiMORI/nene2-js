@@ -16,15 +16,15 @@
 
 ## What was exercised
 
-| Item | Notes |
-| ---- | ----- |
-| Category | `docs-client-onboarding` |
-| Handler | `onb_client_php_dev_health_wrong_service` |
-| Mode | fixture |
-| Commands | `npm run test:ft-marathon` · optional `npm run ft:marathon` |
-| Client APIs | `createNene2Client`, Problem Details helpers (as per scenario) |
-| OpenAPI | Pinned NENE2 contract — see pin file |
-| Sandbox | Docs: https://hideyukimori.github.io/nene2-js/ja/ · Future app: `../nene2-js-FT/apps/` |
+| Item        | Notes                                                                                  |
+| ----------- | -------------------------------------------------------------------------------------- |
+| Category    | `docs-client-onboarding`                                                               |
+| Handler     | `onb_client_php_dev_health_wrong_service`                                              |
+| Mode        | fixture                                                                                |
+| Commands    | `npm run test:ft-marathon` · optional `npm run ft:marathon`                            |
+| Client APIs | `createNene2Client`, Problem Details helpers (as per scenario)                         |
+| OpenAPI     | Pinned NENE2 contract — see pin file                                                   |
+| Sandbox     | Docs: https://hideyukimori.github.io/nene2-js/ja/ · Future app: `../nene2-js-FT/apps/` |
 
 ```text
 cd nene2-js
@@ -38,31 +38,31 @@ npm run test:ft-marathon -- -t "FT223"
 
 ## Application under test (nene2-js-FT)
 
-| Item | Value |
-| ---- | ----- |
-| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo |
-| App | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client` |
-| AI policy | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
-| This FT | SDK/docs verification — app FT starts at FT230 in nene2-js-FT |
+| Item            | Value                                                                                   |
+| --------------- | --------------------------------------------------------------------------------------- |
+| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo                   |
+| App             | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client`                      |
+| AI policy       | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
+| This FT         | SDK/docs verification — app FT starts at FT230 in nene2-js-FT                           |
 
 ---
 
 ## Backend compatibility
 
-| Backend | URL (example) | health | ping | notes CRUD | protected | Notes |
-| ------- | ------------- | ------ | ---- | ---------- | --------- | ----- |
-| NENE2 (PHP) | `http://localhost:8080` or evac `:18080` | n/a | n/a | n/a | n/a | Canonical |
-| nene2-python | `http://localhost:8000` or `:18000` | n/a | n/a | n/a | n/a | Parity |
-| nene2-node | `http://localhost:3000` | n/a | n/a | n/a | n/a | When available |
+| Backend      | URL (example)                            | health | ping | notes CRUD | protected | Notes          |
+| ------------ | ---------------------------------------- | ------ | ---- | ---------- | --------- | -------------- |
+| NENE2 (PHP)  | `http://localhost:8080` or evac `:18080` | n/a    | n/a  | n/a        | n/a       | Canonical      |
+| nene2-python | `http://localhost:8000` or `:18000`      | n/a    | n/a  | n/a        | n/a       | Parity         |
+| nene2-node   | `http://localhost:3000`                  | n/a    | n/a  | n/a        | n/a       | When available |
 
 ---
 
 ## Test results
 
-| Suite | Tests | Result |
-| ----- | ----- | ------ |
-| `ft-marathon` FT223 | 1 | PASS (automated) |
-| `npm run check` | full | run on PR |
+| Suite               | Tests | Result           |
+| ------------------- | ----- | ---------------- |
+| `ft-marathon` FT223 | 1     | PASS (automated) |
+| `npm run check`     | full  | run on PR        |
 
 ```text
 npm run test:ft-marathon -- -t "FT223"
@@ -89,11 +89,11 @@ npm run test:ft-marathon -- -t "FT223"
 
 ### F-1: health.service が NENE2 以外でも成功する (severity: medium) — resolved
 
-| Field | Value |
-| ----- | ----- |
-| **Owner** | `nene2-js` |
-| **Issue** | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46) |
-| **Status** | merged |
+| Field      | Value                                                     |
+| ---------- | --------------------------------------------------------- |
+| **Owner**  | `nene2-js`                                                |
+| **Issue**  | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46) |
+| **Status** | merged                                                    |
 
 **What happened:** `:8080` に別 API がいても `health()` が成功する。  
 **Resolution:** `health({ strictService: true })` で `service !== 'NENE2'` を拒否。デフォルトは shape のみ検証。
@@ -177,10 +177,10 @@ const h = await client.health();
 
 ## Follow-up Issues (resolution tracker)
 
-| Repo | Issue | PR | Status |
-| ---- | ----- | -- | ------ |
-| hideyukiMORI/nene2-js | #45 | — | open / merged per batch |
-| hideyukiMORI/nene2-js | #46 | — | open (health.service) |
+| Repo                  | Issue | PR  | Status                  |
+| --------------------- | ----- | --- | ----------------------- |
+| hideyukiMORI/nene2-js | #45   | —   | open / merged per batch |
+| hideyukiMORI/nene2-js | #46   | —   | open (health.service)   |
 
 **FT completion:** done
 
