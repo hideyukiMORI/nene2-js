@@ -12,7 +12,7 @@ Entry point for AI agents working on **nene2-js**.
 - NENE2 boundary: `docs/integrations/relationship-to-nene2.md`
 - OpenAPI pin: `docs/adr/0002-openapi-contract-pin-policy.md`, `contracts/`
 - Multi-backend live smoke: `docs/adr/0003-multi-backend-live-verification.md`
-- Field trials: `docs/development/field-trials.md`, `docs/field-trials/INDEX.md`
+- Field trials: `docs/development/field-trials.md`, `docs/field-trials/INDEX.md`, ADR 0004 friction cycle
 - Roadmap: `docs/roadmap.md`
 - Current work: `docs/todo/current.md`
 
@@ -24,6 +24,7 @@ Entry point for AI agents working on **nene2-js**.
 - One focused change per PR — no mixed codegen + unrelated refactors.
 - Do not commit secrets, `.env`, or generated `dist/` unless release policy changes.
 - **Do not** add a Node HTTP framework or duplicate nene-mcp MCP server behavior.
+- **Field trials:** record friction in the FT report → Issue in the **owning repo** → fix PR → close Issues → then next FT (ADR 0004). Server bugs go to NENE2 / nene2-python / nene2-node, not nene2-js workarounds.
 
 ## Project direction
 

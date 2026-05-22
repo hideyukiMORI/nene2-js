@@ -27,3 +27,4 @@ Last updated: 2026-05-22 (multi-backend live smoke)
 - Field trials: `docs/field-trials/INDEX.md` — FT3 candidate: notes or protected route
 - Client: `createNene2Client({ baseUrl }).health()` / `.ping()`
 - Live matrix: `NENE2_JS_*_BASE_URL` → `npm test -- tests/client/live-smoke-matrix.test.ts` (ADR 0003)
+- FT friction cycle: report → Issue (owning repo) → PR → close → next FT (ADR 0004)
