@@ -16,8 +16,8 @@ Phase 1–2 hand-maintained `src/types/*` and runtime guards track `contracts/op
 2. **Input:** `contracts/openapi.yaml` only (ADR 0002 pin).
 3. **Output:** committed `src/generated/openapi.ts` (do not hand-edit; regenerate via `npm run codegen`).
 4. **CI:** `npm run codegen:check` fails when generated output drifts.
-5. **Public exports:** unchanged for `0.1.x` — hand types and guards remain the npm surface. `src/types/openapi-bridge.ts` documents parity with `components['schemas']`.
-6. **Out of scope (follow-up Issues):** generating `createNene2Client` methods, replacing hand guards, publishing generated paths as subpath exports.
+5. **Public exports:** type aliases in `src/types/schemas.ts` re-export `components['schemas']`; runtime guards stay in hand-maintained modules. `OpenApiSchemas` exported from the package entry for advanced consumers.
+6. **Out of scope (follow-up Issues):** generating `createNene2Client` methods, replacing hand guards with codegen, publishing `src/generated/` as a subpath export.
 
 ## Consequences
 
