@@ -24,6 +24,8 @@ src/
   types/        # shared types (generated or hand-written)
 tests/
   fixtures/     # JSON fixtures from OpenAPI examples
+docs/
+  field-trials/ # consumer DX evidence (see field-trials.md)
 tools/          # contracts:sync, codegen scripts (Phase 3)
 ```
 
@@ -38,6 +40,7 @@ tools/          # contracts:sync, codegen scripts (Phase 3)
 - Minimize runtime dependencies.
 - Pin dev tooling (TypeScript, ESLint, Prettier) in `package-lock.json`.
 - Target active Node.js LTS (`engines` in `package.json`).
+- `@types/node` for tests and tooling that use `process` / `fs`.
 
 ## Documentation comments
 

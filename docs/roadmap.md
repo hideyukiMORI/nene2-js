@@ -19,6 +19,7 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 - [x] OpenAPI revision pin policy (`contracts/`, ADR 0002, `npm run contracts:sync|check`)
 - Minimal types for `GET /health` and `GET /examples/ping`
 - [x] Problem Details type guards for RFC 9457 subset used by NENE2
+- [x] Light field-trial process + FT1 report (`docs/development/field-trials.md`)
 - Vitest tests with fixture JSON (no live server required in CI)
 
 ## Phase 2 — Typed client

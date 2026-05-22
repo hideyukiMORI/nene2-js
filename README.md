@@ -58,6 +58,8 @@ Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.m
 
 AI agents: start at [AGENTS.md](AGENTS.md).
 
+Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (lightweight; see [methodology](docs/development/field-trials.md)).
+
 ## Related projects
 
 | Project                                                                 | Role                                                     |

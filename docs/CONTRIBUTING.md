@@ -11,6 +11,7 @@ nene2-js is built through small, Issue-driven changes. This document is the shar
 | Commit messages     | `docs/development/commit-conventions.md`     |
 | Coding standards    | `docs/development/coding-standards.md`       |
 | AI tools            | `docs/integrations/ai-tools.md`              |
+| Field trials        | `docs/development/field-trials.md`           |
 | NENE2 relationship  | `docs/integrations/relationship-to-nene2.md` |
 | Roadmap             | `docs/roadmap.md`                            |
 | Current work        | `docs/todo/current.md`                       |
