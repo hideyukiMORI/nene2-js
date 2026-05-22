@@ -10,12 +10,13 @@ Last updated: 2026-05-22 (field trials introduced)
 - [x] [#1](https://github.com/hideyukiMORI/nene2-js/issues/1) ADR 0002 — OpenAPI pin (`contracts/`, `contracts:sync|check`)
 - [x] [#2](https://github.com/hideyukiMORI/nene2-js/issues/2) Problem Details guards (`src/problem/`)
 - [x] Field trial framework + [FT1](docs/field-trials/2026-05-field-trial-1.md)
+- [x] [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) + [FT2](docs/field-trials/2026-05-field-trial-2.md) health / ping client
 
 ## Next Issues
 
-| #                                                       | Title                         |
-| ------------------------------------------------------- | ----------------------------- |
-| [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) | health / ping の typed client |
+| #   | Title                            |
+| --- | -------------------------------- |
+| —   | (next) Note client or auth smoke |
 
 ## Handoff
 
@@ -23,4 +24,5 @@ Last updated: 2026-05-22 (field trials introduced)
 - Sync: `npm run contracts:sync` (source: sibling `../NENE2/...` or GitHub raw at pin ref)
 - Authoritative author: `../NENE2/docs/openapi/openapi.yaml`
 - Do not duplicate MCP server work from `../nene-mcp`
-- Field trials: `docs/field-trials/INDEX.md` — next FT2 after #3 (typed client)
+- Field trials: `docs/field-trials/INDEX.md` — FT3 candidate: notes or protected route
+- Client: `createNene2Client({ baseUrl }).health()` / `.ping()`

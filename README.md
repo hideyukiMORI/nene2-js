@@ -52,6 +52,36 @@ cp .env.example .env
 # NENE2_JS_API_BASE_URL=http://localhost:8080
 ```
 
+## Usage (typed client)
+
+```ts
+import { createNene2Client, Nene2ClientError } from '@hideyukimori/nene2-client';
+
+const client = createNene2Client({
+  baseUrl: 'http://localhost:8080',
+  // apiKey: process.env.NENE2_MACHINE_API_KEY,
+  // bearer: process.env.NENE2_BEARER_TOKEN,
+});
+
+const health = await client.health();
+const pong = await client.ping();
+
+try {
+  await client.health();
+} catch (err) {
+  if (err instanceof Nene2ClientError && err.problem) {
+    console.error(err.problem.title, err.problem.detail);
+  }
+}
+```
+
+Works in Node 22+ and browsers that provide `fetch`. Optional live smoke in CI skip mode:
+
+```bash
+export NENE2_JS_API_BASE_URL=http://localhost:8080
+npm test
+```
+
 ## Contributing
 
 Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) and [docs/workflow.md](docs/workflow.md) before opening a PR.
