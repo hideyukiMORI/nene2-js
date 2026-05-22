@@ -7,7 +7,7 @@ Factory: `createNene2Client(config)` → `Nene2Client`.
 | Method             | Path                   | Notes                        |
 | ------------------ | ---------------------- | ---------------------------- |
 | `frameworkSmoke()` | `GET /`                | Framework metadata           |
-| `health(options?)` | `GET /health`          | `allowDegraded` → accept 503 |
+| `health(options?)` | `GET /health`          | `allowDegraded` → accept 503; `strictService` → reject non-`NENE2` service |
 | `machineHealth()`  | `GET /machine/health`  | Requires API key             |
 | `ping()`           | `GET /examples/ping`   |                              |
 | `smoke()`          | parallel health + ping |                              |

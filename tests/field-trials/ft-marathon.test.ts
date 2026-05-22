@@ -9,10 +9,10 @@ import { runFtHandler } from './runners.js';
 const liveEnabled = Boolean(process.env.NENE2_JS_API_BASE_URL);
 
 describe('FT marathon catalog', () => {
-  it(`has ${MARATHON_SIZE} entries FT30–FT229`, () => {
+  it(`has ${MARATHON_SIZE} entries FT30–FT529`, () => {
     expect(FT_CATALOG.length).toBe(MARATHON_SIZE);
     expect(FT_CATALOG[0]?.ft).toBe(30);
-    expect(FT_CATALOG[MARATHON_SIZE - 1]?.ft).toBe(229);
+    expect(FT_CATALOG[MARATHON_SIZE - 1]?.ft).toBe(529);
   });
 
   it('includes docs onboarding batch FT130–229', () => {

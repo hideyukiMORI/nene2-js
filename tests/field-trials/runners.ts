@@ -21,6 +21,7 @@ import {
   problemResponse,
   sequentialFetch,
 } from './helpers/mock-fetch.js';
+import { BULK_HANDLERS, isBulkHandler } from './runners-bulk.js';
 import { isDocsOnboardingHandler, runDocsOnboardingHandler } from './runners-docs-onboarding.js';
 
 const BASE = 'http://localhost:18080';
@@ -889,6 +890,14 @@ const HANDLERS: Record<string, () => void | Promise<void>> = {
 export async function runFtHandler(handler: string): Promise<void> {
   if (isDocsOnboardingHandler(handler)) {
     await runDocsOnboardingHandler(handler);
+    return;
+  }
+  if (isBulkHandler(handler)) {
+    const bulkFn = BULK_HANDLERS[handler];
+    if (bulkFn === undefined) {
+      throw new Error(`Unknown bulk FT handler: ${handler}`);
+    }
+    await bulkFn();
     return;
   }
   const fn = HANDLERS[handler];

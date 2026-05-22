@@ -846,6 +846,7 @@ add({
   personaB: pb,
 });
 
+import { buildBulkTemplates } from './generate-bulk-catalog.mjs';
 import { buildDocsOnboardingTemplates } from './generate-docs-onboarding-catalog.mjs';
 
 let onbFt = 130;
@@ -854,11 +855,23 @@ for (const tmpl of buildDocsOnboardingTemplates()) {
   onbFt += 1;
 }
 
-export const MARATHON_SIZE = 200;
+const BULK_COUNT = 300;
+const bulkTemplates = buildBulkTemplates();
+if (bulkTemplates.length < BULK_COUNT) {
+  throw new Error(`bulk catalog needs ${BULK_COUNT} templates, got ${bulkTemplates.length}`);
+}
+let bulkFt = 230;
+for (let i = 0; i < BULK_COUNT; i++) {
+  FT_CATALOG.push({ ft: bulkFt, ...bulkTemplates[i] });
+  bulkFt += 1;
+}
+
+export const MARATHON_SIZE = 500;
 
 if (FT_CATALOG.length !== MARATHON_SIZE) {
   throw new Error(`FT catalog must have ${MARATHON_SIZE} entries, got ${FT_CATALOG.length}`);
 }
 
-export const FT_RANGE = { start: 30, end: 30 + MARATHON_SIZE - 1, issue: 45 };
+export const FT_RANGE = { start: 30, end: 529, issue: 42 };
 export const FT_ONBOARDING_RANGE = { start: 130, end: 229, issue: 45 };
+export const FT_BULK_RANGE = { start: 230, end: 529, issue: 42 };
