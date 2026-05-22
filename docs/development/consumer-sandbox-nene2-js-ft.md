@@ -14,6 +14,8 @@ Answer: can a blank-slate implementer (especially an AI agent) ship a working ap
 | Tags Studio     | `apps/tags-studio/`     | tags CRUD, `ping`, `strictService`                   |
 | Health Board    | `apps/health-board/`    | Node CLI: `smoke`, `frameworkSmoke`, `machineHealth` |
 | Protected smoke | `apps/protected-smoke/` | `getProtected`, `machineHealth` (evac API key + JWT) |
+| Notes Editor    | `apps/notes-editor/`    | `getNote`, `updateNote`, list/create                 |
+| Tags Editor     | `apps/tags-editor/`     | `getTag`, `updateTag` (CLI smoke)                    |
 
 ## Backends (evac)
 

@@ -4,6 +4,15 @@ Living index of **actionable friction** found in nene2-js marathon (FT30–529),
 
 Policy loop: [ADR 0004](../adr/0004-field-trial-friction-resolution-cycle.md) · Methodology: [field-trials.md](field-trials.md)
 
+## Mandatory rule (no exceptions)
+
+1. **Friction が出たら必ず GitHub Issue を先に起票**（正しい Owner リポ）。
+2. **PR で修正・マージ**（または同一 PR で `Closes #NN`）。
+3. **再検証**（matrix / `verify:backends` / nene2-js-FT smoke）。
+4. **レポートと本 registry を更新**してから **次の FT** へ。
+
+オープンな摩擦 Issue が残っている状態で次 FT に進まない。
+
 ## Routing (where to fix)
 
 | Symptom                        | Open Issue / PR in                        |
