@@ -105,7 +105,7 @@ Do not commit secrets, `.env`, or production URLs.
 
 **Port evacuation:** when `:8080` / `:8000` are taken by other processes, use alternate host ports via env only — see [ft-evac-ports.md](ft-evac-ports.md) and `tools/compose-ft-evac.yaml`.
 
-**100-scenario marathon:** FT30–FT129 automated catalog — see [ft-marathon-100.md](ft-marathon-100.md), `npm run test:ft-marathon`.
+**500-scenario marathon:** FT30–FT529 — see [ft-marathon-500.md](ft-marathon-500.md) (bulk FT230–529), [ft-marathon-100.md](ft-marathon-100.md), [ft-docs-onboarding-130.md](ft-docs-onboarding-130.md), `npm run test:ft-marathon`.
 
 ## Multi-backend verification
 

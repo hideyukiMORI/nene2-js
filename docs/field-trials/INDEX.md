@@ -234,5 +234,305 @@ Methodology: `docs/development/field-trials.md` · Template: `docs/templates/fie
 | 227 | [2026-05-field-trial-227.md](2026-05-field-trial-227.md) | live onboarding 3                         | done   | #45          |
 | 228 | [2026-05-field-trial-228.md](2026-05-field-trial-228.md) | live onboarding 4                         | done   | #45          |
 | 229 | [2026-05-field-trial-229.md](2026-05-field-trial-229.md) | live onboarding 5                         | done   | #45          |
+| 230 | [2026-05-field-trial-230.md](2026-05-field-trial-230.md) | problem HTTP 400 on getNote               | done   | #42          |
+| 231 | [2026-05-field-trial-231.md](2026-05-field-trial-231.md) | problem HTTP 400 on createNote            | done   | #42          |
+| 232 | [2026-05-field-trial-232.md](2026-05-field-trial-232.md) | problem HTTP 401 on getNote               | done   | #42          |
+| 233 | [2026-05-field-trial-233.md](2026-05-field-trial-233.md) | problem HTTP 401 on createNote            | done   | #42          |
+| 234 | [2026-05-field-trial-234.md](2026-05-field-trial-234.md) | problem HTTP 403 on getNote               | done   | #42          |
+| 235 | [2026-05-field-trial-235.md](2026-05-field-trial-235.md) | problem HTTP 403 on createNote            | done   | #42          |
+| 236 | [2026-05-field-trial-236.md](2026-05-field-trial-236.md) | problem HTTP 404 on getNote               | done   | #42          |
+| 237 | [2026-05-field-trial-237.md](2026-05-field-trial-237.md) | problem HTTP 404 on createNote            | done   | #42          |
+| 238 | [2026-05-field-trial-238.md](2026-05-field-trial-238.md) | problem HTTP 405 on getNote               | done   | #42          |
+| 239 | [2026-05-field-trial-239.md](2026-05-field-trial-239.md) | problem HTTP 405 on createNote            | done   | #42          |
+| 240 | [2026-05-field-trial-240.md](2026-05-field-trial-240.md) | problem HTTP 409 on getNote               | done   | #42          |
+| 241 | [2026-05-field-trial-241.md](2026-05-field-trial-241.md) | problem HTTP 409 on createNote            | done   | #42          |
+| 242 | [2026-05-field-trial-242.md](2026-05-field-trial-242.md) | problem HTTP 413 on getNote               | done   | #42          |
+| 243 | [2026-05-field-trial-243.md](2026-05-field-trial-243.md) | problem HTTP 413 on createNote            | done   | #42          |
+| 244 | [2026-05-field-trial-244.md](2026-05-field-trial-244.md) | problem HTTP 422 on getNote               | done   | #42          |
+| 245 | [2026-05-field-trial-245.md](2026-05-field-trial-245.md) | problem HTTP 422 on createNote            | done   | #42          |
+| 246 | [2026-05-field-trial-246.md](2026-05-field-trial-246.md) | problem HTTP 429 on getNote               | done   | #42          |
+| 247 | [2026-05-field-trial-247.md](2026-05-field-trial-247.md) | problem HTTP 429 on createNote            | done   | #42          |
+| 248 | [2026-05-field-trial-248.md](2026-05-field-trial-248.md) | problem HTTP 500 on getNote               | done   | #42          |
+| 249 | [2026-05-field-trial-249.md](2026-05-field-trial-249.md) | problem HTTP 500 on createNote            | done   | #42          |
+| 250 | [2026-05-field-trial-250.md](2026-05-field-trial-250.md) | problem HTTP 502 on getNote               | done   | #42          |
+| 251 | [2026-05-field-trial-251.md](2026-05-field-trial-251.md) | problem HTTP 502 on createNote            | done   | #42          |
+| 252 | [2026-05-field-trial-252.md](2026-05-field-trial-252.md) | problem HTTP 503 on getNote               | done   | #42          |
+| 253 | [2026-05-field-trial-253.md](2026-05-field-trial-253.md) | problem HTTP 503 on createNote            | done   | #42          |
+| 254 | [2026-05-field-trial-254.md](2026-05-field-trial-254.md) | notes list limit=0                        | done   | #42          |
+| 255 | [2026-05-field-trial-255.md](2026-05-field-trial-255.md) | tags list limit=0                         | done   | #42          |
+| 256 | [2026-05-field-trial-256.md](2026-05-field-trial-256.md) | notes list limit=1                        | done   | #42          |
+| 257 | [2026-05-field-trial-257.md](2026-05-field-trial-257.md) | tags list limit=1                         | done   | #42          |
+| 258 | [2026-05-field-trial-258.md](2026-05-field-trial-258.md) | notes list limit=2                        | done   | #42          |
+| 259 | [2026-05-field-trial-259.md](2026-05-field-trial-259.md) | tags list limit=2                         | done   | #42          |
+| 260 | [2026-05-field-trial-260.md](2026-05-field-trial-260.md) | notes list limit=3                        | done   | #42          |
+| 261 | [2026-05-field-trial-261.md](2026-05-field-trial-261.md) | tags list limit=3                         | done   | #42          |
+| 262 | [2026-05-field-trial-262.md](2026-05-field-trial-262.md) | notes list limit=5                        | done   | #42          |
+| 263 | [2026-05-field-trial-263.md](2026-05-field-trial-263.md) | tags list limit=5                         | done   | #42          |
+| 264 | [2026-05-field-trial-264.md](2026-05-field-trial-264.md) | notes list limit=7                        | done   | #42          |
+| 265 | [2026-05-field-trial-265.md](2026-05-field-trial-265.md) | tags list limit=7                         | done   | #42          |
+| 266 | [2026-05-field-trial-266.md](2026-05-field-trial-266.md) | notes list limit=10                       | done   | #42          |
+| 267 | [2026-05-field-trial-267.md](2026-05-field-trial-267.md) | tags list limit=10                        | done   | #42          |
+| 268 | [2026-05-field-trial-268.md](2026-05-field-trial-268.md) | notes list limit=15                       | done   | #42          |
+| 269 | [2026-05-field-trial-269.md](2026-05-field-trial-269.md) | tags list limit=15                        | done   | #42          |
+| 270 | [2026-05-field-trial-270.md](2026-05-field-trial-270.md) | notes list limit=20                       | done   | #42          |
+| 271 | [2026-05-field-trial-271.md](2026-05-field-trial-271.md) | tags list limit=20                        | done   | #42          |
+| 272 | [2026-05-field-trial-272.md](2026-05-field-trial-272.md) | notes list limit=25                       | done   | #42          |
+| 273 | [2026-05-field-trial-273.md](2026-05-field-trial-273.md) | tags list limit=25                        | done   | #42          |
+| 274 | [2026-05-field-trial-274.md](2026-05-field-trial-274.md) | notes list limit=50                       | done   | #42          |
+| 275 | [2026-05-field-trial-275.md](2026-05-field-trial-275.md) | tags list limit=50                        | done   | #42          |
+| 276 | [2026-05-field-trial-276.md](2026-05-field-trial-276.md) | notes list limit=75                       | done   | #42          |
+| 277 | [2026-05-field-trial-277.md](2026-05-field-trial-277.md) | tags list limit=75                        | done   | #42          |
+| 278 | [2026-05-field-trial-278.md](2026-05-field-trial-278.md) | notes list limit=99                       | done   | #42          |
+| 279 | [2026-05-field-trial-279.md](2026-05-field-trial-279.md) | tags list limit=99                        | done   | #42          |
+| 280 | [2026-05-field-trial-280.md](2026-05-field-trial-280.md) | notes list limit=100                      | done   | #42          |
+| 281 | [2026-05-field-trial-281.md](2026-05-field-trial-281.md) | tags list limit=100                       | done   | #42          |
+| 282 | [2026-05-field-trial-282.md](2026-05-field-trial-282.md) | notes list limit=150                      | done   | #42          |
+| 283 | [2026-05-field-trial-283.md](2026-05-field-trial-283.md) | tags list limit=150                       | done   | #42          |
+| 284 | [2026-05-field-trial-284.md](2026-05-field-trial-284.md) | notes list limit=200                      | done   | #42          |
+| 285 | [2026-05-field-trial-285.md](2026-05-field-trial-285.md) | tags list limit=200                       | done   | #42          |
+| 286 | [2026-05-field-trial-286.md](2026-05-field-trial-286.md) | notes list limit=500                      | done   | #42          |
+| 287 | [2026-05-field-trial-287.md](2026-05-field-trial-287.md) | tags list limit=500                       | done   | #42          |
+| 288 | [2026-05-field-trial-288.md](2026-05-field-trial-288.md) | notes list limit=999                      | done   | #42          |
+| 289 | [2026-05-field-trial-289.md](2026-05-field-trial-289.md) | tags list limit=999                       | done   | #42          |
+| 290 | [2026-05-field-trial-290.md](2026-05-field-trial-290.md) | notes offset=0                            | done   | #42          |
+| 291 | [2026-05-field-trial-291.md](2026-05-field-trial-291.md) | tags offset=0                             | done   | #42          |
+| 292 | [2026-05-field-trial-292.md](2026-05-field-trial-292.md) | notes offset=1                            | done   | #42          |
+| 293 | [2026-05-field-trial-293.md](2026-05-field-trial-293.md) | tags offset=1                             | done   | #42          |
+| 294 | [2026-05-field-trial-294.md](2026-05-field-trial-294.md) | notes offset=2                            | done   | #42          |
+| 295 | [2026-05-field-trial-295.md](2026-05-field-trial-295.md) | tags offset=2                             | done   | #42          |
+| 296 | [2026-05-field-trial-296.md](2026-05-field-trial-296.md) | notes offset=5                            | done   | #42          |
+| 297 | [2026-05-field-trial-297.md](2026-05-field-trial-297.md) | tags offset=5                             | done   | #42          |
+| 298 | [2026-05-field-trial-298.md](2026-05-field-trial-298.md) | notes offset=10                           | done   | #42          |
+| 299 | [2026-05-field-trial-299.md](2026-05-field-trial-299.md) | tags offset=10                            | done   | #42          |
+| 300 | [2026-05-field-trial-300.md](2026-05-field-trial-300.md) | notes offset=20                           | done   | #42          |
+| 301 | [2026-05-field-trial-301.md](2026-05-field-trial-301.md) | tags offset=20                            | done   | #42          |
+| 302 | [2026-05-field-trial-302.md](2026-05-field-trial-302.md) | notes offset=50                           | done   | #42          |
+| 303 | [2026-05-field-trial-303.md](2026-05-field-trial-303.md) | tags offset=50                            | done   | #42          |
+| 304 | [2026-05-field-trial-304.md](2026-05-field-trial-304.md) | notes offset=100                          | done   | #42          |
+| 305 | [2026-05-field-trial-305.md](2026-05-field-trial-305.md) | tags offset=100                           | done   | #42          |
+| 306 | [2026-05-field-trial-306.md](2026-05-field-trial-306.md) | notes offset=500                          | done   | #42          |
+| 307 | [2026-05-field-trial-307.md](2026-05-field-trial-307.md) | tags offset=500                           | done   | #42          |
+| 308 | [2026-05-field-trial-308.md](2026-05-field-trial-308.md) | notes offset=1000                         | done   | #42          |
+| 309 | [2026-05-field-trial-309.md](2026-05-field-trial-309.md) | tags offset=1000                          | done   | #42          |
+| 310 | [2026-05-field-trial-310.md](2026-05-field-trial-310.md) | notes offset=9999                         | done   | #42          |
+| 311 | [2026-05-field-trial-311.md](2026-05-field-trial-311.md) | tags offset=9999                          | done   | #42          |
+| 312 | [2026-05-field-trial-312.md](2026-05-field-trial-312.md) | notes limit+offset combo 0                | done   | #42          |
+| 313 | [2026-05-field-trial-313.md](2026-05-field-trial-313.md) | tags limit+offset combo 0                 | done   | #42          |
+| 314 | [2026-05-field-trial-314.md](2026-05-field-trial-314.md) | notes limit+offset combo 1                | done   | #42          |
+| 315 | [2026-05-field-trial-315.md](2026-05-field-trial-315.md) | tags limit+offset combo 1                 | done   | #42          |
+| 316 | [2026-05-field-trial-316.md](2026-05-field-trial-316.md) | notes limit+offset combo 2                | done   | #42          |
+| 317 | [2026-05-field-trial-317.md](2026-05-field-trial-317.md) | tags limit+offset combo 2                 | done   | #42          |
+| 318 | [2026-05-field-trial-318.md](2026-05-field-trial-318.md) | notes limit+offset combo 3                | done   | #42          |
+| 319 | [2026-05-field-trial-319.md](2026-05-field-trial-319.md) | tags limit+offset combo 3                 | done   | #42          |
+| 320 | [2026-05-field-trial-320.md](2026-05-field-trial-320.md) | notes limit+offset combo 4                | done   | #42          |
+| 321 | [2026-05-field-trial-321.md](2026-05-field-trial-321.md) | tags limit+offset combo 4                 | done   | #42          |
+| 322 | [2026-05-field-trial-322.md](2026-05-field-trial-322.md) | notes limit+offset combo 5                | done   | #42          |
+| 323 | [2026-05-field-trial-323.md](2026-05-field-trial-323.md) | tags limit+offset combo 5                 | done   | #42          |
+| 324 | [2026-05-field-trial-324.md](2026-05-field-trial-324.md) | notes limit+offset combo 6                | done   | #42          |
+| 325 | [2026-05-field-trial-325.md](2026-05-field-trial-325.md) | tags limit+offset combo 6                 | done   | #42          |
+| 326 | [2026-05-field-trial-326.md](2026-05-field-trial-326.md) | notes limit+offset combo 7                | done   | #42          |
+| 327 | [2026-05-field-trial-327.md](2026-05-field-trial-327.md) | tags limit+offset combo 7                 | done   | #42          |
+| 328 | [2026-05-field-trial-328.md](2026-05-field-trial-328.md) | notes limit+offset combo 8                | done   | #42          |
+| 329 | [2026-05-field-trial-329.md](2026-05-field-trial-329.md) | tags limit+offset combo 8                 | done   | #42          |
+| 330 | [2026-05-field-trial-330.md](2026-05-field-trial-330.md) | notes limit+offset combo 9                | done   | #42          |
+| 331 | [2026-05-field-trial-331.md](2026-05-field-trial-331.md) | tags limit+offset combo 9                 | done   | #42          |
+| 332 | [2026-05-field-trial-332.md](2026-05-field-trial-332.md) | notes limit+offset combo 10               | done   | #42          |
+| 333 | [2026-05-field-trial-333.md](2026-05-field-trial-333.md) | tags limit+offset combo 10                | done   | #42          |
+| 334 | [2026-05-field-trial-334.md](2026-05-field-trial-334.md) | notes limit+offset combo 11               | done   | #42          |
+| 335 | [2026-05-field-trial-335.md](2026-05-field-trial-335.md) | tags limit+offset combo 11                | done   | #42          |
+| 336 | [2026-05-field-trial-336.md](2026-05-field-trial-336.md) | notes limit+offset combo 12               | done   | #42          |
+| 337 | [2026-05-field-trial-337.md](2026-05-field-trial-337.md) | tags limit+offset combo 12                | done   | #42          |
+| 338 | [2026-05-field-trial-338.md](2026-05-field-trial-338.md) | notes limit+offset combo 13               | done   | #42          |
+| 339 | [2026-05-field-trial-339.md](2026-05-field-trial-339.md) | tags limit+offset combo 13                | done   | #42          |
+| 340 | [2026-05-field-trial-340.md](2026-05-field-trial-340.md) | notes limit+offset combo 14               | done   | #42          |
+| 341 | [2026-05-field-trial-341.md](2026-05-field-trial-341.md) | tags limit+offset combo 14                | done   | #42          |
+| 342 | [2026-05-field-trial-342.md](2026-05-field-trial-342.md) | notes limit+offset combo 15               | done   | #42          |
+| 343 | [2026-05-field-trial-343.md](2026-05-field-trial-343.md) | tags limit+offset combo 15                | done   | #42          |
+| 344 | [2026-05-field-trial-344.md](2026-05-field-trial-344.md) | notes limit+offset combo 16               | done   | #42          |
+| 345 | [2026-05-field-trial-345.md](2026-05-field-trial-345.md) | tags limit+offset combo 16                | done   | #42          |
+| 346 | [2026-05-field-trial-346.md](2026-05-field-trial-346.md) | notes limit+offset combo 17               | done   | #42          |
+| 347 | [2026-05-field-trial-347.md](2026-05-field-trial-347.md) | tags limit+offset combo 17                | done   | #42          |
+| 348 | [2026-05-field-trial-348.md](2026-05-field-trial-348.md) | notes limit+offset combo 18               | done   | #42          |
+| 349 | [2026-05-field-trial-349.md](2026-05-field-trial-349.md) | tags limit+offset combo 18                | done   | #42          |
+| 350 | [2026-05-field-trial-350.md](2026-05-field-trial-350.md) | notes limit+offset combo 19               | done   | #42          |
+| 351 | [2026-05-field-trial-351.md](2026-05-field-trial-351.md) | tags limit+offset combo 19                | done   | #42          |
+| 352 | [2026-05-field-trial-352.md](2026-05-field-trial-352.md) | getNote path id=1                         | done   | #42          |
+| 353 | [2026-05-field-trial-353.md](2026-05-field-trial-353.md) | updateNote id=1                           | done   | #42          |
+| 354 | [2026-05-field-trial-354.md](2026-05-field-trial-354.md) | deleteNote id=1                           | done   | #42          |
+| 355 | [2026-05-field-trial-355.md](2026-05-field-trial-355.md) | getNote path id=2                         | done   | #42          |
+| 356 | [2026-05-field-trial-356.md](2026-05-field-trial-356.md) | updateNote id=2                           | done   | #42          |
+| 357 | [2026-05-field-trial-357.md](2026-05-field-trial-357.md) | deleteNote id=2                           | done   | #42          |
+| 358 | [2026-05-field-trial-358.md](2026-05-field-trial-358.md) | getNote path id=7                         | done   | #42          |
+| 359 | [2026-05-field-trial-359.md](2026-05-field-trial-359.md) | updateNote id=7                           | done   | #42          |
+| 360 | [2026-05-field-trial-360.md](2026-05-field-trial-360.md) | deleteNote id=7                           | done   | #42          |
+| 361 | [2026-05-field-trial-361.md](2026-05-field-trial-361.md) | getNote path id=42                        | done   | #42          |
+| 362 | [2026-05-field-trial-362.md](2026-05-field-trial-362.md) | updateNote id=42                          | done   | #42          |
+| 363 | [2026-05-field-trial-363.md](2026-05-field-trial-363.md) | deleteNote id=42                          | done   | #42          |
+| 364 | [2026-05-field-trial-364.md](2026-05-field-trial-364.md) | getNote path id=99                        | done   | #42          |
+| 365 | [2026-05-field-trial-365.md](2026-05-field-trial-365.md) | updateNote id=99                          | done   | #42          |
+| 366 | [2026-05-field-trial-366.md](2026-05-field-trial-366.md) | deleteNote id=99                          | done   | #42          |
+| 367 | [2026-05-field-trial-367.md](2026-05-field-trial-367.md) | getNote path id=100                       | done   | #42          |
+| 368 | [2026-05-field-trial-368.md](2026-05-field-trial-368.md) | updateNote id=100                         | done   | #42          |
+| 369 | [2026-05-field-trial-369.md](2026-05-field-trial-369.md) | deleteNote id=100                         | done   | #42          |
+| 370 | [2026-05-field-trial-370.md](2026-05-field-trial-370.md) | getNote path id=999                       | done   | #42          |
+| 371 | [2026-05-field-trial-371.md](2026-05-field-trial-371.md) | updateNote id=999                         | done   | #42          |
+| 372 | [2026-05-field-trial-372.md](2026-05-field-trial-372.md) | deleteNote id=999                         | done   | #42          |
+| 373 | [2026-05-field-trial-373.md](2026-05-field-trial-373.md) | getNote path id=10000                     | done   | #42          |
+| 374 | [2026-05-field-trial-374.md](2026-05-field-trial-374.md) | updateNote id=10000                       | done   | #42          |
+| 375 | [2026-05-field-trial-375.md](2026-05-field-trial-375.md) | deleteNote id=10000                       | done   | #42          |
+| 376 | [2026-05-field-trial-376.md](2026-05-field-trial-376.md) | getNote path id=2147483646                | done   | #42          |
+| 377 | [2026-05-field-trial-377.md](2026-05-field-trial-377.md) | updateNote id=2147483646                  | done   | #42          |
+| 378 | [2026-05-field-trial-378.md](2026-05-field-trial-378.md) | deleteNote id=2147483646                  | done   | #42          |
+| 379 | [2026-05-field-trial-379.md](2026-05-field-trial-379.md) | getTag id=1                               | done   | #42          |
+| 380 | [2026-05-field-trial-380.md](2026-05-field-trial-380.md) | getTag id=3                               | done   | #42          |
+| 381 | [2026-05-field-trial-381.md](2026-05-field-trial-381.md) | getTag id=8                               | done   | #42          |
+| 382 | [2026-05-field-trial-382.md](2026-05-field-trial-382.md) | getTag id=55                              | done   | #42          |
+| 383 | [2026-05-field-trial-383.md](2026-05-field-trial-383.md) | getTag id=200                             | done   | #42          |
+| 384 | [2026-05-field-trial-384.md](2026-05-field-trial-384.md) | getTag id=9999                            | done   | #42          |
+| 385 | [2026-05-field-trial-385.md](2026-05-field-trial-385.md) | validation field index 0                  | done   | #42          |
+| 386 | [2026-05-field-trial-386.md](2026-05-field-trial-386.md) | validation field index 1                  | done   | #42          |
+| 387 | [2026-05-field-trial-387.md](2026-05-field-trial-387.md) | validation field index 2                  | done   | #42          |
+| 388 | [2026-05-field-trial-388.md](2026-05-field-trial-388.md) | validation field index 3                  | done   | #42          |
+| 389 | [2026-05-field-trial-389.md](2026-05-field-trial-389.md) | validation field index 4                  | done   | #42          |
+| 390 | [2026-05-field-trial-390.md](2026-05-field-trial-390.md) | validation field index 5                  | done   | #42          |
+| 391 | [2026-05-field-trial-391.md](2026-05-field-trial-391.md) | validation field index 6                  | done   | #42          |
+| 392 | [2026-05-field-trial-392.md](2026-05-field-trial-392.md) | validation field index 7                  | done   | #42          |
+| 393 | [2026-05-field-trial-393.md](2026-05-field-trial-393.md) | validation field index 8                  | done   | #42          |
+| 394 | [2026-05-field-trial-394.md](2026-05-field-trial-394.md) | validation field index 9                  | done   | #42          |
+| 395 | [2026-05-field-trial-395.md](2026-05-field-trial-395.md) | validation field index 10                 | done   | #42          |
+| 396 | [2026-05-field-trial-396.md](2026-05-field-trial-396.md) | validation field index 11                 | done   | #42          |
+| 397 | [2026-05-field-trial-397.md](2026-05-field-trial-397.md) | validation field index 12                 | done   | #42          |
+| 398 | [2026-05-field-trial-398.md](2026-05-field-trial-398.md) | validation field index 13                 | done   | #42          |
+| 399 | [2026-05-field-trial-399.md](2026-05-field-trial-399.md) | validation field index 14                 | done   | #42          |
+| 400 | [2026-05-field-trial-400.md](2026-05-field-trial-400.md) | validation field index 15                 | done   | #42          |
+| 401 | [2026-05-field-trial-401.md](2026-05-field-trial-401.md) | validation field index 16                 | done   | #42          |
+| 402 | [2026-05-field-trial-402.md](2026-05-field-trial-402.md) | validation field index 17                 | done   | #42          |
+| 403 | [2026-05-field-trial-403.md](2026-05-field-trial-403.md) | validation field index 18                 | done   | #42          |
+| 404 | [2026-05-field-trial-404.md](2026-05-field-trial-404.md) | validation field index 19                 | done   | #42          |
+| 405 | [2026-05-field-trial-405.md](2026-05-field-trial-405.md) | validation field index 20                 | done   | #42          |
+| 406 | [2026-05-field-trial-406.md](2026-05-field-trial-406.md) | validation field index 21                 | done   | #42          |
+| 407 | [2026-05-field-trial-407.md](2026-05-field-trial-407.md) | validation field index 22                 | done   | #42          |
+| 408 | [2026-05-field-trial-408.md](2026-05-field-trial-408.md) | validation field index 23                 | done   | #42          |
+| 409 | [2026-05-field-trial-409.md](2026-05-field-trial-409.md) | validation field index 24                 | done   | #42          |
+| 410 | [2026-05-field-trial-410.md](2026-05-field-trial-410.md) | parseProblemDetails case 0                | done   | #42          |
+| 411 | [2026-05-field-trial-411.md](2026-05-field-trial-411.md) | parseProblemDetails case 1                | done   | #42          |
+| 412 | [2026-05-field-trial-412.md](2026-05-field-trial-412.md) | parseProblemDetails case 2                | done   | #42          |
+| 413 | [2026-05-field-trial-413.md](2026-05-field-trial-413.md) | parseProblemDetails case 3                | done   | #42          |
+| 414 | [2026-05-field-trial-414.md](2026-05-field-trial-414.md) | parseProblemDetails case 4                | done   | #42          |
+| 415 | [2026-05-field-trial-415.md](2026-05-field-trial-415.md) | parseProblemDetails case 5                | done   | #42          |
+| 416 | [2026-05-field-trial-416.md](2026-05-field-trial-416.md) | parseProblemDetails case 6                | done   | #42          |
+| 417 | [2026-05-field-trial-417.md](2026-05-field-trial-417.md) | parseProblemDetails case 7                | done   | #42          |
+| 418 | [2026-05-field-trial-418.md](2026-05-field-trial-418.md) | parseProblemDetails case 8                | done   | #42          |
+| 419 | [2026-05-field-trial-419.md](2026-05-field-trial-419.md) | parseProblemDetails case 9                | done   | #42          |
+| 420 | [2026-05-field-trial-420.md](2026-05-field-trial-420.md) | parseProblemDetails case 10               | done   | #42          |
+| 421 | [2026-05-field-trial-421.md](2026-05-field-trial-421.md) | parseProblemDetails case 11               | done   | #42          |
+| 422 | [2026-05-field-trial-422.md](2026-05-field-trial-422.md) | parseProblemDetails case 12               | done   | #42          |
+| 423 | [2026-05-field-trial-423.md](2026-05-field-trial-423.md) | parseProblemDetails case 13               | done   | #42          |
+| 424 | [2026-05-field-trial-424.md](2026-05-field-trial-424.md) | parseProblemDetails case 14               | done   | #42          |
+| 425 | [2026-05-field-trial-425.md](2026-05-field-trial-425.md) | parseProblemDetails case 15               | done   | #42          |
+| 426 | [2026-05-field-trial-426.md](2026-05-field-trial-426.md) | parseProblemDetails case 16               | done   | #42          |
+| 427 | [2026-05-field-trial-427.md](2026-05-field-trial-427.md) | parseProblemDetails case 17               | done   | #42          |
+| 428 | [2026-05-field-trial-428.md](2026-05-field-trial-428.md) | parseProblemDetails case 18               | done   | #42          |
+| 429 | [2026-05-field-trial-429.md](2026-05-field-trial-429.md) | parseProblemDetails case 19               | done   | #42          |
+| 430 | [2026-05-field-trial-430.md](2026-05-field-trial-430.md) | baseUrl variant 0                         | done   | #42          |
+| 431 | [2026-05-field-trial-431.md](2026-05-field-trial-431.md) | baseUrl variant 1                         | done   | #42          |
+| 432 | [2026-05-field-trial-432.md](2026-05-field-trial-432.md) | baseUrl variant 2                         | done   | #42          |
+| 433 | [2026-05-field-trial-433.md](2026-05-field-trial-433.md) | baseUrl variant 3                         | done   | #42          |
+| 434 | [2026-05-field-trial-434.md](2026-05-field-trial-434.md) | baseUrl variant 4                         | done   | #42          |
+| 435 | [2026-05-field-trial-435.md](2026-05-field-trial-435.md) | auth header combo 0                       | done   | #42          |
+| 436 | [2026-05-field-trial-436.md](2026-05-field-trial-436.md) | auth header combo 1                       | done   | #42          |
+| 437 | [2026-05-field-trial-437.md](2026-05-field-trial-437.md) | auth header combo 2                       | done   | #42          |
+| 438 | [2026-05-field-trial-438.md](2026-05-field-trial-438.md) | auth header combo 3                       | done   | #42          |
+| 439 | [2026-05-field-trial-439.md](2026-05-field-trial-439.md) | auth header combo 4                       | done   | #42          |
+| 440 | [2026-05-field-trial-440.md](2026-05-field-trial-440.md) | auth header combo 5                       | done   | #42          |
+| 441 | [2026-05-field-trial-441.md](2026-05-field-trial-441.md) | auth header combo 6                       | done   | #42          |
+| 442 | [2026-05-field-trial-442.md](2026-05-field-trial-442.md) | auth header combo 7                       | done   | #42          |
+| 443 | [2026-05-field-trial-443.md](2026-05-field-trial-443.md) | auth header combo 8                       | done   | #42          |
+| 444 | [2026-05-field-trial-444.md](2026-05-field-trial-444.md) | auth header combo 9                       | done   | #42          |
+| 445 | [2026-05-field-trial-445.md](2026-05-field-trial-445.md) | auth header combo 10                      | done   | #42          |
+| 446 | [2026-05-field-trial-446.md](2026-05-field-trial-446.md) | auth header combo 11                      | done   | #42          |
+| 447 | [2026-05-field-trial-447.md](2026-05-field-trial-447.md) | auth header combo 12                      | done   | #42          |
+| 448 | [2026-05-field-trial-448.md](2026-05-field-trial-448.md) | auth header combo 13                      | done   | #42          |
+| 449 | [2026-05-field-trial-449.md](2026-05-field-trial-449.md) | auth header combo 14                      | done   | #42          |
+| 450 | [2026-05-field-trial-450.md](2026-05-field-trial-450.md) | parallel calls batch 0                    | done   | #42          |
+| 451 | [2026-05-field-trial-451.md](2026-05-field-trial-451.md) | parallel calls batch 1                    | done   | #42          |
+| 452 | [2026-05-field-trial-452.md](2026-05-field-trial-452.md) | parallel calls batch 2                    | done   | #42          |
+| 453 | [2026-05-field-trial-453.md](2026-05-field-trial-453.md) | parallel calls batch 3                    | done   | #42          |
+| 454 | [2026-05-field-trial-454.md](2026-05-field-trial-454.md) | parallel calls batch 4                    | done   | #42          |
+| 455 | [2026-05-field-trial-455.md](2026-05-field-trial-455.md) | parallel calls batch 5                    | done   | #42          |
+| 456 | [2026-05-field-trial-456.md](2026-05-field-trial-456.md) | parallel calls batch 6                    | done   | #42          |
+| 457 | [2026-05-field-trial-457.md](2026-05-field-trial-457.md) | parallel calls batch 7                    | done   | #42          |
+| 458 | [2026-05-field-trial-458.md](2026-05-field-trial-458.md) | parallel calls batch 8                    | done   | #42          |
+| 459 | [2026-05-field-trial-459.md](2026-05-field-trial-459.md) | parallel calls batch 9                    | done   | #42          |
+| 460 | [2026-05-field-trial-460.md](2026-05-field-trial-460.md) | parallel calls batch 10                   | done   | #42          |
+| 461 | [2026-05-field-trial-461.md](2026-05-field-trial-461.md) | parallel calls batch 11                   | done   | #42          |
+| 462 | [2026-05-field-trial-462.md](2026-05-field-trial-462.md) | generated schema probe 0                  | done   | #42          |
+| 463 | [2026-05-field-trial-463.md](2026-05-field-trial-463.md) | generated schema probe 1                  | done   | #42          |
+| 464 | [2026-05-field-trial-464.md](2026-05-field-trial-464.md) | generated schema probe 2                  | done   | #42          |
+| 465 | [2026-05-field-trial-465.md](2026-05-field-trial-465.md) | generated schema probe 3                  | done   | #42          |
+| 466 | [2026-05-field-trial-466.md](2026-05-field-trial-466.md) | generated schema probe 4                  | done   | #42          |
+| 467 | [2026-05-field-trial-467.md](2026-05-field-trial-467.md) | generated schema probe 5                  | done   | #42          |
+| 468 | [2026-05-field-trial-468.md](2026-05-field-trial-468.md) | generated schema probe 6                  | done   | #42          |
+| 469 | [2026-05-field-trial-469.md](2026-05-field-trial-469.md) | generated schema probe 7                  | done   | #42          |
+| 470 | [2026-05-field-trial-470.md](2026-05-field-trial-470.md) | generated schema probe 8                  | done   | #42          |
+| 471 | [2026-05-field-trial-471.md](2026-05-field-trial-471.md) | generated schema probe 9                  | done   | #42          |
+| 472 | [2026-05-field-trial-472.md](2026-05-field-trial-472.md) | fixture load not-found                    | done   | #42          |
+| 473 | [2026-05-field-trial-473.md](2026-05-field-trial-473.md) | fixture load validation-failed            | done   | #42          |
+| 474 | [2026-05-field-trial-474.md](2026-05-field-trial-474.md) | fixture load payload-too-large            | done   | #42          |
+| 475 | [2026-05-field-trial-475.md](2026-05-field-trial-475.md) | fixture load health-ok                    | done   | #42          |
+| 476 | [2026-05-field-trial-476.md](2026-05-field-trial-476.md) | fixture load ping-ok                      | done   | #42          |
+| 477 | [2026-05-field-trial-477.md](2026-05-field-trial-477.md) | fixture load note-ok                      | done   | #42          |
+| 478 | [2026-05-field-trial-478.md](2026-05-field-trial-478.md) | fixture load tag-ok                       | done   | #42          |
+| 479 | [2026-05-field-trial-479.md](2026-05-field-trial-479.md) | content-type variant 0                    | done   | #42          |
+| 480 | [2026-05-field-trial-480.md](2026-05-field-trial-480.md) | content-type variant 1                    | done   | #42          |
+| 481 | [2026-05-field-trial-481.md](2026-05-field-trial-481.md) | content-type variant 2                    | done   | #42          |
+| 482 | [2026-05-field-trial-482.md](2026-05-field-trial-482.md) | content-type variant 3                    | done   | #42          |
+| 483 | [2026-05-field-trial-483.md](2026-05-field-trial-483.md) | content-type variant 4                    | done   | #42          |
+| 484 | [2026-05-field-trial-484.md](2026-05-field-trial-484.md) | content-type variant 5                    | done   | #42          |
+| 485 | [2026-05-field-trial-485.md](2026-05-field-trial-485.md) | content-type variant 6                    | done   | #42          |
+| 486 | [2026-05-field-trial-486.md](2026-05-field-trial-486.md) | content-type variant 7                    | done   | #42          |
+| 487 | [2026-05-field-trial-487.md](2026-05-field-trial-487.md) | replay health_ok #0                       | done   | #42          |
+| 488 | [2026-05-field-trial-488.md](2026-05-field-trial-488.md) | replay ping_ok #1                         | done   | #42          |
+| 489 | [2026-05-field-trial-489.md](2026-05-field-trial-489.md) | replay smoke_ok #2                        | done   | #42          |
+| 490 | [2026-05-field-trial-490.md](2026-05-field-trial-490.md) | replay notes_list #3                      | done   | #42          |
+| 491 | [2026-05-field-trial-491.md](2026-05-field-trial-491.md) | replay tags_list #4                       | done   | #42          |
+| 492 | [2026-05-field-trial-492.md](2026-05-field-trial-492.md) | replay protected_ok #5                    | done   | #42          |
+| 493 | [2026-05-field-trial-493.md](2026-05-field-trial-493.md) | replay err_422 #6                         | done   | #42          |
+| 494 | [2026-05-field-trial-494.md](2026-05-field-trial-494.md) | replay prob_is_pd #7                      | done   | #42          |
+| 495 | [2026-05-field-trial-495.md](2026-05-field-trial-495.md) | replay vdx_by_field #8                    | done   | #42          |
+| 496 | [2026-05-field-trial-496.md](2026-05-field-trial-496.md) | replay machine_ok #9                      | done   | #42          |
+| 497 | [2026-05-field-trial-497.md](2026-05-field-trial-497.md) | replay health_ok #10                      | done   | #42          |
+| 498 | [2026-05-field-trial-498.md](2026-05-field-trial-498.md) | replay ping_ok #11                        | done   | #42          |
+| 499 | [2026-05-field-trial-499.md](2026-05-field-trial-499.md) | replay smoke_ok #12                       | done   | #42          |
+| 500 | [2026-05-field-trial-500.md](2026-05-field-trial-500.md) | replay notes_list #13                     | done   | #42          |
+| 501 | [2026-05-field-trial-501.md](2026-05-field-trial-501.md) | replay tags_list #14                      | done   | #42          |
+| 502 | [2026-05-field-trial-502.md](2026-05-field-trial-502.md) | replay protected_ok #15                   | done   | #42          |
+| 503 | [2026-05-field-trial-503.md](2026-05-field-trial-503.md) | replay err_422 #16                        | done   | #42          |
+| 504 | [2026-05-field-trial-504.md](2026-05-field-trial-504.md) | replay prob_is_pd #17                     | done   | #42          |
+| 505 | [2026-05-field-trial-505.md](2026-05-field-trial-505.md) | replay vdx_by_field #18                   | done   | #42          |
+| 506 | [2026-05-field-trial-506.md](2026-05-field-trial-506.md) | replay machine_ok #19                     | done   | #42          |
+| 507 | [2026-05-field-trial-507.md](2026-05-field-trial-507.md) | replay health_ok #20                      | done   | #42          |
+| 508 | [2026-05-field-trial-508.md](2026-05-field-trial-508.md) | replay ping_ok #21                        | done   | #42          |
+| 509 | [2026-05-field-trial-509.md](2026-05-field-trial-509.md) | replay smoke_ok #22                       | done   | #42          |
+| 510 | [2026-05-field-trial-510.md](2026-05-field-trial-510.md) | replay notes_list #23                     | done   | #42          |
+| 511 | [2026-05-field-trial-511.md](2026-05-field-trial-511.md) | replay tags_list #24                      | done   | #42          |
+| 512 | [2026-05-field-trial-512.md](2026-05-field-trial-512.md) | replay protected_ok #25                   | done   | #42          |
+| 513 | [2026-05-field-trial-513.md](2026-05-field-trial-513.md) | replay err_422 #26                        | done   | #42          |
+| 514 | [2026-05-field-trial-514.md](2026-05-field-trial-514.md) | replay prob_is_pd #27                     | done   | #42          |
+| 515 | [2026-05-field-trial-515.md](2026-05-field-trial-515.md) | replay vdx_by_field #28                   | done   | #42          |
+| 516 | [2026-05-field-trial-516.md](2026-05-field-trial-516.md) | replay machine_ok #29                     | done   | #42          |
+| 517 | [2026-05-field-trial-517.md](2026-05-field-trial-517.md) | misc client probe 0                       | done   | #42          |
+| 518 | [2026-05-field-trial-518.md](2026-05-field-trial-518.md) | misc client probe 1                       | done   | #42          |
+| 519 | [2026-05-field-trial-519.md](2026-05-field-trial-519.md) | misc client probe 2                       | done   | #42          |
+| 520 | [2026-05-field-trial-520.md](2026-05-field-trial-520.md) | misc client probe 3                       | done   | #42          |
+| 521 | [2026-05-field-trial-521.md](2026-05-field-trial-521.md) | misc client probe 4                       | done   | #42          |
+| 522 | [2026-05-field-trial-522.md](2026-05-field-trial-522.md) | misc client probe 5                       | done   | #42          |
+| 523 | [2026-05-field-trial-523.md](2026-05-field-trial-523.md) | misc client probe 6                       | done   | #42          |
+| 524 | [2026-05-field-trial-524.md](2026-05-field-trial-524.md) | misc client probe 7                       | done   | #42          |
+| 525 | [2026-05-field-trial-525.md](2026-05-field-trial-525.md) | misc client probe 8                       | done   | #42          |
+| 526 | [2026-05-field-trial-526.md](2026-05-field-trial-526.md) | misc client probe 9                       | done   | #42          |
+| 527 | [2026-05-field-trial-527.md](2026-05-field-trial-527.md) | misc client probe 10                      | done   | #42          |
+| 528 | [2026-05-field-trial-528.md](2026-05-field-trial-528.md) | misc client probe 11                      | done   | #42          |
+| 529 | [2026-05-field-trial-529.md](2026-05-field-trial-529.md) | misc client probe 12                      | done   | #42          |
 
-**`done`** = friction resolution cycle complete. Marathon: FT30–129 [#31](https://github.com/hideyukiMORI/nene2-js/issues/31), FT130–229 [#45](https://github.com/hideyukiMORI/nene2-js/issues/45). Reports follow [field-trial-report.md](../templates/field-trial-report.md) (NENE2 / nene2-python granularity). Run `npm run test:ft-marathon`.
+**`done`** = friction resolution cycle complete. Marathon: FT30–129 [#31](https://github.com/hideyukiMORI/nene2-js/issues/31), FT130–229 [#45](https://github.com/hideyukiMORI/nene2-js/issues/45), FT230–529 [#42](https://github.com/hideyukiMORI/nene2-js/issues/42). Reports follow [field-trial-report.md](../templates/field-trial-report.md). Run `npm run test:ft-marathon`.

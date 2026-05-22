@@ -5,7 +5,7 @@ Blank-slate personas read [ja docs](https://hideyukimori.github.io/nene2-js/ja/)
 ## Run
 
 ```bash
-npm run test:ft-marathon   # 202 tests (FT30–229)
+npm run test:ft-marathon   # 502 tests (FT30–529; live skipped without env)
 npm run ft:reports         # regenerate docs/field-trials (NENE2 / nene2-python granularity)
 npm run format:fix -- "docs/field-trials/**/*.md"  # required after ft:reports
 npm run ft:marathon        # tests + reports

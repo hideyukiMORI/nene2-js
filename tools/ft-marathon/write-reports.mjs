@@ -16,12 +16,14 @@ const pin = JSON.parse(
 const pkg = JSON.parse(readFileSync(resolve(__dirname, '../../package.json'), 'utf8'));
 
 function issueForFt(ft) {
+  if (ft >= 230) return 42;
   if (ft >= 130) return 45;
   if (ft >= 30) return 31;
   return 30;
 }
 
 function batchForFt(ft) {
+  if (ft >= 230) return 'marathon bulk 300 (FT230–529)';
   if (ft >= 130) return 'docs onboarding 100 (FT130–229)';
   if (ft >= 30) return 'marathon 100 (FT30–129)';
   return 'legacy FT1–29';
@@ -67,7 +69,7 @@ ${newRows.join('\n')}
 
 ${footer.replace(
   /Marathon:.*/,
-  `Marathon: FT30–129 [#31](https://github.com/hideyukiMORI/nene2-js/issues/31), FT130–229 [#45](https://github.com/hideyukiMORI/nene2-js/issues/45). Reports follow [field-trial-report.md](../templates/field-trial-report.md) (NENE2 / nene2-python granularity). Run \`npm run test:ft-marathon\`.`,
+  `Marathon: FT30–129 [#31](https://github.com/hideyukiMORI/nene2-js/issues/31), FT130–229 [#45](https://github.com/hideyukiMORI/nene2-js/issues/45), FT230–529 [#42](https://github.com/hideyukiMORI/nene2-js/issues/42). Reports follow [field-trial-report.md](../templates/field-trial-report.md). Run \`npm run test:ft-marathon\`.`,
 )}`,
 );
 
