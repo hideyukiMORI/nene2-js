@@ -44,10 +44,12 @@
     "ft:marathon": "npm run test:ft-marathon && npm run ft:reports",
     "contracts:sync": "node tools/sync-openapi.mjs",
     "contracts:check": "node tools/sync-openapi.mjs --check",
+    "codegen": "node tools/codegen-openapi.mjs",
+    "codegen:check": "node tools/codegen-check.mjs",
     "build": "tsc -p tsconfig.build.json",
     "pack:smoke": "node tools/smoke-pack.mjs",
     "prepublishOnly": "npm run build",
-    "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run build && npm run test && npm run pack:smoke"
+    "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run codegen:check && npm run build && npm run test && npm run pack:smoke"
   },
   "keywords": [
     "nene2",
@@ -60,6 +62,7 @@
     "@eslint/js": "^9.39.3",
     "@types/node": "^22.19.19",
     "eslint": "^9.39.3",
+    "openapi-typescript": "^7.13.0",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.59.3",
