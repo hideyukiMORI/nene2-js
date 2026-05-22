@@ -41,7 +41,7 @@
     "test": "vitest run",
     "test:ft-marathon": "vitest run tests/field-trials/ft-marathon.test.ts",
     "ft:reports": "node tools/ft-marathon/write-reports.mjs",
-    "ft:marathon": "npm run test:ft-marathon && npm run ft:reports",
+    "ft:marathon": "npm run test:ft-marathon && npm run ft:reports && npm run format:fix -- \"docs/field-trials/**/*.md\"",
     "contracts:sync": "node tools/sync-openapi.mjs",
     "contracts:check": "node tools/sync-openapi.mjs --check",
     "codegen": "node tools/codegen-openapi.mjs",
