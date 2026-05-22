@@ -24,7 +24,7 @@ npm run codegen:check    # drift gate (in npm run check)
 3. `contracts:sync` → `codegen` → `npm run check`.
 4. PR updates guards/types if the public client surface changed.
 
-Codegen is **types only** (ADR 0006) — `createNene2Client` stays hand-maintained until an ADR says otherwise.
+Codegen is **types only** today (ADR 0006). **Guard codegen** (ADR 0007, [#86](https://github.com/hideyukiMORI/nene2-js/issues/86)) will add `npm run codegen:guards` in Phase B — `createNene2Client` stays hand-maintained.
 
 ## Pin file
 

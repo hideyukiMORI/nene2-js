@@ -5,7 +5,7 @@ Last updated: 2026-05-22 (JST)
 ## Active
 
 - [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡
-- [ ] **Guard codegen (ADR 0006 follow-up)** — [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) Phase A: spike + ADR 0007
+- [ ] **Guard codegen (ADR 0006 follow-up)** — [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) Phase A done ([ADR 0007](../adr/0007-openapi-guard-codegen-ajv-standalone.md)); Phase B: `codegen:guards` pipeline
 
 ## Completed (recent)
 

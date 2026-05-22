@@ -1,7 +1,7 @@
 # Phase 3 — OpenAPI codegen
 
 **Status:** complete (2026-05-22) — guard codegen tracked in [#86](https://github.com/hideyukiMORI/nene2-js/issues/86)  
-**Tracking Issue:** [#37](https://github.com/hideyukiMORI/nene2-js/issues/37) (types) · [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) (guards)  
+**Tracking Issue:** [#37](https://github.com/hideyukiMORI/nene2-js/issues/37) (types) · [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) (guards) · **ADR:** [0007 guard codegen](../adr/0007-openapi-guard-codegen-ajv-standalone.md) (Phase A accepted)  
 **ADR:** [0006 — types only](adr/0006-openapi-codegen-types-only.md)
 
 ## Exit criteria

@@ -77,12 +77,12 @@ Reports: `../nene2-js-FT/docs/field-trials/` (local only).
 
 ## Open / deferred
 
-| Item                       | Notes                                                                                                      |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| nene2-node parity          | `NENE2_JS_NODE_BASE_URL` optional in matrix                                                                |
-| Guard codegen from OpenAPI | [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) — ADR 0006 follow-up; Phase A = spike + ADR 0007 |
-| Pagination `total` on PHP  | OpenAPI optional; python returns `total`, PHP may omit                                                     |
-| 1.0.0 stability            | See [roadmap.md](../roadmap.md) criteria                                                                   |
+| Item                       | Notes                                                                                                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| nene2-node parity          | `NENE2_JS_NODE_BASE_URL` optional in matrix                                                                                                                   |
+| Guard codegen from OpenAPI | [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) Phase A — [ADR 0007](../adr/0007-openapi-guard-codegen-ajv-standalone.md); Phase B pipeline pending |
+| Pagination `total` on PHP  | OpenAPI optional; python returns `total`, PHP may omit                                                                                                        |
+| 1.0.0 stability            | See [roadmap.md](../roadmap.md) criteria                                                                                                                      |
 
 ## Phase 1 historical (resolved)
 
