@@ -23,7 +23,7 @@ features:
 
   - icon: 📄
     title: OpenAPI 优先
-    details: 固定 NENE2 契约，CI 校验，codegen 同步 schema。
+    details: 固定 NENE2 契约，CI 校验；codegen 同步 schema 与 guard。
 
   - icon: 🛡️
     title: Problem Details

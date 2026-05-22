@@ -23,7 +23,7 @@ features:
 
   - icon: 📄
     title: OpenAPI d'abord
-    details: Contrat NENE2 épinglé, vérifié en CI, codegen pour les schémas.
+    details: Contrat NENE2 épinglé, vérifié en CI ; codegen aligne schémas et guards.
 
   - icon: 🛡️
     title: Problem Details
