@@ -1,6 +1,6 @@
 # Phase 3 — OpenAPI codegen
 
-**Status:** in progress (2026-05-22)  
+**Status:** complete (2026-05-22) — guard/method codegen remains optional follow-up  
 **Tracking Issue:** [#37](https://github.com/hideyukiMORI/nene2-js/issues/37)  
 **ADR:** [0006 — types only](adr/0006-openapi-codegen-types-only.md)
 
@@ -11,7 +11,7 @@
 - [x] Alignment tests (exported types = `components['schemas']`)
 - [x] `src/types/schemas.ts` re-exports; hand files keep guards only
 - [x] PR template reminds `codegen` on contract bumps
-- [ ] Optional: export `OpenApiSchemas` / paths from package entry (ADR follow-up)
+- [x] Export `OpenApiSchemas` and `OpenApiPaths` from package entry (ADR 0006)
 
 ## Commands
 

@@ -1,5 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
-import type { components } from '../../src/generated/openapi.js';
+import type { components, paths } from '../../src/generated/openapi.js';
+import type { OpenApiPaths, OpenApiSchemas } from '../../src/types/schemas.js';
 import type { ProblemDetails, ValidationProblemDetails } from '../../src/problem/types.js';
 import type {
   CreateNoteRequest,
@@ -18,6 +19,13 @@ import type {
 } from '../../src/types/system.js';
 
 type Schemas = components['schemas'];
+
+describe('generated OpenAPI exports', () => {
+  it('OpenApiPaths and OpenApiSchemas aliases', () => {
+    expectTypeOf<OpenApiSchemas>().toEqualTypeOf<components['schemas']>();
+    expectTypeOf<OpenApiPaths>().toEqualTypeOf<paths>();
+  });
+});
 
 describe('generated OpenAPI schemas vs exported types', () => {
   it('system schemas', () => {

@@ -1,9 +1,12 @@
 /**
  * OpenAPI component schema aliases (ADR 0006). Source: src/generated/openapi.ts
  */
-import type { components } from '../generated/openapi.js';
+import type { components, paths } from '../generated/openapi.js';
 
 export type OpenApiSchemas = components['schemas'];
+
+/** OpenAPI path map (advanced consumers, ADR 0006). */
+export type OpenApiPaths = paths;
 
 export type ProblemDetails = OpenApiSchemas['ProblemDetails'];
 export type ValidationError = OpenApiSchemas['ValidationError'];
