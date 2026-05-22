@@ -26,10 +26,11 @@ Default sibling layout:
 
 Environment variables (this repo):
 
-| Variable                | Purpose                                                                         |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `NENE2_JS_API_BASE_URL` | Base URL for optional live smoke (e.g. `http://localhost:8080`)                 |
-| `NENE2_JS_OPENAPI_PATH` | Optional path to `openapi.yaml` (default: `../NENE2/docs/openapi/openapi.yaml`) |
+| Variable                | Purpose                                                                            |
+| ----------------------- | ---------------------------------------------------------------------------------- |
+| `NENE2_JS_API_BASE_URL` | Base URL for optional live smoke (e.g. `http://localhost:8080`)                    |
+| `NENE2_JS_OPENAPI_PATH` | Optional path for `contracts:sync` (default: `../NENE2/docs/openapi/openapi.yaml`) |
+| (committed)             | `contracts/openapi.yaml` — pinned copy for CI/tests (ADR 0002)                     |
 
 NENE2 machine client variables (`NENE2_MACHINE_API_KEY`, `NENE2_LOCAL_JWT_SECRET`) are documented in NENE2; this SDK only forwards them when configured — never commit values.
 

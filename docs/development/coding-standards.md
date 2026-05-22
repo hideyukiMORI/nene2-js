@@ -17,13 +17,14 @@
 ## File layout (target)
 
 ```text
+contracts/      # pinned openapi.yaml (ADR 0002) — do not hand-edit
 src/
   client/       # fetch wrapper and request helpers
   problem/      # RFC 9457 parsing
   types/        # shared types (generated or hand-written)
 tests/
   fixtures/     # JSON fixtures from OpenAPI examples
-tools/          # codegen scripts (Phase 3)
+tools/          # contracts:sync, codegen scripts (Phase 3)
 ```
 
 ## Testing
