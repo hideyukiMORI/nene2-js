@@ -25,6 +25,16 @@ TypeScript ecosystem for [NENE2](https://github.com/hideyukiMORI/NENE2): OpenAPI
 
 See [docs/scope.md](docs/scope.md) for the full in-scope / out-of-scope matrix.
 
+## Install (npm)
+
+```bash
+npm install @hideyukimori/nene2-client
+```
+
+Requires **Node 22+** (native `fetch`) or a browser with `fetch`. TypeScript consumers get `.d.ts` from the package.
+
+**Monorepo / contributors:** clone this repo and use `npm run check` (builds `dist/` and runs pack smoke).
+
 ## Local layout (sibling of NENE2)
 
 ```text
@@ -112,7 +122,7 @@ AI agents: start at [AGENTS.md](AGENTS.md).
 
 Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT1–129; see [methodology](docs/development/field-trials.md)). Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
 
-**Phase 2 (in progress):** npm publish path — [docs/phase-2.md](docs/phase-2.md).
+**Release:** [docs/development/publish.md](docs/development/publish.md) · Phase history: [docs/phase-2.md](docs/phase-2.md).
 
 ## Related projects
 

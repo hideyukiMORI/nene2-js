@@ -33,15 +33,16 @@ TypeScript companion to NENE2:
 - OpenAPI-aligned types and client helpers
 - RFC 9457 Problem Details utilities
 - strict, testable, AI-readable modules
-- npm publish path for `@hideyukimori/nene2-client` when stable
+- Published package `@hideyukimori/nene2-client` (`0.1.0+`); see `docs/development/publish.md`
 
 PHP runtime and OpenAPI authoring stay in [NENE2](https://github.com/hideyukiMORI/NENE2).
 
-## Local commands (after devDependencies in Phase 1)
+## Local commands
 
 ```bash
 npm install
-npm run check
+npm run check    # type-check, lint, format, contracts, build, test, pack:smoke
+npm run build    # dist/ only (not committed)
 ```
 
 Optional live smoke (NENE2 running on :8080):
