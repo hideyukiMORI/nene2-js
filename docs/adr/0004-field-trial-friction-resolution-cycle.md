@@ -29,14 +29,14 @@ Run FT → Record friction in report (F-1, F-2, …)
 
 ### Where to file Issues and PRs
 
-| Friction owner | Examples | Issue / PR repository |
-| -------------- | -------- | --------------------- |
-| **OpenAPI contract** | New public shape, wrong status code in spec | [NENE2](https://github.com/hideyukiMORI/NENE2) first → then `nene2-js` `npm run contracts:sync` |
-| **nene2-js client** | Parser gap, `createNene2Client` DX, wrong guard | [nene2-js](https://github.com/hideyukiMORI/nene2-js) |
-| **NENE2 PHP runtime** | Handler/middleware bug vs documented OpenAPI | [NENE2](https://github.com/hideyukiMORI/NENE2) |
-| **nene2-python parity** | `/health` missing `service`, no `/examples/ping` | [nene2-python](https://github.com/hideyukiMORI/nene2-python) |
-| **nene2-node parity** | Node port drift vs OpenAPI | [nene2-node](https://github.com/hideyukiMORI/nene2-node) |
-| **Documentation only** | README/FT typo in this repo | nene2-js (no code) |
+| Friction owner          | Examples                                         | Issue / PR repository                                                                           |
+| ----------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| **OpenAPI contract**    | New public shape, wrong status code in spec      | [NENE2](https://github.com/hideyukiMORI/NENE2) first → then `nene2-js` `npm run contracts:sync` |
+| **nene2-js client**     | Parser gap, `createNene2Client` DX, wrong guard  | [nene2-js](https://github.com/hideyukiMORI/nene2-js)                                            |
+| **NENE2 PHP runtime**   | Handler/middleware bug vs documented OpenAPI     | [NENE2](https://github.com/hideyukiMORI/NENE2)                                                  |
+| **nene2-python parity** | `/health` missing `service`, no `/examples/ping` | [nene2-python](https://github.com/hideyukiMORI/nene2-python)                                    |
+| **nene2-node parity**   | Node port drift vs OpenAPI                       | [nene2-node](https://github.com/hideyukiMORI/nene2-node)                                        |
+| **Documentation only**  | README/FT typo in this repo                      | nene2-js (no code)                                                                              |
 
 When unsure: **OpenAPI wins** — if the server matches `contracts/openapi.yaml`, fix the client; if the server diverges from OpenAPI, fix the server (or NENE2 contract first).
 

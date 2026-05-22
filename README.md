@@ -65,9 +65,13 @@ const client = createNene2Client({
 
 const health = await client.health();
 const pong = await client.ping();
+const notes = await client.listNotes({ limit: 20 });
+
+// Load balancers may return 503 with status "degraded" — opt in:
+const degraded = await client.health({ allowDegraded: true });
 
 try {
-  await client.health();
+  await client.getNote(1);
 } catch (err) {
   if (err instanceof Nene2ClientError && err.problem) {
     console.error(err.problem.title, err.problem.detail);
@@ -76,6 +80,17 @@ try {
 ```
 
 Works in Node 22+ and browsers that provide `fetch`.
+
+### Verify the API before live smoke
+
+Port `8080` is not always NENE2. Confirm the canonical health shape:
+
+```bash
+curl -sS http://localhost:8080/health | jq .
+# expect: { "status": "ok", "service": "NENE2" }
+```
+
+If you see a different JSON wrapper, point `NENE2_JS_API_BASE_URL` at a running NENE2 PHP instance (sibling `../NENE2`).
 
 **Multi-backend live smoke** (same client, OpenAPI contract — see [ADR 0003](docs/adr/0003-multi-backend-live-verification.md)):
 
@@ -87,7 +102,7 @@ export NENE2_JS_PYTHON_BASE_URL=http://localhost:8000   # optional: nene2-python
 npm test -- tests/client/live-smoke-matrix.test.ts
 ```
 
-Unset URLs are skipped; CI runs fixture tests only.
+Unset URLs are skipped; CI runs fixture tests only. Field-trial friction: [ADR 0004](docs/adr/0004-field-trial-friction-resolution-cycle.md).
 
 ## Contributing
 

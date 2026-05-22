@@ -26,6 +26,7 @@ const BACKENDS = [
 type ProbeOutcome = {
   readonly health: 'ok' | 'failed';
   readonly ping: 'ok' | 'failed';
+  readonly listNotes: 'ok' | 'skipped' | 'failed';
   readonly notes: string[];
 };
 
@@ -34,6 +35,7 @@ async function probeBackend(baseUrl: string): Promise<ProbeOutcome> {
   const notes: string[] = [];
   let health: ProbeOutcome['health'] = 'failed';
   let ping: ProbeOutcome['ping'] = 'failed';
+  let listNotes: ProbeOutcome['listNotes'] = 'skipped';
 
   try {
     const body = await client.health();
@@ -59,7 +61,21 @@ async function probeBackend(baseUrl: string): Promise<ProbeOutcome> {
     );
   }
 
-  return { health, ping, notes };
+  try {
+    const list = await client.listNotes({ limit: 1 });
+    listNotes = 'ok';
+    if (!Array.isArray(list.items)) {
+      notes.push('listNotes: missing items array');
+      listNotes = 'failed';
+    }
+  } catch (err) {
+    listNotes = 'failed';
+    notes.push(
+      `listNotes: ${err instanceof Nene2ClientError ? `${err.status} ${err.message}` : String(err)}`,
+    );
+  }
+
+  return { health, ping, listNotes, notes };
 }
 
 for (const backend of BACKENDS) {
@@ -72,6 +88,7 @@ for (const backend of BACKENDS) {
       if (backend.role === 'canonical') {
         expect(outcome.health, outcome.notes.join('; ')).toBe('ok');
         expect(outcome.ping, outcome.notes.join('; ')).toBe('ok');
+        expect(outcome.listNotes, outcome.notes.join('; ')).toBe('ok');
         const client = createNene2Client({ baseUrl: baseUrl! });
         const health = await client.health();
         expect(health.service).toBe('NENE2');
@@ -81,16 +98,16 @@ for (const backend of BACKENDS) {
       }
 
       // Parity: env was set intentionally — surface drift, do not hide failures
-      if (outcome.health !== 'ok' || outcome.ping !== 'ok') {
+      if (outcome.health !== 'ok' || outcome.ping !== 'ok' || outcome.listNotes === 'failed') {
         console.info(
-          `[${backend.id}] compatibility probe: health=${outcome.health} ping=${outcome.ping}`,
+          `[${backend.id}] compatibility probe: health=${outcome.health} ping=${outcome.ping} listNotes=${outcome.listNotes}`,
           outcome.notes,
         );
       }
       expect(
-        { health: outcome.health, ping: outcome.ping },
+        { health: outcome.health, ping: outcome.ping, listNotes: outcome.listNotes },
         `OpenAPI contract mismatch — record in docs/field-trials/ and track in ${backend.label}: ${outcome.notes.join('; ')}`,
-      ).toEqual({ health: 'ok', ping: 'ok' });
+      ).toEqual({ health: 'ok', ping: 'ok', listNotes: 'ok' });
     });
   });
 }

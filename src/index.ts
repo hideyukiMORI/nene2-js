@@ -30,5 +30,20 @@ export {
   type Nene2Client,
   type Nene2ClientConfig,
 } from './client/index.js';
-export type { ExamplePingResponse, HealthResponse, HealthStatus } from './types/index.js';
-export { isExamplePingResponse, isHealthResponse } from './types/index.js';
+export type {
+  CreateNoteRequest,
+  ExampleNote,
+  ExampleNoteListResponse,
+  ExamplePingResponse,
+  HealthResponse,
+  HealthStatus,
+  ListNotesParams,
+} from './types/index.js';
+export {
+  isCreateNoteRequest,
+  isExampleNoteListResponse,
+  isExampleNoteResponse,
+  isExamplePingResponse,
+  isHealthResponse,
+} from './types/index.js';
+export type { HealthOptions } from './client/create-nene2-client.js';
