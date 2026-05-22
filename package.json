@@ -24,6 +24,10 @@
     "type": "git",
     "url": "git+https://github.com/hideyukiMORI/nene2-js.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "engines": {
     "node": ">=22 <25",
     "npm": ">=10 <12"
