@@ -1,14 +1,14 @@
 # Current work
 
-Last updated: 2026-05-22 (JST)
+Last updated: 2026-05-23 (JST)
 
 ## Active
 
-- [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡
-- [ ] **#86 guard codegen** — close epic after VitePress locale docs (PR pending)
+- [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡（残: criterion 1 — 0.1.x 安定観測）
 
 ## Completed (recent)
 
+- [x] [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) / [#88](https://github.com/hideyukiMORI/nene2-js/pull/88) · [#89](https://github.com/hideyukiMORI/nene2-js/pull/89) · [#90](https://github.com/hideyukiMORI/nene2-js/pull/90) — guard codegen epic + VitePress 全ロケール
 - [x] [#82](https://github.com/hideyukiMORI/nene2-js/issues/82) / [#83](https://github.com/hideyukiMORI/nene2-js/pull/83) — docs FT31–34 / 0.1.4 sync
 
 - [x] [#77](https://github.com/hideyukiMORI/nene2-js/issues/77) / [#78](https://github.com/hideyukiMORI/nene2-js/pull/78) — npm **0.1.3** (`OpenApiPaths`, pack smoke)
