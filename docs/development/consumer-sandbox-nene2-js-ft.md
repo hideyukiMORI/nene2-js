@@ -8,32 +8,32 @@ Answer: can a blank-slate implementer (especially an AI agent) ship a working ap
 
 ## Apps
 
-| App              | Path                        | APIs exercised                                       |
-| ---------------- | --------------------------- | ---------------------------------------------------- |
-| Notes Console    | `apps/notes-console/`       | notes CRUD, `strictService`, 422 field errors        |
-| Tags Studio      | `apps/tags-studio/`         | tags CRUD, `ping`, `strictService`                   |
-| Health Board     | `apps/health-board/`        | Node CLI: `smoke`, `frameworkSmoke`, `machineHealth` |
-| Protected smoke  | `apps/protected-smoke/`     | `getProtected`, `machineHealth` (evac API key + JWT) |
-| Notes Editor     | `apps/notes-editor/`        | `getNote`, `updateNote`, list/create                 |
-| Tags Editor      | `apps/tags-editor/`         | `getTag`, `updateTag` (CLI smoke)                    |
-| Degraded probe   | `apps/degraded-probe/`      | `health({ allowDegraded: true })`                    |
-| Pagination probe | `apps/pagination-probe/`    | `listNotes` limit/offset                             |
-| Ops Dashboard    | `apps/ops-dashboard/`       | tabs, parallel fetch, dual 422 forms, activity log   |
-| CRUD Workbench   | `apps/crud-workbench/`      | master-detail notes, dirty save, delete confirm      |
-| Friction probe   | `apps/friction-probe/`      | CLI probes (wrong port, 422, auth, pagination)       |
-| Race dashboard   | `apps/race-dashboard/`      | parallel listNotes, AbortSignal, backend switch      |
-| Error lab        | `apps/error-lab/`           | 404 / 422 / 401 Problem Details viewer               |
-| Auth console     | `apps/auth-console/`        | JWT mint (Web Crypto) + machineHealth / protected    |
-| Dual workbench   | `apps/dual-workbench/`      | notes + tags split pane, backend switch              |
-| Health toggles   | `apps/health-toggles/`      | health strict / default / allowDegraded              |
-| Tombstone        | `apps/tombstone-workbench/` | stale UI cache vs 404 after delete                   |
-| Cancel lab       | `apps/cancel-lab/`          | AbortSignal cancel in-flight list                    |
-| System console   | `apps/system-console/`      | frameworkSmoke, smoke(), limit=0 422                 |
-| Query lab        | `apps/query-lab/`           | listNotes limit/offset form                          |
+| App              | Path                        | APIs exercised                                         |
+| ---------------- | --------------------------- | ------------------------------------------------------ |
+| Notes Console    | `apps/notes-console/`       | notes CRUD, `strictService`, 422 field errors          |
+| Tags Studio      | `apps/tags-studio/`         | tags CRUD, `ping`, `strictService`                     |
+| Health Board     | `apps/health-board/`        | Node CLI: `smoke`, `frameworkSmoke`, `machineHealth`   |
+| Protected smoke  | `apps/protected-smoke/`     | `getProtected`, `machineHealth` (evac API key + JWT)   |
+| Notes Editor     | `apps/notes-editor/`        | `getNote`, `updateNote`, list/create                   |
+| Tags Editor      | `apps/tags-editor/`         | `getTag`, `updateTag` (CLI smoke)                      |
+| Degraded probe   | `apps/degraded-probe/`      | `health({ allowDegraded: true })`                      |
+| Pagination probe | `apps/pagination-probe/`    | `listNotes` limit/offset                               |
+| Ops Dashboard    | `apps/ops-dashboard/`       | tabs, parallel fetch, dual 422 forms, activity log     |
+| CRUD Workbench   | `apps/crud-workbench/`      | master-detail notes, dirty save, delete confirm        |
+| Friction probe   | `apps/friction-probe/`      | CLI probes (wrong port, 422, auth, pagination)         |
+| Race dashboard   | `apps/race-dashboard/`      | parallel listNotes, AbortSignal, backend switch        |
+| Error lab        | `apps/error-lab/`           | 404 / 422 / 401 Problem Details viewer                 |
+| Auth console     | `apps/auth-console/`        | JWT mint (Web Crypto) + machineHealth / protected      |
+| Dual workbench   | `apps/dual-workbench/`      | notes + tags split pane, backend switch                |
+| Health toggles   | `apps/health-toggles/`      | health strict / default / allowDegraded                |
+| Tombstone        | `apps/tombstone-workbench/` | stale UI cache vs 404 after delete                     |
+| Cancel lab       | `apps/cancel-lab/`          | AbortSignal cancel in-flight list                      |
+| System console   | `apps/system-console/`      | frameworkSmoke, smoke(), limit=0 422                   |
+| Query lab        | `apps/query-lab/`           | listNotes limit/offset form                            |
 | Types smoke      | `apps/types-smoke/`         | npm guards + `OpenApiPaths` + `RateLimitInfo` (@0.1.4) |
-| Tag CRUD lab     | `apps/tag-crud-lab/`        | updateTag empty name 422                             |
-| Config lab       | `apps/config-lab/`          | apiKey / bearer config matrix                        |
-| Rate limit lab   | `apps/rate-limit-lab/`      | mock 429 → `error.rateLimit` (#80)                   |
+| Tag CRUD lab     | `apps/tag-crud-lab/`        | updateTag empty name 422                               |
+| Config lab       | `apps/config-lab/`          | apiKey / bearer config matrix                          |
+| Rate limit lab   | `apps/rate-limit-lab/`      | mock 429 → `error.rateLimit` (#80)                     |
 
 ## Backends (evac)
 
