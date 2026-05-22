@@ -52,7 +52,8 @@
     "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run codegen:check && npm run build && npm run test && npm run pack:smoke",
     "docs:dev": "vitepress dev --port 5175",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview --port 5175"
+    "docs:preview": "vitepress preview --port 5175",
+    "verify:backends": "bash scripts/verify-backends.sh"
   },
   "keywords": [
     "nene2",
