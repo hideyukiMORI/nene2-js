@@ -846,8 +846,19 @@ add({
   personaB: pb,
 });
 
-if (FT_CATALOG.length !== 100) {
-  throw new Error(`FT catalog must have 100 entries, got ${FT_CATALOG.length}`);
+import { buildDocsOnboardingTemplates } from './generate-docs-onboarding-catalog.mjs';
+
+let onbFt = 130;
+for (const tmpl of buildDocsOnboardingTemplates()) {
+  FT_CATALOG.push({ ft: onbFt, ...tmpl });
+  onbFt += 1;
 }
 
-export const FT_RANGE = { start: 30, end: 129, issue: 31 };
+export const MARATHON_SIZE = 200;
+
+if (FT_CATALOG.length !== MARATHON_SIZE) {
+  throw new Error(`FT catalog must have ${MARATHON_SIZE} entries, got ${FT_CATALOG.length}`);
+}
+
+export const FT_RANGE = { start: 30, end: 30 + MARATHON_SIZE - 1, issue: 45 };
+export const FT_ONBOARDING_RANGE = { start: 130, end: 229, issue: 45 };

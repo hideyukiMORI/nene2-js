@@ -9,13 +9,19 @@ import { FT_CATALOG, FT_RANGE } from './catalog.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const reportsDir = resolve(__dirname, '../../docs/field-trials');
-const issue = FT_RANGE.issue ?? 31;
+function issueForFt(ft) {
+  if (ft >= 130) return 45;
+  if (ft >= 30) return 31;
+  return 30;
+}
 
 for (const e of FT_CATALOG) {
+  const issue = issueForFt(e.ft);
+  const batch = e.ft >= 130 ? 'docs onboarding 100' : e.ft >= 30 ? 'marathon 100' : 'legacy';
   const md = `# FT${e.ft}: ${e.theme}
 
 **Date**: 2026-05-22  
-**Issues / PRs**: [#${issue}](https://github.com/hideyukiMORI/nene2-js/issues/${issue}) (marathon 100)
+**Issues / PRs**: [#${issue}](https://github.com/hideyukiMORI/nene2-js/issues/${issue}) (${batch})
 
 ---
 
@@ -64,10 +70,10 @@ const rows1to29 = existingRows
   .filter((line) => line.startsWith('|') && !line.includes('---') && !line.includes('FT  |'))
   .slice(0, 29);
 
-const newRows = FT_CATALOG.map(
-  (e) =>
-    `| ${e.ft}  | [2026-05-field-trial-${e.ft}.md](2026-05-field-trial-${e.ft}.md) | ${e.theme.slice(0, 48)} | done | #${issue} |`,
-);
+const newRows = FT_CATALOG.map((e) => {
+  const issue = issueForFt(e.ft);
+  return `| ${e.ft}  | [2026-05-field-trial-${e.ft}.md](2026-05-field-trial-${e.ft}.md) | ${e.theme.slice(0, 48)} | done | #${issue} |`;
+});
 
 const table = `| FT  | Report | Theme | Status | Friction |
 | --- | ------ | ----- | ------ | -------- |
@@ -81,7 +87,7 @@ writeFileSync(
   `${prefix}${table}
 ${footer.replace(
   /Marathon batch:.*/,
-  `Marathon batch: Issue [#${issue}](https://github.com/hideyukiMORI/nene2-js/issues/${issue}) (FT${FT_RANGE.start}–${FT_RANGE.end}). Run \`npm run test:ft-marathon\`.`,
+  `Marathon: FT30–129 [#31](https://github.com/hideyukiMORI/nene2-js/issues/31), FT130–229 docs onboarding [#45](https://github.com/hideyukiMORI/nene2-js/issues/45). Run \`npm run test:ft-marathon\`.`,
 )}`,
 );
 

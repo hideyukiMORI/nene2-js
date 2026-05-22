@@ -11,7 +11,10 @@ type NavLabels = {
 type SidebarLabels = {
   tutorialGroup: string;
   gettingStarted: string;
+  blankSlate: string;
   howtoGroup: string;
+  installNene2: string;
+  installPython: string;
   liveSmoke: string;
   openapiCodegen: string;
   explGroup: string;
@@ -67,13 +70,18 @@ function sidebar(t: SidebarLabels, p: string = '') {
     [`${p}/tutorial/`]: [
       {
         text: t.tutorialGroup,
-        items: [{ text: t.gettingStarted, link: `${p}/tutorial/getting-started` }],
+        items: [
+          { text: t.gettingStarted, link: `${p}/tutorial/getting-started` },
+          { text: t.blankSlate, link: `${p}/tutorial/blank-slate-journey` },
+        ],
       },
     ],
     [`${p}/howto/`]: [
       {
         text: t.howtoGroup,
         items: [
+          { text: t.installNene2, link: `${p}/howto/install-nene2` },
+          { text: t.installPython, link: `${p}/howto/install-nene2-python` },
           { text: t.liveSmoke, link: `${p}/howto/live-smoke` },
           { text: t.openapiCodegen, link: `${p}/howto/openapi-codegen` },
         ],
@@ -119,7 +127,10 @@ const enNav: NavLabels = {
 const enSide: SidebarLabels = {
   tutorialGroup: 'Tutorial',
   gettingStarted: 'Getting started',
+  blankSlate: 'Blank-slate journey',
   howtoGroup: 'HOWTO',
+  installNene2: 'Install NENE2 (PHP)',
+  installPython: 'Install nene2-python',
   liveSmoke: 'Live smoke against NENE2',
   openapiCodegen: 'OpenAPI sync & codegen',
   explGroup: 'Explanation',
@@ -145,7 +156,10 @@ const jaNav: NavLabels = {
 const jaSide: SidebarLabels = {
   tutorialGroup: 'チュートリアル',
   gettingStarted: 'はじめに',
+  blankSlate: '知識ゼロの全体像',
   howtoGroup: 'HOWTO',
+  installNene2: 'NENE2 (PHP) の起動',
+  installPython: 'nene2-python の起動',
   liveSmoke: 'NENE2 への live smoke',
   openapiCodegen: 'OpenAPI 同期と codegen',
   explGroup: '解説',
@@ -171,7 +185,10 @@ const frNav: NavLabels = {
 const frSide: SidebarLabels = {
   tutorialGroup: 'Tutoriel',
   gettingStarted: 'Premiers pas',
+  blankSlate: 'Parcours débutant',
   howtoGroup: 'Guides pratiques',
+  installNene2: 'Installer NENE2',
+  installPython: 'Installer nene2-python',
   liveSmoke: 'Smoke test en direct',
   openapiCodegen: 'Sync OpenAPI & codegen',
   explGroup: 'Explication',
@@ -197,7 +214,10 @@ const zhNav: NavLabels = {
 const zhSide: SidebarLabels = {
   tutorialGroup: '教程',
   gettingStarted: '入门',
+  blankSlate: '零基础路径',
   howtoGroup: '操作指南',
+  installNene2: '安装 NENE2',
+  installPython: '安装 nene2-python',
   liveSmoke: 'NENE2 实时冒烟',
   openapiCodegen: 'OpenAPI 同步与 codegen',
   explGroup: '说明',
@@ -223,7 +243,10 @@ const ptNav: NavLabels = {
 const ptSide: SidebarLabels = {
   tutorialGroup: 'Tutorial',
   gettingStarted: 'Primeiros passos',
+  blankSlate: 'Jornada do zero',
   howtoGroup: 'Guias práticos',
+  installNene2: 'Instalar NENE2',
+  installPython: 'Instalar nene2-python',
   liveSmoke: 'Smoke test ao vivo',
   openapiCodegen: 'Sync OpenAPI & codegen',
   explGroup: 'Explicação',
@@ -249,7 +272,10 @@ const deNav: NavLabels = {
 const deSide: SidebarLabels = {
   tutorialGroup: 'Tutorial',
   gettingStarted: 'Erste Schritte',
+  blankSlate: 'Einstieg ohne Vorwissen',
   howtoGroup: 'Anleitungen',
+  installNene2: 'NENE2 installieren',
+  installPython: 'nene2-python installieren',
   liveSmoke: 'Live-Smoke gegen NENE2',
   openapiCodegen: 'OpenAPI-Sync & Codegen',
   explGroup: 'Erklärung',
