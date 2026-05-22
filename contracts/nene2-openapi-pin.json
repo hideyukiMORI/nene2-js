@@ -1,0 +1,9 @@
+{
+  "nene2Repository": "https://github.com/hideyukiMORI/NENE2",
+  "nene2GitRef": "v1.5.98",
+  "sourcePath": "docs/openapi/openapi.yaml",
+  "openapiInfoVersion": "1.5.90",
+  "contractSha256": "71bf7efc2540e282aa047467d6bf9b8d3ee66bac4ff1181fd8a76af1dc50d9aa",
+  "syncedAt": "2026-05-22",
+  "syncedFrom": "../NENE2/docs/openapi/openapi.yaml"
+}

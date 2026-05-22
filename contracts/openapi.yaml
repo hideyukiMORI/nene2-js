@@ -1,0 +1,988 @@
+openapi: 3.1.0
+info:
+  title: NENE2 API
+  version: 1.5.90
+  description: >
+    NENE2 API contract. This file is the source of truth for public JSON APIs.
+servers:
+  - url: http://localhost:8080
+    description: Local Docker development server
+tags:
+  - name: System
+    description: Framework and runtime smoke endpoints.
+  - name: Examples
+    description: Domain layer example endpoints demonstrating the UseCase → Repository → Handler pattern.
+paths:
+  /:
+    get:
+      tags:
+        - System
+      summary: Framework smoke endpoint
+      description: Returns a minimal JSON response that confirms the NENE2 public entry point is working.
+      operationId: getFrameworkSmoke
+      responses:
+        '200':
+          description: Framework smoke response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrameworkSmokeResponse'
+              examples:
+                ok:
+                  summary: Successful smoke response
+                  value:
+                    name: NENE2
+                    description: JSON APIs first, minimal server HTML, frontend ready, AI-readable.
+                    status: ok
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /health:
+    get:
+      tags:
+        - System
+      summary: Health endpoint
+      description: >
+        Returns a JSON response for operational health checks.
+        When no health checks are configured the response is always 200.
+        When health checks are configured the response includes a `checks` map;
+        if any check fails the status is `degraded` and the HTTP status code is 503.
+      operationId: getHealth
+      responses:
+        '200':
+          description: All configured checks passed (or no checks configured).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                ok:
+                  summary: Healthy response (no checks)
+                  value:
+                    status: ok
+                    service: NENE2
+                ok_with_checks:
+                  summary: Healthy response (with checks)
+                  value:
+                    status: ok
+                    service: NENE2
+                    checks:
+                      database: ok
+        '503':
+          description: One or more health checks failed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                degraded:
+                  summary: Degraded response
+                  value:
+                    status: degraded
+                    service: NENE2
+                    checks:
+                      database: error
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /machine/health:
+    get:
+      tags:
+        - System
+      summary: Protected machine health endpoint
+      description: Returns health information for machine clients that provide a configured API key.
+      operationId: getMachineHealth
+      security:
+        - ApiKeyAuth:
+            - read:health
+      responses:
+        '200':
+          description: Machine health response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MachineHealthResponse'
+              examples:
+                ok:
+                  summary: Authenticated machine health response
+                  value:
+                    status: ok
+                    service: NENE2
+                    credential_type: api_key
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/protected:
+    get:
+      tags:
+        - Examples
+      summary: Protected example endpoint
+      description: Demonstrates BearerTokenMiddleware. Returns the authenticated user's JWT claims. Requires NENE2_LOCAL_JWT_SECRET to be set in the environment.
+      operationId: getProtected
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Authenticated response with JWT claims.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProtectedResponse'
+              examples:
+                ok:
+                  summary: Successful authenticated response
+                  value:
+                    message: Welcome, authenticated user.
+                    claims:
+                      sub: user-42
+                      scope: read:system
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/tags:
+    get:
+      tags:
+        - Examples
+      summary: List example tags
+      description: Returns a paginated list of tags. Demonstrates the collection endpoint pattern for a second domain entity.
+      operationId: listExampleTags
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of tags to return (1–100).
+          required: false
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          description: Number of tags to skip before returning results.
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: List of tags.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleTagListResponse'
+              examples:
+                ok:
+                  summary: Successful list tags response
+                  value:
+                    items:
+                      - id: 1
+                        name: php
+                    limit: 20
+                    offset: 0
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Examples
+      summary: Create example tag
+      description: Creates a new tag. Demonstrates the POST write path for a second domain entity.
+      operationId: createExampleTag
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+            examples:
+              valid:
+                summary: Valid create tag request
+                value:
+                  name: php
+      responses:
+        '201':
+          description: Tag created.
+          headers:
+            Location:
+              description: URI of the created tag.
+              schema:
+                type: string
+                example: /examples/tags/1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleTagResponse'
+              examples:
+                created:
+                  summary: Successful create tag response
+                  value:
+                    id: 1
+                    name: php
+        '400':
+          $ref: '#/components/responses/InvalidJson'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/tags/{id}:
+    get:
+      tags:
+        - Examples
+      summary: Get example tag by ID
+      description: Returns a single tag by ID. Returns 404 when the tag does not exist.
+      operationId: getExampleTagById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Tag ID.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: Tag found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleTagResponse'
+              examples:
+                ok:
+                  summary: Successful get tag response
+                  value:
+                    id: 1
+                    name: php
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Examples
+      summary: Update example tag
+      description: Updates a tag by ID. Replaces the name. Returns 200 with the updated tag on success.
+      operationId: updateExampleTagById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Tag ID.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTagRequest'
+            examples:
+              update:
+                summary: Update tag request
+                value:
+                  name: php8
+      responses:
+        '200':
+          description: Tag updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleTagResponse'
+              examples:
+                ok:
+                  summary: Successful update response
+                  value:
+                    id: 1
+                    name: php8
+        '400':
+          $ref: '#/components/responses/InvalidJson'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Examples
+      summary: Delete example tag
+      description: Deletes a tag by ID. Returns 204 on success, 404 if the tag does not exist.
+      operationId: deleteExampleTagById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Tag ID.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '204':
+          description: Tag deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/notes:
+    get:
+      tags:
+        - Examples
+      summary: List example notes
+      description: Returns a paginated list of notes. Demonstrates the collection endpoint pattern with limit/offset query parameters.
+      operationId: listExampleNotes
+      parameters:
+        - name: limit
+          in: query
+          description: Maximum number of notes to return (1–100).
+          required: false
+          schema:
+            type: integer
+            default: 20
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          description: Number of notes to skip before returning results.
+          required: false
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: List of notes.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleNoteListResponse'
+              examples:
+                ok:
+                  summary: Successful list notes response
+                  value:
+                    items:
+                      - id: 1
+                        title: Example Note
+                        body: This is the body of an example note.
+                    limit: 20
+                    offset: 0
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Examples
+      summary: Create example note
+      description: Creates a new note. Demonstrates the POST → UseCase → Repository write path with body validation.
+      operationId: createExampleNote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoteRequest'
+            examples:
+              valid:
+                summary: Valid create note request
+                value:
+                  title: Example Note
+                  body: This is the body of an example note.
+      responses:
+        '201':
+          description: Note created.
+          headers:
+            Location:
+              description: URI of the created note.
+              schema:
+                type: string
+                example: /examples/notes/1
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleNoteResponse'
+              examples:
+                created:
+                  summary: Successful create note response
+                  value:
+                    id: 1
+                    title: Example Note
+                    body: This is the body of an example note.
+        '400':
+          $ref: '#/components/responses/InvalidJson'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/notes/{id}:
+    get:
+      tags:
+        - Examples
+      summary: Example note endpoint
+      description: Returns a single note by id. Demonstrates the UseCase → Repository → Handler domain layer pattern.
+      operationId: getExampleNoteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Note id.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 1
+      responses:
+        '200':
+          description: Note response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleNoteResponse'
+              examples:
+                ok:
+                  summary: Successful note response
+                  value:
+                    id: 1
+                    title: Example Note
+                    body: This is the body of an example note.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - Examples
+      summary: Update example note
+      description: Updates a note by id. Replaces title and body. Returns 200 with the updated note on success.
+      operationId: updateExampleNoteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Note id.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoteRequest'
+            examples:
+              update:
+                summary: Update note request
+                value:
+                  title: Updated Title
+                  body: Updated body content.
+      responses:
+        '200':
+          description: Note updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleNoteResponse'
+              examples:
+                ok:
+                  summary: Successful update response
+                  value:
+                    id: 1
+                    title: Updated Title
+                    body: Updated body content.
+        '400':
+          $ref: '#/components/responses/InvalidJson'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '422':
+          $ref: '#/components/responses/ValidationFailed'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - Examples
+      summary: Delete example note
+      description: Deletes a note by id. Returns 204 on success, 404 if the note does not exist.
+      operationId: deleteExampleNoteById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Note id.
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+          example: 1
+      responses:
+        '204':
+          description: Note deleted.
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /examples/ping:
+    get:
+      tags:
+        - System
+      summary: Example ping endpoint
+      description: Returns a minimal response used to exercise the endpoint scaffold workflow.
+      operationId: getExamplePing
+      responses:
+        '200':
+          description: Example ping response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExamplePingResponse'
+              examples:
+                ok:
+                  summary: Successful example ping response
+                  value:
+                    message: pong
+                    status: ok
+        '413':
+          $ref: '#/components/responses/PayloadTooLarge'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-NENE2-API-Key
+      description: API key for machine clients. Do not commit real key values.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: HS256 JWT for user or service authentication. Wire a TokenVerifierInterface implementation to enable.
+  responses:
+    InvalidJson:
+      description: Request body is empty, syntactically invalid, or not a JSON object.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            invalidJson:
+              summary: Invalid JSON body
+              value:
+                type: https://nene2.dev/problems/invalid-json
+                title: Invalid JSON
+                status: 400
+                detail: Request body contains invalid JSON.
+                instance: /examples/notes
+    TooManyRequests:
+      description: Rate limit exceeded.
+      headers:
+        Retry-After:
+          description: Seconds until the rate limit window resets.
+          schema:
+            type: integer
+            example: 60
+        X-RateLimit-Limit:
+          description: Maximum requests allowed in the current window.
+          schema:
+            type: integer
+            example: 60
+        X-RateLimit-Remaining:
+          description: Requests remaining in the current window.
+          schema:
+            type: integer
+            example: 0
+        X-RateLimit-Reset:
+          description: Unix timestamp when the rate limit window resets.
+          schema:
+            type: integer
+            example: 1716048060
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            tooManyRequests:
+              summary: Rate limit exceeded
+              value:
+                type: https://nene2.dev/problems/too-many-requests
+                title: Too Many Requests
+                status: 429
+                detail: Rate limit exceeded. Please retry after 60 seconds.
+                instance: /examples/notes
+    Unauthorized:
+      description: A valid API key is required for this endpoint.
+      headers:
+        WWW-Authenticate:
+          description: API-key challenge for machine clients.
+          schema:
+            type: string
+            example: ApiKey realm="NENE2", header="X-NENE2-API-Key"
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            unauthorized:
+              summary: Missing or invalid API key
+              value:
+                type: https://nene2.dev/problems/unauthorized
+                title: Unauthorized
+                status: 401
+                detail: A valid API key is required for this endpoint.
+                instance: /machine/health
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            notFound:
+              summary: Resource not found
+              value:
+                type: https://nene2.dev/problems/not-found
+                title: Not Found
+                status: 404
+                detail: The requested resource was not found.
+                instance: /missing
+    MethodNotAllowed:
+      description: The requested resource does not support this HTTP method.
+      headers:
+        Allow:
+          description: Comma-separated list of allowed HTTP methods.
+          schema:
+            type: string
+            example: GET
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            methodNotAllowed:
+              summary: Method not allowed
+              value:
+                type: https://nene2.dev/problems/method-not-allowed
+                title: Method Not Allowed
+                status: 405
+                detail: The requested resource does not support this HTTP method.
+                instance: /
+    ValidationFailed:
+      description: The request body, query, or path parameters contain invalid values.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ValidationProblemDetails'
+          examples:
+            validationFailed:
+              summary: Validation failed
+              value:
+                type: https://nene2.dev/problems/validation-failed
+                title: Validation Failed
+                status: 422
+                detail: The request body contains invalid values.
+                errors:
+                  - field: email
+                    message: Email must be a valid email address.
+                    code: invalid_email
+    PayloadTooLarge:
+      description: The request body exceeds the configured size limit.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            payloadTooLarge:
+              summary: Payload too large
+              value:
+                type: https://nene2.dev/problems/payload-too-large
+                title: Payload Too Large
+                status: 413
+                detail: The request body exceeds the configured size limit.
+                instance: /upload
+                max_body_bytes: 1048576
+    InternalServerError:
+      description: The server encountered an unexpected condition.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          examples:
+            internalServerError:
+              summary: Internal server error
+              value:
+                type: https://nene2.dev/problems/internal-server-error
+                title: Internal Server Error
+                status: 500
+                detail: The server encountered an unexpected condition.
+  schemas:
+    ProblemDetails:
+      type: object
+      description: RFC 9457 Problem Details response for NENE2 JSON APIs.
+      required:
+        - type
+        - title
+        - status
+      properties:
+        type:
+          type: string
+          format: uri
+          description: Stable problem type URI.
+          example: https://nene2.dev/problems/not-found
+        title:
+          type: string
+          description: Short, human-readable summary of the problem type.
+          example: Not Found
+        status:
+          type: integer
+          format: int32
+          minimum: 400
+          maximum: 599
+          description: HTTP status code for this occurrence.
+          example: 404
+        detail:
+          type: string
+          description: Safe, human-readable detail for this occurrence.
+          example: The requested resource was not found.
+        instance:
+          type: string
+          description: Request-specific URI or identifier for this occurrence.
+          example: /missing
+      additionalProperties: true
+    ValidationProblemDetails:
+      allOf:
+        - $ref: '#/components/schemas/ProblemDetails'
+        - type: object
+          description: Problem Details response for request validation failures.
+          required:
+            - errors
+          properties:
+            errors:
+              type: array
+              minItems: 1
+              items:
+                $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      description: A single request validation error.
+      required:
+        - field
+        - message
+        - code
+      properties:
+        field:
+          type: string
+          description: Field name, parameter name, or JSON pointer.
+          example: email
+        message:
+          type: string
+          description: Safe, human-readable validation message.
+          example: Email must be a valid email address.
+        code:
+          type: string
+          description: Stable machine-readable validation code.
+          example: invalid_email
+      additionalProperties: false
+    FrameworkSmokeResponse:
+      type: object
+      required:
+        - name
+        - description
+        - status
+      properties:
+        name:
+          type: string
+          example: NENE2
+        description:
+          type: string
+          example: JSON APIs first, minimal server HTML, frontend ready, AI-readable.
+        status:
+          type: string
+          enum:
+            - ok
+          example: ok
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - service
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+            - degraded
+          example: ok
+        service:
+          type: string
+          example: NENE2
+        checks:
+          type: object
+          description: >
+            Present only when health checks are configured.
+            Each key is a check name; each value is "ok" or "error".
+          additionalProperties:
+            type: string
+            enum:
+              - ok
+              - error
+          example:
+            database: ok
+    MachineHealthResponse:
+      type: object
+      required:
+        - status
+        - service
+        - credential_type
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+          example: ok
+        service:
+          type: string
+          example: NENE2
+        credential_type:
+          type: string
+          enum:
+            - api_key
+          example: api_key
+    ExamplePingResponse:
+      type: object
+      required:
+        - message
+        - status
+      properties:
+        message:
+          type: string
+          enum:
+            - pong
+          example: pong
+        status:
+          type: string
+          enum:
+            - ok
+          example: ok
+    CreateNoteRequest:
+      type: object
+      required:
+        - title
+        - body
+      properties:
+        title:
+          type: string
+          minLength: 1
+          example: Example Note
+        body:
+          type: string
+          minLength: 1
+          example: This is the body of an example note.
+      additionalProperties: false
+    ExampleNoteResponse:
+      type: object
+      required:
+        - id
+        - title
+        - body
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        title:
+          type: string
+          example: Example Note
+        body:
+          type: string
+          example: This is the body of an example note.
+    CreateTagRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          example: php
+      additionalProperties: false
+    ExampleTagResponse:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: php
+    ExampleTagListResponse:
+      type: object
+      required:
+        - items
+        - limit
+        - offset
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleTagResponse'
+        limit:
+          type: integer
+          example: 20
+        offset:
+          type: integer
+          example: 0
+    ProtectedResponse:
+      type: object
+      required:
+        - message
+        - claims
+      properties:
+        message:
+          type: string
+          example: Welcome, authenticated user.
+        claims:
+          type: object
+          additionalProperties: true
+          example:
+            sub: user-42
+            scope: read:system
+    ExampleNoteListResponse:
+      type: object
+      required:
+        - items
+        - limit
+        - offset
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExampleNoteResponse'
+        limit:
+          type: integer
+          example: 20
+        offset:
+          type: integer
+          example: 0

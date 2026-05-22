@@ -20,7 +20,9 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
     "test": "vitest run",
-    "check": "npm run type-check && npm run lint && npm run format && npm run test"
+    "contracts:sync": "node tools/sync-openapi.mjs",
+    "contracts:check": "node tools/sync-openapi.mjs --check",
+    "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run test"
   },
   "keywords": [
     "nene2",
