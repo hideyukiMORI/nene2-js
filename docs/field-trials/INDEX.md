@@ -11,5 +11,8 @@ Methodology: `docs/development/field-trials.md` · Template: `docs/templates/fie
 | 4   | [2026-05-field-trial-4.md](2026-05-field-trial-4.md) | `getProtected` + bearer forwarding                 | done   | #19       |
 | 5   | [2026-05-field-trial-5.md](2026-05-field-trial-5.md) | `updateNote` / `deleteNote` + evac-port live smoke | done   | #21       |
 | 6   | [2026-05-field-trial-6.md](2026-05-field-trial-6.md) | Example tags CRUD                                  | done   | #23       |
+| 7   | [2026-05-field-trial-7.md](2026-05-field-trial-7.md) | Live JWT `getProtected` on evac port               | done   | #25       |
+| 8   | [2026-05-field-trial-8.md](2026-05-field-trial-8.md) | Live notes CRUD on evac port                       | done   | #26       |
+| 9   | [2026-05-field-trial-9.md](2026-05-field-trial-9.md) | Live tags CRUD on evac port                        | done   | #27       |
 
 **`done`** = friction resolution cycle complete (Issues merged or explicitly deferred). See [field-trials.md § Friction resolution cycle](../development/field-trials.md#friction-resolution-cycle-mandatory).
