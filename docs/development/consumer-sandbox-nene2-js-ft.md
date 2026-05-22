@@ -8,11 +8,12 @@ Answer: can a blank-slate implementer (especially an AI agent) ship a working ap
 
 ## Apps
 
-| App           | Path                  | APIs exercised                                |
-| ------------- | --------------------- | --------------------------------------------- |
-| Notes Console | `apps/notes-console/` | notes CRUD, `strictService`, 422 field errors |
-| Tags Studio   | `apps/tags-studio/`   | tags CRUD, `ping`, `strictService`            |
-| Health Board  | `apps/health-board/`  | Node CLI: `smoke`, `frameworkSmoke`, `machineHealth` |
+| App             | Path                    | APIs exercised                                       |
+| --------------- | ----------------------- | ---------------------------------------------------- |
+| Notes Console   | `apps/notes-console/`   | notes CRUD, `strictService`, 422 field errors        |
+| Tags Studio     | `apps/tags-studio/`     | tags CRUD, `ping`, `strictService`                   |
+| Health Board    | `apps/health-board/`    | Node CLI: `smoke`, `frameworkSmoke`, `machineHealth` |
+| Protected smoke | `apps/protected-smoke/` | `getProtected`, `machineHealth` (evac API key + JWT) |
 
 ## Backends (evac)
 
