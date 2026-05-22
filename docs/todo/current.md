@@ -5,6 +5,7 @@ Last updated: 2026-05-22 (Phase 3 types migration)
 ## Active
 
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
+- [x] npm `0.1.1` — Phase 3 types/codegen (see [releases.md](development/releases.md))
 
 ## Completed
 
