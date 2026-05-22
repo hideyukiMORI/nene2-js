@@ -22,8 +22,9 @@
 ## 経路 B — nene2-python ファースト
 
 1. [nene2-python を起動](../howto/install-nene2-python) → `http://localhost:8000`
-2. 同じ npm クライアント、`baseUrl` だけ 8000
-3. 続けて PHP NENE2 を :8080 で起動し、マトリクス比較（`NENE2_JS_PYTHON_BASE_URL`）
+2. 同じ npm クライアント、`baseUrl` だけ 8000（パスは `/examples/notes` など OpenAPI 準拠）
+3. `await client.health({ strictService: true })` でポート取り違えを検出
+4. 続けて PHP NENE2 を :8080 で起動し、マトリクス比較（`NENE2_JS_PYTHON_BASE_URL`）
 
 ## 経路 C — evac / フィールドトライアル
 
