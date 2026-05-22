@@ -1,3 +1,4 @@
+import { finalizeHealthResponse } from './health.js';
 import { resolveConfig, type Nene2ClientConfig } from './config.js';
 import { withQuery } from './path.js';
 import { deleteNoContent, getJson, postJson, putJson } from './request.js';
@@ -35,6 +36,10 @@ export type HealthOptions = {
    * Matches OpenAPI `getHealth` degraded response.
    */
   readonly allowDegraded?: boolean;
+  /**
+   * When true, reject `service` values other than `NENE2` after a successful JSON parse (port / baseUrl mix-ups).
+   */
+  readonly strictService?: boolean;
 };
 
 /**
@@ -138,11 +143,12 @@ export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
 
   return {
     frameworkSmoke: () => getJson(resolved, '/', isFrameworkSmokeResponse),
-    health: (options) => {
-      if (options?.allowDegraded) {
-        return getJson(resolved, '/health', isHealthResponse, { alsoOkStatuses: [503] });
-      }
-      return getJson(resolved, '/health', isHealthResponse);
+    health: async (options) => {
+      const url = `${resolved.baseUrl}/health`;
+      const body = options?.allowDegraded
+        ? await getJson(resolved, '/health', isHealthResponse, { alsoOkStatuses: [503] })
+        : await getJson(resolved, '/health', isHealthResponse);
+      return finalizeHealthResponse(body, url, options?.strictService);
     },
     machineHealth: () => getJson(resolved, '/machine/health', isMachineHealthResponse),
     ping: () => getJson(resolved, '/examples/ping', isExamplePingResponse),

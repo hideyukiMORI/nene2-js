@@ -171,8 +171,11 @@ const CLIENT_HANDLERS: Record<string, () => void | Promise<void>> = {
   },
   health_wrong_service: async () => {
     const c = client(BASE, () => Promise.resolve(jsonResponse({ status: 'ok', service: 'OTHER' })));
-    // Friction F-45-1: client does not reject non-NENE2 service (Issue #46)
     expect((await c.health()).service).toBe('OTHER');
+    await expect(c.health({ strictService: true })).rejects.toMatchObject({
+      message: /health\.service/,
+      status: 200,
+    });
   },
   notes_list_fixture: async () => {
     const c = client(BASE, () =>

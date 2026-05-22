@@ -1,17 +1,19 @@
 # Current work
 
-Last updated: 2026-05-22 (Phase 3 types migration)
+Last updated: 2026-05-22
 
 ## Active
 
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
-- [x] npm `0.1.1` — Phase 3 types/codegen (see [releases.md](development/releases.md))
+- [ ] Local app FT — `../nene2-js-FT/apps/notes-console` (blank-slate AI, live NENE2)
+- [ ] PR [#48](https://github.com/hideyukiMORI/nene2-js/pull/48) — `health({ strictService: true })` (#46)
 
 ## Completed
 
 - [x] Phase 1 — contract baseline, FT1–129
 - [x] Phase 2 — npm `0.1.0`, Trusted Publisher
 - [x] [#37](https://github.com/hideyukiMORI/nene2-js/issues/37) Phase 3 — codegen + `src/types/schemas.ts` migration
+- [x] [#45](https://github.com/hideyukiMORI/nene2-js/issues/45) / PR [#47](https://github.com/hideyukiMORI/nene2-js/pull/47) — FT130–229 docs onboarding + full-granularity reports
 
 ## Handoff
 
