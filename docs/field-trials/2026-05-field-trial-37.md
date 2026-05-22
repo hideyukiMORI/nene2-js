@@ -16,15 +16,15 @@ health 500 problem. Handler `health_500` (fixture, category `health`). Fixture /
 
 ## What was exercised
 
-| Item | Notes |
-| ---- | ----- |
-| Category | `health` |
-| Handler | `health_500` |
-| Mode | fixture |
-| Commands | `npm run test:ft-marathon` · optional `npm run ft:marathon` |
+| Item        | Notes                                                          |
+| ----------- | -------------------------------------------------------------- |
+| Category    | `health`                                                       |
+| Handler     | `health_500`                                                   |
+| Mode        | fixture                                                        |
+| Commands    | `npm run test:ft-marathon` · optional `npm run ft:marathon`    |
 | Client APIs | `createNene2Client`, Problem Details helpers (as per scenario) |
-| OpenAPI | Pinned NENE2 contract — see pin file |
-| Sandbox | `tests/fixtures/` + `tests/field-trials/` |
+| OpenAPI     | Pinned NENE2 contract — see pin file                           |
+| Sandbox     | `tests/fixtures/` + `tests/field-trials/`                      |
 
 ```text
 cd nene2-js
@@ -38,31 +38,31 @@ npm run test:ft-marathon -- -t "FT37"
 
 ## Application under test (nene2-js-FT)
 
-| Item | Value |
-| ---- | ----- |
-| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo |
-| App | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client` |
-| AI policy | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
-| This FT | SDK/docs verification — app FT starts at FT230 in nene2-js-FT |
+| Item            | Value                                                                                   |
+| --------------- | --------------------------------------------------------------------------------------- |
+| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo                   |
+| App             | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client`                      |
+| AI policy       | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
+| This FT         | SDK/docs verification — app FT starts at FT230 in nene2-js-FT                           |
 
 ---
 
 ## Backend compatibility
 
-| Backend | URL (example) | health | ping | notes CRUD | protected | Notes |
-| ------- | ------------- | ------ | ---- | ---------- | --------- | ----- |
-| NENE2 (PHP) | `http://localhost:8080` or evac `:18080` | n/a | n/a | n/a | n/a | Canonical |
-| nene2-python | `http://localhost:8000` or `:18000` | n/a | n/a | n/a | n/a | Parity |
-| nene2-node | `http://localhost:3000` | n/a | n/a | n/a | n/a | When available |
+| Backend      | URL (example)                            | health | ping | notes CRUD | protected | Notes          |
+| ------------ | ---------------------------------------- | ------ | ---- | ---------- | --------- | -------------- |
+| NENE2 (PHP)  | `http://localhost:8080` or evac `:18080` | n/a    | n/a  | n/a        | n/a       | Canonical      |
+| nene2-python | `http://localhost:8000` or `:18000`      | n/a    | n/a  | n/a        | n/a       | Parity         |
+| nene2-node   | `http://localhost:3000`                  | n/a    | n/a  | n/a        | n/a       | When available |
 
 ---
 
 ## Test results
 
-| Suite | Tests | Result |
-| ----- | ----- | ------ |
-| `ft-marathon` FT37 | 1 | PASS (automated) |
-| `npm run check` | full | run on PR |
+| Suite              | Tests | Result           |
+| ------------------ | ----- | ---------------- |
+| `ft-marathon` FT37 | 1     | PASS (automated) |
+| `npm run check`    | full  | run on PR        |
 
 ```text
 npm run test:ft-marathon -- -t "FT37"
@@ -163,10 +163,10 @@ Docker evac: `compose-ft-evac.yaml` + `:18080`。degraded health は `allowDegra
 
 ## Follow-up Issues (resolution tracker)
 
-| Repo | Issue | PR | Status |
-| ---- | ----- | -- | ------ |
-| hideyukiMORI/nene2-js | #31 | — | open / merged per batch |
-| hideyukiMORI/nene2-js | #46 | — | open (health.service) |
+| Repo                  | Issue | PR  | Status                  |
+| --------------------- | ----- | --- | ----------------------- |
+| hideyukiMORI/nene2-js | #31   | —   | open / merged per batch |
+| hideyukiMORI/nene2-js | #46   | —   | open (health.service)   |
 
 **FT completion:** done
 

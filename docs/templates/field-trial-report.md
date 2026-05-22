@@ -147,12 +147,12 @@
 
 ## Follow-up Issues (resolution tracker)
 
-| Repo                      | Issue | PR  | Status |
-| ------------------------- | ----- | --- | ------ |
-| hideyukiMORI/nene2-js     |       |     |        |
-| nene2-js-FT (local `../nene2-js-FT/`) | — | — | local sandbox only |
-| hideyukiMORI/NENE2        |       |     |        |
-| hideyukiMORI/nene2-python |       |     |        |
+| Repo                                  | Issue | PR  | Status             |
+| ------------------------------------- | ----- | --- | ------------------ |
+| hideyukiMORI/nene2-js                 |       |     |                    |
+| nene2-js-FT (local `../nene2-js-FT/`) | —     | —   | local sandbox only |
+| hideyukiMORI/NENE2                    |       |     |                    |
+| hideyukiMORI/nene2-python             |       |     |                    |
 
 **FT completion:** open / blocked / done
 
