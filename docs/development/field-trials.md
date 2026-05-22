@@ -129,7 +129,7 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 - **CI** does not set these URLs — only fixture tests run.
 - **Parity failures are evidence** — open Issues on the port repo or document in the FT report; do not weaken client guards to match a drifting server.
 - Policy: [ADR 0003](../adr/0003-multi-backend-live-verification.md).
-- Matrix probes: `health` (strict on canonical), `ping`, `listNotes`, `listTags` — see `tests/client/live-smoke-matrix.test.ts`.
+- Matrix probes: `health` (strict on canonical), `ping`, `listNotes`, `listTags`, `frameworkSmoke` (`GET /`) — see `tests/client/live-smoke-matrix.test.ts`.
 
 ## What we do not copy from nene2-python
 
