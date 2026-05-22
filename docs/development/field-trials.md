@@ -95,11 +95,11 @@ State explicitly in the report: **“No actionable friction — FT complete.”*
 
 ## Sandbox layout
 
-| Phase    | Sandbox                                                                                                        |
-| -------- | -------------------------------------------------------------------------------------------------------------- |
-| Now      | `tests/fixtures/` + optional live env URLs (see multi-backend below)                                           |
-| App FT   | Local sibling `../nene2-js-FT/` (`apps/notes-console`) — **not** a separate GitHub repo; see `AGENTS.md` there |
-| After #3 | `examples/smoke/` or `../nene2-js-FT/` for multi-file consumer apps                                            |
+| Phase    | Sandbox                                                                                                                                                                                                   |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Now      | `tests/fixtures/` + optional live env URLs (see multi-backend below)                                                                                                                                      |
+| App FT   | Local sibling `../nene2-js-FT/` (`apps/notes-console`, `apps/tags-studio`) — **not** a separate GitHub repo; see [consumer-sandbox-nene2-js-ft.md](consumer-sandbox-nene2-js-ft.md) and `AGENTS.md` there |
+| After #3 | `examples/smoke/` or `../nene2-js-FT/` for multi-file consumer apps                                                                                                                                       |
 
 Do not commit secrets, `.env`, or production URLs.
 
@@ -129,6 +129,7 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 - **CI** does not set these URLs — only fixture tests run.
 - **Parity failures are evidence** — open Issues on the port repo or document in the FT report; do not weaken client guards to match a drifting server.
 - Policy: [ADR 0003](../adr/0003-multi-backend-live-verification.md).
+- Matrix probes: `health` (strict on canonical), `ping`, `listNotes`, `listTags` — see `tests/client/live-smoke-matrix.test.ts`.
 
 ## What we do not copy from nene2-python
 
