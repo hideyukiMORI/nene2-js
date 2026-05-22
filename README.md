@@ -110,7 +110,9 @@ Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.m
 
 AI agents: start at [AGENTS.md](AGENTS.md).
 
-Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT1–29; see [methodology](docs/development/field-trials.md)). Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
+Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT1–129; see [methodology](docs/development/field-trials.md)). Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
+
+**Phase 2 (in progress):** npm publish path — [docs/phase-2.md](docs/phase-2.md).
 
 ## Related projects
 
