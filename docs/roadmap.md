@@ -41,8 +41,8 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 **Docs:** [phase-3.md](phase-3.md) · **ADR:** [0006 types only](adr/0006-openapi-codegen-types-only.md)
 
 - [x] `npm run codegen` / `codegen:check` → `src/generated/openapi.ts`
-- [ ] Migrate hand `src/types/*` to generated re-exports
-- [ ] Document pin-bump + codegen in PR template
+- [x] `src/types/schemas.ts` re-exports from generated schemas
+- [x] PR template: contract bump → `codegen`
 
 ## Non-goals
 

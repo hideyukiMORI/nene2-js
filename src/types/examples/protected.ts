@@ -1,11 +1,9 @@
 /**
- * Protected example response (OpenAPI `ProtectedResponse`).
+ * Protected example response (OpenAPI-aligned).
  */
+import type { ProtectedResponse } from '../schemas.js';
 
-export interface ProtectedResponse {
-  readonly message: string;
-  readonly claims: Readonly<Record<string, unknown>>;
-}
+export type { ProtectedResponse } from '../schemas.js';
 
 /** Type guard for {@link ProtectedResponse}. */
 export function isProtectedResponse(value: unknown): value is ProtectedResponse {

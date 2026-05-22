@@ -1,32 +1,22 @@
 /**
- * System endpoint response types (OpenAPI-aligned).
+ * System endpoint types (OpenAPI-aligned) and runtime guards.
  */
+import type {
+  ExamplePingResponse,
+  FrameworkSmokeResponse,
+  HealthResponse,
+  MachineHealthResponse,
+} from './schemas.js';
 
-export type HealthStatus = 'ok' | 'degraded';
+export type {
+  ExamplePingResponse,
+  FrameworkSmokeResponse,
+  HealthResponse,
+  HealthStatus,
+  MachineHealthResponse,
+} from './schemas.js';
 
-export interface HealthResponse {
-  readonly status: HealthStatus;
-  readonly service: string;
-  readonly checks?: Readonly<Record<string, 'ok' | 'error'>>;
-}
-
-export interface ExamplePingResponse {
-  readonly message: 'pong';
-  readonly status: 'ok';
-}
-
-export interface FrameworkSmokeResponse {
-  readonly name: string;
-  readonly description: string;
-  readonly status: 'ok';
-}
-
-export interface MachineHealthResponse {
-  readonly status: 'ok';
-  readonly service: string;
-  readonly credential_type: string;
-}
-
+/** Composite result of {@link createNene2Client#smoke} (not an OpenAPI schema). */
 export interface SmokeCheckResult {
   readonly health: HealthResponse;
   readonly ping: ExamplePingResponse;

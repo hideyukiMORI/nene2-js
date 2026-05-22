@@ -1,24 +1,11 @@
 /**
- * Example notes types (OpenAPI `ExampleNote*` schemas).
+ * Example notes types and guards (OpenAPI-aligned).
  */
+import type { CreateNoteRequest, ExampleNote, ExampleNoteListResponse } from '../schemas.js';
 
-export interface ExampleNote {
-  readonly id: number;
-  readonly title: string;
-  readonly body: string;
-}
+export type { CreateNoteRequest, ExampleNote, ExampleNoteListResponse } from '../schemas.js';
 
-export interface ExampleNoteListResponse {
-  readonly items: readonly ExampleNote[];
-  readonly limit: number;
-  readonly offset: number;
-}
-
-export interface CreateNoteRequest {
-  readonly title: string;
-  readonly body: string;
-}
-
+/** Query params for GET /examples/notes (not a named OpenAPI schema). */
 export type ListNotesParams = {
   readonly limit?: number;
   readonly offset?: number;

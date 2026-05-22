@@ -8,9 +8,10 @@
 
 - [x] `npm run codegen` from `contracts/openapi.yaml`
 - [x] `npm run codegen:check` in `npm run check`
-- [x] Alignment tests (hand types vs `components['schemas']`)
-- [ ] Migrate hand `src/types/*` to re-export generated schemas (follow-up)
-- [ ] Optional: codegen on OpenAPI pin bump PR template note
+- [x] Alignment tests (exported types = `components['schemas']`)
+- [x] `src/types/schemas.ts` re-exports; hand files keep guards only
+- [x] PR template reminds `codegen` on contract bumps
+- [ ] Optional: export `OpenApiSchemas` / paths from package entry (ADR follow-up)
 
 ## Commands
 

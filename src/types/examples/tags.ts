@@ -1,22 +1,11 @@
 /**
- * Example tags types (OpenAPI `ExampleTag*` schemas).
+ * Example tags types and guards (OpenAPI-aligned).
  */
+import type { CreateTagRequest, ExampleTag, ExampleTagListResponse } from '../schemas.js';
 
-export interface ExampleTag {
-  readonly id: number;
-  readonly name: string;
-}
+export type { CreateTagRequest, ExampleTag, ExampleTagListResponse } from '../schemas.js';
 
-export interface ExampleTagListResponse {
-  readonly items: readonly ExampleTag[];
-  readonly limit: number;
-  readonly offset: number;
-}
-
-export interface CreateTagRequest {
-  readonly name: string;
-}
-
+/** Query params for GET /examples/tags (not a named OpenAPI schema). */
 export type ListTagsParams = {
   readonly limit?: number;
   readonly offset?: number;

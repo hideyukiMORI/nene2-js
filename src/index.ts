@@ -34,6 +34,7 @@ export {
   type Nene2Client,
   type Nene2ClientConfig,
 } from './client/index.js';
+export type { OpenApiSchemas } from './types/schemas.js';
 export type {
   CreateNoteRequest,
   CreateTagRequest,

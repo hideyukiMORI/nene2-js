@@ -1,18 +1,19 @@
 # Current work
 
-Last updated: 2026-05-22 (Phase 3 codegen)
+Last updated: 2026-05-22 (Phase 3 types migration)
 
 ## Active
 
-- [ ] [#37](https://github.com/hideyukiMORI/nene2-js/issues/37) Phase 3 — OpenAPI codegen ([phase-3.md](phase-3.md))
+- [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
 
 ## Completed
 
 - [x] Phase 1 — contract baseline, FT1–129
-- [x] Phase 2 — npm `0.1.0`, Trusted Publisher, [publish.md](development/publish.md)
+- [x] Phase 2 — npm `0.1.0`, Trusted Publisher
+- [x] [#37](https://github.com/hideyukiMORI/nene2-js/issues/37) Phase 3 — codegen + `src/types/schemas.ts` migration
 
 ## Handoff
 
-- **Codegen:** `npm run codegen` · `npm run codegen:check` · output `src/generated/openapi.ts`
+- **Codegen:** `npm run contracts:sync` → `npm run codegen` → commit `src/generated/openapi.ts`
 - **Install:** `npm install @hideyukimori/nene2-client`
-- OpenAPI pin: `contracts/openapi.yaml` (ADR 0002)
+- Types: `src/types/schemas.ts` ← `components['schemas']`
