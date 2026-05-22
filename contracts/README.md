@@ -4,7 +4,7 @@ Vendored copy of NENE2 `docs/openapi/openapi.yaml` for reproducible builds and C
 
 | File                     | Purpose                                                        |
 | ------------------------ | -------------------------------------------------------------- |
-| `openapi.yaml`           | Pinned contract consumed by tests and future codegen           |
+| `openapi.yaml`           | Pinned contract for tests and codegen (`src/generated/`)       |
 | `nene2-openapi-pin.json` | NENE2 git ref, OpenAPI `info.version`, SHA-256, sync timestamp |
 
 **Do not edit `openapi.yaml` by hand** except through `npm run contracts:sync` after an NENE2 contract change.
@@ -19,4 +19,8 @@ npm run contracts:sync
 
 # Verify committed files match pin (runs in npm run check)
 npm run contracts:check
+
+# Regenerate TypeScript from openapi.yaml (ADR 0006)
+npm run codegen
+npm run codegen:check
 ```

@@ -41,8 +41,9 @@ PHP runtime and OpenAPI authoring stay in [NENE2](https://github.com/hideyukiMOR
 
 ```bash
 npm install
-npm run check    # type-check, lint, format, contracts, build, test, pack:smoke
+npm run check    # type-check, lint, format, contracts, codegen:check, build, test, pack:smoke
 npm run build    # dist/ only (not committed)
+npm run codegen  # src/generated/openapi.ts from contracts/openapi.yaml
 ```
 
 Optional live smoke (NENE2 running on :8080):

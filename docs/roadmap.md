@@ -34,13 +34,15 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 - [x] README + howto npm install; `0.1.0`, `private` removed
 - [x] CI build + `pack:smoke`; registry publish via [publish.md](development/publish.md)
 
-## Phase 3 — Codegen (current)
+## Phase 3 — Codegen (in progress)
 
 **Goal:** reduce hand-written drift for large OpenAPI surfaces.
 
-- codegen script from pinned OpenAPI
-- CI check: generated output matches committed files
-- Document when to hand-edit vs generate
+**Docs:** [phase-3.md](phase-3.md) · **ADR:** [0006 types only](adr/0006-openapi-codegen-types-only.md)
+
+- [x] `npm run codegen` / `codegen:check` → `src/generated/openapi.ts`
+- [ ] Migrate hand `src/types/*` to generated re-exports
+- [ ] Document pin-bump + codegen in PR template
 
 ## Non-goals
 
