@@ -11,6 +11,7 @@ Entry point for AI agents working on **nene2-js**.
 - Commits: `docs/development/commit-conventions.md`
 - NENE2 boundary: `docs/integrations/relationship-to-nene2.md`
 - OpenAPI pin: `docs/adr/0002-openapi-contract-pin-policy.md`, `contracts/`
+- Field trials: `docs/development/field-trials.md`, `docs/field-trials/INDEX.md`
 - Roadmap: `docs/roadmap.md`
 - Current work: `docs/todo/current.md`
 

@@ -5,7 +5,7 @@ alwaysApply: true
 
 # nene2-js Rules
 
-- Canonical docs: `README.md`, `AGENTS.md`, `docs/scope.md`, `docs/CONTRIBUTING.md`, `docs/workflow.md`.
+- Canonical docs: `README.md`, `AGENTS.md`, `docs/scope.md`, `docs/CONTRIBUTING.md`, `docs/workflow.md`, `docs/development/field-trials.md`.
 - This repo is **TypeScript client ecosystem only** — not a Node port of NENE2, not nene-mcp.
 - OpenAPI source of truth: NENE2 `docs/openapi/openapi.yaml`.
 - Work from GitHub Issues; branch `type/issue-number-summary`; no direct commits to `main`.

@@ -11,6 +11,8 @@ Vendored copy of NENE2 `docs/openapi/openapi.yaml` for reproducible builds and C
 
 Policy: [ADR 0002](../docs/adr/0002-openapi-contract-pin-policy.md).
 
+When bumping the pin, update **both** `nene2GitRef` (git tag) and note `openapiInfoVersion` from `info.version` in the yaml — they may differ (see [FT1](../docs/field-trials/2026-05-field-trial-1.md) F-3).
+
 ```bash
 # Update from sibling NENE2 clone (default path) or GitHub raw URL in pin
 npm run contracts:sync
