@@ -4,7 +4,7 @@ Last updated: 2026-05-22 (JST)
 
 ## Active
 
-- [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
+- [ ] Optional: OpenAPI-derived runtime guards / client method codegen (new Issue; out of ADR 0006 scope)
 
 ## Completed
 
@@ -24,6 +24,8 @@ Last updated: 2026-05-22 (JST)
 - [x] [nene2-python#582](https://github.com/hideyukiMORI/nene2-python/issues/582) / [#583](https://github.com/hideyukiMORI/nene2-python/pull/583) — `GET /`, `/machine/health`
 - [x] [#65](https://github.com/hideyukiMORI/nene2-js/issues/65) / [#66](https://github.com/hideyukiMORI/nene2-js/pull/66) — `verify:backends` framework + machine health
 - [x] [nene2-python#586](https://github.com/hideyukiMORI/nene2-python/issues/586) / [#587](https://github.com/hideyukiMORI/nene2-python/pull/587) — `/examples/protected` JWT
+- [x] nene2-js-FT FT7 python protected parity
+- [x] Phase 3 exit — `OpenApiPaths` export; [ft-friction-registry.md](development/ft-friction-registry.md)
 
 ## Handoff
 

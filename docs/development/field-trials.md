@@ -139,6 +139,7 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 
 ## Related
 
+- Friction registry (2026-05): [ft-friction-registry.md](ft-friction-registry.md)
 - Friction cycle policy: [ADR 0004](../adr/0004-field-trial-friction-resolution-cycle.md)
 - Template: `docs/templates/field-trial-report.md`
 - Index: `docs/field-trials/INDEX.md`

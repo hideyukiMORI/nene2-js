@@ -34,7 +34,7 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 - [x] README + howto npm install; `0.1.0`, `private` removed
 - [x] CI build + `pack:smoke`; registry publish via [publish.md](development/publish.md)
 
-## Phase 3 — Codegen (in progress)
+## Phase 3 — Codegen (complete)
 
 **Goal:** reduce hand-written drift for large OpenAPI surfaces.
 
