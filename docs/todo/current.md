@@ -4,7 +4,9 @@ Last updated: 2026-05-22 (JST)
 
 ## Active
 
+- [ ] [#59](https://github.com/hideyukiMORI/nene2-js/issues/59) — VitePress locale `strictService` + `install-nene2-python` (`/examples/*`)
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
+- [ ] nene2-js-FT FT3+ — blank-slate consumer app trials (`../nene2-js-FT/`)
 
 ## Completed
 
