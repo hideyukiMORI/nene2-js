@@ -37,10 +37,33 @@ Skip an FT for docs-only typo fixes unrelated to consumer DX.
 
 | Phase    | Sandbox                                                                      |
 | -------- | ---------------------------------------------------------------------------- |
-| Now      | `tests/fixtures/` + optional live `NENE2_JS_API_BASE_URL`                    |
+| Now      | `tests/fixtures/` + optional live env URLs (see multi-backend below)         |
 | After #3 | `examples/smoke/` or sibling `../nene2-js-FT/` if a multi-file app is needed |
 
 Do not commit secrets, `.env`, or production URLs.
+
+## Multi-backend verification
+
+The same `createNene2Client({ baseUrl })` should work against any server that implements the **pinned NENE2 OpenAPI** contract. Verify in this order when running a field trial:
+
+| Order | Backend      | Env variable               | Typical local URL       | Role      |
+| ----- | ------------ | -------------------------- | ----------------------- | --------- |
+| 1     | NENE2 (PHP)  | `NENE2_JS_API_BASE_URL`    | `http://localhost:8080` | Canonical |
+| 2     | nene2-python | `NENE2_JS_PYTHON_BASE_URL` | `http://localhost:8000` | Parity    |
+| 3     | nene2-node   | `NENE2_JS_NODE_BASE_URL`   | `http://localhost:3000` | Parity    |
+
+```bash
+# Example: probe all configured backends (skipped when env unset)
+export NENE2_JS_API_BASE_URL=http://localhost:8080
+export NENE2_JS_PYTHON_BASE_URL=http://localhost:8000
+# export NENE2_JS_NODE_BASE_URL=http://localhost:3000   # when nene2-node serves health/ping
+
+npm test -- tests/client/live-smoke-matrix.test.ts
+```
+
+- **CI** does not set these URLs — only fixture tests run.
+- **Parity failures are evidence** — open Issues on the port repo or document in the FT report; do not weaken client guards to match a drifting server.
+- Policy: [ADR 0003](../adr/0003-multi-backend-live-verification.md).
 
 ## What we do not copy from nene2-python
 

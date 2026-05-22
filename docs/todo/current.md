@@ -1,6 +1,6 @@
 # Current work
 
-Last updated: 2026-05-22 (field trials introduced)
+Last updated: 2026-05-22 (multi-backend live smoke)
 
 ## Active
 
@@ -26,3 +26,4 @@ Last updated: 2026-05-22 (field trials introduced)
 - Do not duplicate MCP server work from `../nene-mcp`
 - Field trials: `docs/field-trials/INDEX.md` — FT3 candidate: notes or protected route
 - Client: `createNene2Client({ baseUrl }).health()` / `.ping()`
+- Live matrix: `NENE2_JS_*_BASE_URL` → `npm test -- tests/client/live-smoke-matrix.test.ts` (ADR 0003)
