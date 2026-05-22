@@ -109,3 +109,43 @@ export async function postJson<T>(
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
 }
+
+/**
+ * PUT JSON and validate the response body. Throws {@link Nene2ClientError} on failure.
+ */
+export async function putJson<T>(
+  config: ResolvedNene2ClientConfig,
+  path: string,
+  payload: unknown,
+  isValid: (value: unknown) => value is T,
+  options?: JsonRequestOptions,
+): Promise<T> {
+  const url = `${config.baseUrl}${path}`;
+  const headers = buildAuthHeaders(config);
+  headers.set('Content-Type', 'application/json');
+  const response = await config.fetch(url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(payload),
+  });
+
+  await throwOnErrorResponse(response, url, options);
+  return parseJsonBody(response, url, isValid);
+}
+
+/**
+ * DELETE with no response body (204). Throws {@link Nene2ClientError} on failure.
+ */
+export async function deleteNoContent(
+  config: ResolvedNene2ClientConfig,
+  path: string,
+  options?: JsonRequestOptions,
+): Promise<void> {
+  const url = `${config.baseUrl}${path}`;
+  const response = await config.fetch(url, {
+    method: 'DELETE',
+    headers: buildAuthHeaders(config),
+  });
+
+  await throwOnErrorResponse(response, url, options);
+}

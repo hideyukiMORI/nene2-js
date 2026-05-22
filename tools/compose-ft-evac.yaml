@@ -1,0 +1,14 @@
+# Temporary port evacuation for field trials when :8080 / :3306 are taken.
+# Usage (from sibling NENE2 checkout):
+#   docker compose -f compose.yaml -f ../nene2-js/tools/compose-ft-evac.yaml up -d
+#
+# Then:
+#   export NENE2_JS_API_BASE_URL=http://localhost:18080
+
+services:
+  app:
+    ports: !override
+      - '18080:80'
+  mysql:
+    ports: !override
+      - '13307:3306'

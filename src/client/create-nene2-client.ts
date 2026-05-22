@@ -1,6 +1,6 @@
 import { resolveConfig, type Nene2ClientConfig } from './config.js';
 import { withQuery } from './path.js';
-import { getJson, postJson } from './request.js';
+import { deleteNoContent, getJson, postJson, putJson } from './request.js';
 import {
   isExampleNoteListResponse,
   isExampleNoteResponse,
@@ -57,6 +57,16 @@ export interface Nene2Client {
   createNote(body: CreateNoteRequest): Promise<ExampleNote>;
 
   /**
+   * `PUT /examples/notes/{id}` — update note (OpenAPI `updateExampleNoteById`).
+   */
+  updateNote(id: number, body: CreateNoteRequest): Promise<ExampleNote>;
+
+  /**
+   * `DELETE /examples/notes/{id}` — delete note (OpenAPI `deleteExampleNoteById`, 204).
+   */
+  deleteNote(id: number): Promise<void>;
+
+  /**
    * `GET /examples/protected` — JWT claims demo (OpenAPI `getProtected`). Requires `bearer` in config.
    */
   getProtected(): Promise<ProtectedResponse>;
@@ -94,6 +104,9 @@ export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
       ),
     getNote: (id) => getJson(resolved, `/examples/notes/${String(id)}`, isExampleNoteResponse),
     createNote: (body) => postJson(resolved, '/examples/notes', body, isExampleNoteResponse),
+    updateNote: (id, body) =>
+      putJson(resolved, `/examples/notes/${String(id)}`, body, isExampleNoteResponse),
+    deleteNote: (id) => deleteNoContent(resolved, `/examples/notes/${String(id)}`),
     getProtected: () => getJson(resolved, '/examples/protected', isProtectedResponse),
   };
 }

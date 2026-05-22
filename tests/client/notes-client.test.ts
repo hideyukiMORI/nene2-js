@@ -70,4 +70,36 @@ describe('createNene2Client notes', () => {
     expect(init.method).toBe('POST');
     expect(init.body).toBe(JSON.stringify({ title: 'New', body: 'Body text' }));
   });
+
+  it('updateNote() PUTs JSON body', async () => {
+    const updated = {
+      id: 1,
+      title: 'Updated Title',
+      body: 'Updated body content.',
+    };
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(updated));
+
+    const client = createNene2Client({
+      baseUrl: 'http://localhost:8080',
+      fetch: fetchMock,
+    });
+
+    const note = await client.updateNote(1, { title: 'Updated Title', body: 'Updated body' });
+    expect(note.title).toBe('Updated Title');
+    const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    expect(init.method).toBe('PUT');
+  });
+
+  it('deleteNote() sends DELETE and expects 204', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(null, { status: 204 }));
+
+    const client = createNene2Client({
+      baseUrl: 'http://localhost:8080',
+      fetch: fetchMock,
+    });
+
+    await client.deleteNote(1);
+    const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    expect(init.method).toBe('DELETE');
+  });
 });
