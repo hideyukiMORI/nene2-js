@@ -29,6 +29,21 @@ cd ../nene2-python
 uv run uvicorn src.example.app:app --host 127.0.0.1 --port 18000
 ```
 
+## JWT / `getProtected` (evac Docker)
+
+`tools/compose-ft-evac.yaml` sets a **local-only** `NENE2_LOCAL_JWT_SECRET` so `/examples/protected` is registered (without it, the route returns 404).
+
+```bash
+cd ../NENE2
+docker compose -f compose.yaml -f ../nene2-js/tools/compose-ft-evac.yaml up -d --force-recreate app
+
+cd ../nene2-js
+export NENE2_JS_API_BASE_URL=http://localhost:18080
+export NENE2_LOCAL_JWT_SECRET=ft-evac-local-jwt-secret-min-32-chars!!
+# optional: export NENE2_JS_BEARER_TOKEN=$(node tools/issue-dev-jwt.mjs)
+./scripts/run-live-smoke-evac.sh
+```
+
 ## Live smoke (all configured backends)
 
 ```bash
