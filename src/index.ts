@@ -23,3 +23,12 @@ export type {
   ValidationProblemDetails,
   ValidationProblemDetailsDocument,
 } from './problem/index.js';
+
+export {
+  createNene2Client,
+  Nene2ClientError,
+  type Nene2Client,
+  type Nene2ClientConfig,
+} from './client/index.js';
+export type { ExamplePingResponse, HealthResponse, HealthStatus } from './types/index.js';
+export { isExamplePingResponse, isHealthResponse } from './types/index.js';

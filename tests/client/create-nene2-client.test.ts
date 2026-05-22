@@ -1,0 +1,93 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
+import { createNene2Client, Nene2ClientError } from '../../src/index.js';
+
+const fixturesDir = resolve(process.cwd(), 'tests/fixtures/system');
+
+function loadFixture(name: string): unknown {
+  return JSON.parse(readFileSync(resolve(fixturesDir, name), 'utf8')) as unknown;
+}
+
+function jsonResponse(body: unknown, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'content-type': 'application/json' },
+  });
+}
+
+describe('createNene2Client', () => {
+  it('health() returns typed HealthResponse', async () => {
+    const body = loadFixture('health-ok.json');
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(body));
+
+    const client = createNene2Client({
+      baseUrl: 'http://localhost:8080/',
+      fetch: fetchMock,
+    });
+
+    const health = await client.health();
+    expect(health).toEqual({ status: 'ok', service: 'NENE2' });
+    expect(fetchMock).toHaveBeenCalledWith(
+      'http://localhost:8080/health',
+      expect.objectContaining({ method: 'GET' }),
+    );
+  });
+
+  it('ping() returns typed ExamplePingResponse', async () => {
+    const body = loadFixture('ping-ok.json');
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(body));
+
+    const client = createNene2Client({
+      baseUrl: 'http://localhost:8080',
+      fetch: fetchMock,
+    });
+
+    const pong = await client.ping();
+    expect(pong).toEqual({ message: 'pong', status: 'ok' });
+    expect(fetchMock).toHaveBeenCalledWith(
+      'http://localhost:8080/examples/ping',
+      expect.any(Object),
+    );
+  });
+
+  it('forwards apiKey and bearer headers', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(loadFixture('health-ok.json')));
+
+    const client = createNene2Client({
+      baseUrl: 'http://api.example',
+      apiKey: 'test-key',
+      bearer: 'jwt-token',
+      fetch: fetchMock,
+    });
+
+    await client.health();
+    const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    const headers = new Headers(init.headers);
+    expect(headers.get('X-NENE2-API-Key')).toBe('test-key');
+    expect(headers.get('Authorization')).toBe('Bearer jwt-token');
+  });
+
+  it('throws Nene2ClientError with problem details on error response', async () => {
+    const problem = {
+      type: 'https://nene2.dev/problems/not-found',
+      title: 'Not Found',
+      status: 404,
+      detail: 'missing',
+    };
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(problem), {
+        status: 404,
+        headers: { 'content-type': 'application/problem+json' },
+      }),
+    );
+
+    const client = createNene2Client({ baseUrl: 'http://localhost:8080', fetch: fetchMock });
+
+    await expect(client.ping()).rejects.toMatchObject({
+      name: 'Nene2ClientError',
+      status: 404,
+      problem,
+    } satisfies Partial<Nene2ClientError>);
+  });
+});
