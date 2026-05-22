@@ -19,6 +19,8 @@ Phase 1–2 hand-maintained `src/types/*` and runtime guards track `contracts/op
 5. **Public exports:** type aliases in `src/types/schemas.ts` re-export `components['schemas']`; runtime guards stay in hand-maintained modules. `OpenApiSchemas` exported from the package entry for advanced consumers.
 6. **Out of scope (follow-up Issues):** generating `createNene2Client` methods, replacing hand guards with codegen, publishing `src/generated/` as a subpath export.
 
+   **Guard codegen follow-up:** [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) (planned ADR 0007).
+
 ## Consequences
 
 ### Positive
