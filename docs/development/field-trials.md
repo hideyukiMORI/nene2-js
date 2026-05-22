@@ -102,6 +102,8 @@ State explicitly in the report: **“No actionable friction — FT complete.”*
 
 Do not commit secrets, `.env`, or production URLs.
 
+**Port evacuation:** when `:8080` / `:8000` are taken by other processes, use alternate host ports via env only — see [ft-evac-ports.md](ft-evac-ports.md) and `tools/compose-ft-evac.yaml`.
+
 ## Multi-backend verification
 
 The same `createNene2Client({ baseUrl })` should work against any server that implements the **pinned NENE2 OpenAPI** contract. Verify in this order when running a field trial:
