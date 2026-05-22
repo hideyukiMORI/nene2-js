@@ -6,8 +6,11 @@ Blank-slate personas read [ja docs](https://hideyukimori.github.io/nene2-js/ja/)
 
 ```bash
 npm run test:ft-marathon   # 202 tests (FT30–229)
-npm run ft:marathon        # + regenerate reports
+npm run ft:reports         # regenerate docs/field-trials (NENE2 / nene2-python granularity)
+npm run ft:marathon        # tests + reports
 ```
+
+Reports: `tools/ft-marathon/build-report-markdown.mjs` → ~177 lines each (6 DX personas, friction, observations). App sandbox: local `../nene2-js-FT/` only (no GitHub repo).
 
 ## Friction found → Issues
 
