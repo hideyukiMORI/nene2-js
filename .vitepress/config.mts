@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import pkg from '../package.json' with { type: 'json' };
 
 type NavLabels = {
   tutorial: string;
@@ -45,7 +46,7 @@ function nav(t: NavLabels, p: string = '') {
       activeMatch: `${p}/integrations/`,
     },
     {
-      text: 'v0.1.1',
+      text: `v${pkg.version}`,
       items: [
         {
           text: 'npm',
