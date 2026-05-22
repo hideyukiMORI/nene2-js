@@ -63,8 +63,8 @@ const client = createNene2Client({
   // bearer: process.env.NENE2_BEARER_TOKEN,
 });
 
-const health = await client.health();
-const pong = await client.ping();
+const { health, ping } = await client.smoke();
+const root = await client.frameworkSmoke();
 const notes = await client.listNotes({ limit: 20 });
 
 // Load balancers may return 503 with status "degraded" — opt in:
@@ -110,7 +110,7 @@ Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.m
 
 AI agents: start at [AGENTS.md](AGENTS.md).
 
-Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (lightweight; see [methodology](docs/development/field-trials.md)).
+Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT1–29; see [methodology](docs/development/field-trials.md)). Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
 
 ## Related projects
 

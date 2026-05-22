@@ -10,8 +10,9 @@ services:
     ports: !override
       - '18080:80'
     environment:
-      # Dev-only default for FT evac — override via shell .env when needed.
+      # Dev-only defaults for FT evac — override via shell .env when needed.
       NENE2_LOCAL_JWT_SECRET: ${NENE2_LOCAL_JWT_SECRET:-ft-evac-local-jwt-secret-min-32-chars!!}
+      NENE2_MACHINE_API_KEY: ${NENE2_MACHINE_API_KEY:-ft-evac-local-machine-api-key-32ch!!}
   mysql:
     ports: !override
       - '13307:3306'

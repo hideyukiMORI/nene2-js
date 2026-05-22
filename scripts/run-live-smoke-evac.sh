@@ -8,7 +8,8 @@ export NENE2_JS_API_BASE_URL="${NENE2_JS_API_BASE_URL:-http://localhost:18080}"
 # export NENE2_JS_PYTHON_BASE_URL="${NENE2_JS_PYTHON_BASE_URL:-http://localhost:18000}"
 
 export NENE2_LOCAL_JWT_SECRET="${NENE2_LOCAL_JWT_SECRET:-ft-evac-local-jwt-secret-min-32-chars!!}"
+export NENE2_MACHINE_API_KEY="${NENE2_MACHINE_API_KEY:-ft-evac-local-machine-api-key-32ch!!}"
 
 echo "NENE2_JS_API_BASE_URL=$NENE2_JS_API_BASE_URL"
 echo "NENE2_LOCAL_JWT_SECRET=(set, ${#NENE2_LOCAL_JWT_SECRET} chars)"
-npm test -- tests/client/live-smoke-matrix.test.ts tests/client/live-protected.test.ts tests/client/live-notes-crud.test.ts tests/client/live-tags-crud.test.ts
+npm test -- tests/client/live-smoke-matrix.test.ts tests/client/live-protected.test.ts tests/client/live-notes-crud.test.ts tests/client/live-tags-crud.test.ts tests/client/live-system-evac.test.ts tests/client/live-validation-422.test.ts

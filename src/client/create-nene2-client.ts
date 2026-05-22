@@ -19,9 +19,14 @@ import {
 } from '../types/examples/index.js';
 import {
   isExamplePingResponse,
+  isFrameworkSmokeResponse,
   isHealthResponse,
+  isMachineHealthResponse,
   type ExamplePingResponse,
+  type FrameworkSmokeResponse,
   type HealthResponse,
+  type MachineHealthResponse,
+  type SmokeCheckResult,
 } from '../types/system.js';
 
 export type HealthOptions = {
@@ -37,15 +42,30 @@ export type HealthOptions = {
  */
 export interface Nene2Client {
   /**
+   * `GET /` — framework smoke (OpenAPI `getFrameworkSmoke`).
+   */
+  frameworkSmoke(): Promise<FrameworkSmokeResponse>;
+
+  /**
    * `GET /health` — operational health (OpenAPI `getHealth`).
    * By default, non-2xx (including 503 degraded) throws {@link Nene2ClientError}.
    */
   health(options?: HealthOptions): Promise<HealthResponse>;
 
   /**
+   * `GET /machine/health` — API-key protected health (OpenAPI `getMachineHealth`). Requires `apiKey`.
+   */
+  machineHealth(): Promise<MachineHealthResponse>;
+
+  /**
    * `GET /examples/ping` — example scaffold ping (OpenAPI `getExamplePing`).
    */
   ping(): Promise<ExamplePingResponse>;
+
+  /**
+   * Parallel `health()` + `ping()` for dashboards (FT2 Persona B: single smoke helper).
+   */
+  smoke(): Promise<SmokeCheckResult>;
 
   /**
    * `GET /examples/notes` — paginated list (OpenAPI `listExampleNotes`).
@@ -117,13 +137,22 @@ export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
   const resolved = resolveConfig(config);
 
   return {
+    frameworkSmoke: () => getJson(resolved, '/', isFrameworkSmokeResponse),
     health: (options) => {
       if (options?.allowDegraded) {
         return getJson(resolved, '/health', isHealthResponse, { alsoOkStatuses: [503] });
       }
       return getJson(resolved, '/health', isHealthResponse);
     },
+    machineHealth: () => getJson(resolved, '/machine/health', isMachineHealthResponse),
     ping: () => getJson(resolved, '/examples/ping', isExamplePingResponse),
+    smoke: async () => {
+      const [health, ping] = await Promise.all([
+        getJson(resolved, '/health', isHealthResponse),
+        getJson(resolved, '/examples/ping', isExamplePingResponse),
+      ]);
+      return { health, ping };
+    },
     listNotes: (params) =>
       getJson(
         resolved,
