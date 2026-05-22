@@ -1,36 +1,72 @@
-# FT[N]: [Theme]
+# FT[番号]: [テーマ]
 
 **Date**: YYYY-MM-DD  
 **NENE2 pin**: `contracts/nene2-openapi-pin.json` → `nene2GitRef`  
-**Package**: `@hideyukimori/nene2-client` @ `0.x.x` (or commit SHA)  
-**Issues / PRs**: #NNN
+**Package**: `@hideyukimori/nene2-client` @ `0.x.x`  
+**Issues / PRs**: #NNN  
+**Sandbox**: `../nene2-js-FT/apps/…` または `tests/fixtures/`
 
 ---
 
-## Theme
+## Summary
 
-One paragraph: what consumer workflow was exercised.
+[1–2 段落: 何を検証したか。知識ゼロ AI / 人間ペルソナ / どのバックエンドか。]
+
+---
 
 ## What was exercised
 
-| Item               | Notes                                                  |
-| ------------------ | ------------------------------------------------------ |
-| Commands           | `npm run check`, `contracts:sync`, live fetch, etc.    |
-| APIs / modules     | e.g. `parseProblemDetails`, `createNene2Client.health` |
-| OpenAPI operations | e.g. `getHealth`, `getFrameworkSmoke`                  |
-| Sandbox            | `tests/fixtures/`, `examples/…`, or live NENE2         |
+| Item               | Notes                                                                    |
+| ------------------ | ------------------------------------------------------------------------ |
+| Commands           | `npm run check`, `npm run test:ft-marathon`, live smoke, nene2-js-FT app |
+| Client APIs        | `createNene2Client`, Problem Details helpers                             |
+| OpenAPI operations | 例: `getHealth`, `listExampleNotes`                                      |
+| Sandbox            | `../nene2-js-FT/` / Docker evac / fixtures                               |
 
 ```text
 (paste exact commands; no secrets)
 ```
 
-## Backend compatibility (when live smoke was run)
+---
 
-| Backend      | URL (safe to publish) | health      | ping        | Notes     |
-| ------------ | --------------------- | ----------- | ----------- | --------- |
-| NENE2 (PHP)  |                       | ok/fail     | ok/fail     | canonical |
-| nene2-python |                       | ok/fail     | ok/fail     | parity    |
-| nene2-node   |                       | ok/fail/n/a | ok/fail/n/a | parity    |
+## Application under test (nene2-js-FT)
+
+| Item                | Value                                            |
+| ------------------- | ------------------------------------------------ |
+| App path            | `../nene2-js-FT/apps/<app-name>/`                |
+| Stack               | Vite + React + TypeScript (typical)              |
+| Allowed docs for AI | https://hideyukimori.github.io/nene2-js/ja/ only |
+| Backends            | NENE2 Docker and/or nene2-python per scenario    |
+
+### 実装した機能（アプリ FT の場合）
+
+| 画面 / API | 概要 |
+| ---------- | ---- |
+|            |      |
+
+---
+
+## Backend compatibility
+
+| Backend      | URL | health  | ping    | notes   | protected | Notes     |
+| ------------ | --- | ------- | ------- | ------- | --------- | --------- |
+| NENE2 (PHP)  |     | ok/fail | ok/fail | ok/fail | ok/fail   | canonical |
+| nene2-python |     | ok/fail | ok/fail | ok/fail | ok/fail   | parity    |
+
+---
+
+## Test results
+
+| Suite                        | Tests | Result |
+| ---------------------------- | ----- | ------ |
+| Vitest (nene2-js)            |       |        |
+| App test / E2E (nene2-js-FT) |       |        |
+
+```text
+(paste output)
+```
+
+---
 
 ## Outcomes
 
@@ -38,58 +74,85 @@ One paragraph: what consumer workflow was exercised.
 
 - **Still manual / missing:**
 
--
+- ***
 
 ## Friction points
 
-<!-- Zero friction: state explicitly and skip F-N sections. -->
+<!-- 摩擦ゼロ: **今回の FT では実装上の摩擦はゼロだった。** -->
 
 ### F-1: [Title] (severity: high / medium / low)
 
-| Field      | Value                                                         |
-| ---------- | ------------------------------------------------------------- |
-| **Owner**  | `nene2-js` / `NENE2` / `nene2-python` / `nene2-node` / `docs` |
-| **Issue**  | https://github.com/…/issues/NNN                               |
-| **PR**     | https://github.com/…/pull/NNN (or —)                          |
-| **Status** | open / merged / deferred                                      |
+| Field      | Value                                                          |
+| ---------- | -------------------------------------------------------------- |
+| **Owner**  | `nene2-js` / `NENE2` / `nene2-python` / `nene2-js-FT` / `docs` |
+| **Issue**  | https://github.com/…/issues/NNN                                |
+| **PR**     | https://github.com/…/pull/NNN                                  |
+| **Status** | open / merged / deferred                                       |
 
 **What happened:**  
 **Why:**  
-**Resolution:** (filled after fix — what changed, which repo)
+**Resolution:**
 
 ---
 
-## DX Review
+## Developer Experience (DX) Review
 
-### Persona A — TypeScript app developer (primary)
+### Persona 1 — 初心者 TypeScript（知識ゼロ・ja ドキュメントのみ）
 
-React/Vue/Next experience; consumes NENE2 from the browser or a small Node script. Cares about typed responses, Problem Details → form errors, and bundle size.
+**ドキュメント理解**:  
+**実装のしやすさ**:  
+**事故リスク**: 高 / 中 / 低  
+**Risk**: high / medium / low
 
-**Documentation:**  
-**Error handling:**  
-**Friction felt:**  
-**Risk:** high / medium / low
+### Persona 2 — Python / nene2-python 経験者
 
-### Persona B — New to NENE2 (secondary, short)
+**ポート・スタック切替**:  
+**パリティ体感**:  
+**Risk**: high / medium / low
 
-First time pinning OpenAPI or using RFC 9457 from a PHP-backed API.
+### Persona 3 — フロントエンド（React / 業務 UI）
 
-**Onboarding:**  
-**One surprise:**  
-**Risk:** high / medium / low
+**エラーレスポンス → UI**:  
+**開発体験**:  
+**Risk**: high / medium / low
+
+### Persona 4 — セキュリティ
+
+**秘密・SSRF・ログ**:  
+**Risk**: high / medium / low
+
+### Persona 5 — DevOps / SRE
+
+**Docker・ヘルス・ポート**:  
+**Risk**: high / medium / low
+
+### Persona 6 — テックリード
+
+**レビュー観点・OpenAPI 境界**:  
+**Risk**: high / medium / low
+
+---
+
+## Observations
+
+### O1: [タイトル]
+
+```ts
+// コード例
+```
+
+[解説]
 
 ---
 
 ## Follow-up Issues (resolution tracker)
 
-List every Issue opened for this FT. Do not start the next FT until these are **merged** or **deferred** (see [field-trial friction cycle](../development/field-trials.md#friction-resolution-cycle-mandatory)).
-
-| Repo                      | Issue | PR   | Status               |
-| ------------------------- | ----- | ---- | -------------------- |
-| hideyukiMORI/nene2-js     | #NNN  | #MMM | open/merged/deferred |
-| hideyukiMORI/NENE2        | #NNN  | #MMM | …                    |
-| hideyukiMORI/nene2-python | #NNN  | #MMM | …                    |
-| hideyukiMORI/nene2-node   | #NNN  | #MMM | …                    |
+| Repo                      | Issue | PR  | Status |
+| ------------------------- | ----- | --- | ------ |
+| hideyukiMORI/nene2-js     |       |     |        |
+| nene2-js-FT (local `../nene2-js-FT/`) | — | — | local sandbox only |
+| hideyukiMORI/NENE2        |       |     |        |
+| hideyukiMORI/nene2-python |       |     |        |
 
 **FT completion:** open / blocked / done
 
@@ -97,4 +160,4 @@ List every Issue opened for this FT. Do not start the next FT until these are **
 
 ## Reminder
 
-No secrets, API keys, or private client data in this report.
+No secrets, API keys, or production URLs in this report.
