@@ -4,7 +4,7 @@
 
 ## システム
 
-`frameworkSmoke`, `health`, `machineHealth`, `ping`, `smoke`
+`frameworkSmoke`, `health({ allowDegraded?, strictService? })`, `machineHealth`, `ping`, `smoke`
 
 ## 例: notes / tags
 

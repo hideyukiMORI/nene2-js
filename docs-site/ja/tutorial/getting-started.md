@@ -46,7 +46,11 @@ curl -sS http://localhost:8080/health | jq .
 # 期待: { "status": "ok", "service": "NENE2" }
 ```
 
-`service` が `NENE2` でない場合、別サービスが 8080 を掴んでいます。クライアントは現状これを自動では拒否しません（[#46](https://github.com/hideyukiMORI/nene2-js/issues/46)）。
+`service` が `NENE2` でない場合、別サービスが 8080 を掴んでいます。厳格チェック:
+
+```ts
+await client.health({ strictService: true });
+```
 
 ## degraded health
 

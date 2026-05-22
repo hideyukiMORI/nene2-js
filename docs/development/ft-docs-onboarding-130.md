@@ -14,11 +14,11 @@ Reports: `tools/ft-marathon/build-report-markdown.mjs` → ~177 lines each (6 DX
 
 ## Friction found → Issues
 
-| F-n    | Severity | Owner    | Issue                                                     | Resolution                                                                                                  |
-| ------ | -------- | -------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| F-45-1 | medium   | nene2-js | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46) | `health()` accepts `service: "OTHER"` — doc warning added; client strict mode TBD                           |
-| F-45-2 | medium   | docs     | #45 PR                                                    | ja lacked server install before npm client → `install-nene2`, `install-nene2-python`, `blank-slate-journey` |
-| F-45-3 | low      | docs     | #45 PR                                                    | `live-smoke` ja missing `NENE2_JS_PYTHON_BASE_URL` → added                                                  |
+| F-n    | Severity | Owner    | Issue                                                     | Resolution                                                                                                        |
+| ------ | -------- | -------- | --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| F-45-1 | medium   | nene2-js | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46) | `health({ strictService: true })` rejects `service !== "NENE2"`; default remains permissive for shape-only checks |
+| F-45-2 | medium   | docs     | #45 PR                                                    | ja lacked server install before npm client → `install-nene2`, `install-nene2-python`, `blank-slate-journey`       |
+| F-45-3 | low      | docs     | #45 PR                                                    | `live-smoke` ja missing `NENE2_JS_PYTHON_BASE_URL` → added                                                        |
 
 ## Personas (6)
 

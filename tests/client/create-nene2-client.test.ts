@@ -68,6 +68,17 @@ describe('createNene2Client', () => {
     expect(headers.get('Authorization')).toBe('Bearer jwt-token');
   });
 
+  it('health({ strictService: true }) rejects non-NENE2 service', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ status: 'ok', service: 'OTHER' }));
+    const client = createNene2Client({ baseUrl: 'http://localhost:8080', fetch: fetchMock });
+
+    expect((await client.health()).service).toBe('OTHER');
+    await expect(client.health({ strictService: true })).rejects.toMatchObject({
+      message: /health\.service/,
+      status: 200,
+    });
+  });
+
   it('health() throws on 503 degraded unless allowDegraded', async () => {
     const body = loadFixture('health-degraded.json');
     const fetchMock = vi

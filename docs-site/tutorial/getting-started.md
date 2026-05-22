@@ -48,6 +48,12 @@ curl -sS http://localhost:8080/health | jq .
 
 Wrong JSON (HTML, another framework) triggers a clear client error with an HTML hint.
 
+If `service` is not `NENE2`, another process may own the port:
+
+```ts
+await client.health({ strictService: true });
+```
+
 ## Degraded health
 
 Load balancers may return **503** with `status: "degraded"`:

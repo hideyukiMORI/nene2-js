@@ -35,7 +35,7 @@ for (const e of FT_CATALOG) {
     pinRef: 'contracts/nene2-openapi-pin.json',
     packageVer: pkg.version,
     frictionBlock: frictionBlockFor(e, issue),
-    completion: e.handler.includes('health_wrong_service') ? 'open (F-1 #46)' : 'done',
+    completion: 'done',
   });
   writeFileSync(resolve(reportsDir, `2026-05-field-trial-${e.ft}.md`), md);
 }

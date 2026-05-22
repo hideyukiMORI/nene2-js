@@ -240,18 +240,16 @@ const h = await client.health();
  */
 export function frictionBlockFor(entry, issue) {
   if (entry.handler.includes('health_wrong_service')) {
-    return `### F-1: health.service が NENE2 以外でも成功する (severity: medium)
+    return `### F-1: health.service が NENE2 以外でも成功する (severity: medium) — resolved
 
 | Field | Value |
 | ----- | ----- |
 | **Owner** | \`nene2-js\` |
 | **Issue** | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46) |
-| **PR** | — |
-| **Status** | open |
+| **Status** | merged |
 
 **What happened:** \`:8080\` に別 API がいても \`health()\` が成功する。  
-**Why:** 型ガードは shape のみで \`service === 'NENE2'\` を要求しない。  
-**Resolution:** ドキュメント警告追加済み。クライアント strict モードは follow-up。`;
+**Resolution:** \`health({ strictService: true })\` で \`service !== 'NENE2'\` を拒否。デフォルトは shape のみ検証。`;
   }
   return '**今回の FT では実装上の摩擦はゼロだった。** 自動シナリオは PASS。';
 }
