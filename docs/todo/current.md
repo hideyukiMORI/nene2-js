@@ -22,7 +22,8 @@ Last updated: 2026-05-22 (JST)
 - [x] [#62](https://github.com/hideyukiMORI/nene2-js/issues/62) / PR [#63](https://github.com/hideyukiMORI/nene2-js/pull/63) — matrix `listTags` + consumer sandbox doc
 - [x] nene2-js-FT FT4–6 consumer apps (`../nene2-js-FT/`) — tags, health-board, protected-smoke
 - [x] [nene2-python#582](https://github.com/hideyukiMORI/nene2-python/issues/582) / [#583](https://github.com/hideyukiMORI/nene2-python/pull/583) — `GET /`, `/machine/health`
-- [x] [#65](https://github.com/hideyukiMORI/nene2-js/issues/65) — `verify:backends` framework + machine health (PR pending)
+- [x] [#65](https://github.com/hideyukiMORI/nene2-js/issues/65) / [#66](https://github.com/hideyukiMORI/nene2-js/pull/66) — `verify:backends` framework + machine health
+- [x] [nene2-python#586](https://github.com/hideyukiMORI/nene2-python/issues/586) / [#587](https://github.com/hideyukiMORI/nene2-python/pull/587) — `/examples/protected` JWT
 
 ## Handoff
 
