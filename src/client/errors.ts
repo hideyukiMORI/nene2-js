@@ -3,11 +3,6 @@ import type { ProblemDetailsDocument } from '../problem/types.js';
 /**
  * Error thrown when the NENE2 API returns a non-success HTTP status or an unexpected body.
  */
-/** Type guard for {@link Nene2ClientError}. */
-export function isNene2ClientError(error: unknown): error is Nene2ClientError {
-  return error instanceof Nene2ClientError;
-}
-
 export class Nene2ClientError extends Error {
   readonly status: number;
   readonly problem: ProblemDetailsDocument | undefined;
@@ -23,4 +18,9 @@ export class Nene2ClientError extends Error {
     this.url = options.url;
     this.problem = options.problem;
   }
+}
+
+/** Type guard for {@link Nene2ClientError}. */
+export function isNene2ClientError(error: unknown): error is Nene2ClientError {
+  return error instanceof Nene2ClientError;
 }

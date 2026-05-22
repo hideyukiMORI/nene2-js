@@ -25,7 +25,7 @@ try {
   );
   execSync(`npm install "${join(staging, tgz)}"`, { cwd: staging, stdio: 'inherit' });
   execSync(
-    `node --input-type=module -e "import { createNene2Client, NENE2_CLIENT_PACKAGE } from '@hideyukimori/nene2-client'; if (typeof createNene2Client !== 'function' || NENE2_CLIENT_PACKAGE !== '@hideyukimori/nene2-client') process.exit(1);"`,
+    `node --input-type=module -e "import { readFileSync } from 'node:fs'; import { join } from 'node:path'; import { createNene2Client, NENE2_CLIENT_PACKAGE } from '@hideyukimori/nene2-client'; if (typeof createNene2Client !== 'function' || NENE2_CLIENT_PACKAGE !== '@hideyukimori/nene2-client') process.exit(1); const dts = readFileSync(join('node_modules/@hideyukimori/nene2-client/dist/index.d.ts'), 'utf8'); if (!dts.includes('OpenApiPaths') || !dts.includes('OpenApiSchemas')) { console.error('missing OpenApiPaths/OpenApiSchemas in pack'); process.exit(1); }"`,
     { cwd: staging, stdio: 'inherit' },
   );
   console.log('pack smoke: ok');

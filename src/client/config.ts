@@ -12,6 +12,11 @@ export interface Nene2ClientConfig {
   readonly fetch?: typeof fetch | undefined;
   /** Optional abort signal forwarded to every request (Persona A: cancel in-flight calls). */
   readonly signal?: AbortSignal | undefined;
+  /**
+   * Per-request timeout in milliseconds (`AbortSignal.timeout`).
+   * Composes with `signal` when both are set.
+   */
+  readonly timeoutMs?: number | undefined;
 }
 
 /** @internal */
@@ -21,6 +26,7 @@ export interface ResolvedNene2ClientConfig {
   readonly bearer: string | undefined;
   readonly fetch: typeof fetch;
   readonly signal: AbortSignal | undefined;
+  readonly timeoutMs: number | undefined;
 }
 
 /** @internal */
@@ -39,5 +45,6 @@ export function resolveConfig(config: Nene2ClientConfig): ResolvedNene2ClientCon
     bearer: config.bearer,
     fetch: fetchFn,
     signal: config.signal,
+    timeoutMs: config.timeoutMs,
   };
 }

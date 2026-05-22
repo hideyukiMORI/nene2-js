@@ -6,6 +6,23 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-05-22
+
+### Added
+
+- Export `OpenApiPaths` and `OpenApiSchemas` from the public package entry (Issue #77).
+- `pack:smoke` asserts `OpenApiPaths` / `OpenApiSchemas` in the published tarball.
+- `timeoutMs` on `Nene2ClientConfig` — per-request `AbortSignal.timeout` (Issue #79).
+- Network / abort failures from `fetch` wrapped in `Nene2ClientError` with `status: 0` (Issue #79).
+
+### Fixed
+
+- JSDoc placement for `Nene2ClientError` and `isNene2ClientError`.
+
+### Documentation
+
+- [production-readiness.md](docs/development/production-readiness.md) — commercial use honest assessment.
+
 ## [0.1.2] - 2026-05-22
 
 ### Added

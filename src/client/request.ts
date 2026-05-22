@@ -1,13 +1,42 @@
 import { parseProblemDetailsResponse } from '../problem/guards.js';
 import type { ProblemDetailsDocument } from '../problem/types.js';
-import { Nene2ClientError } from './errors.js';
 import type { ResolvedNene2ClientConfig } from './config.js';
+import { Nene2ClientError } from './errors.js';
+import { mergeRequestSignal } from './signal.js';
 
 function withSignal(config: ResolvedNene2ClientConfig, init: RequestInit): RequestInit {
-  if (config.signal === undefined) {
+  const signal = mergeRequestSignal(config.signal, config.timeoutMs);
+  if (signal === undefined) {
     return init;
   }
-  return { ...init, signal: config.signal };
+  return { ...init, signal };
+}
+
+/** @internal Wrap fetch failures so consumers can use isNene2ClientError uniformly. */
+export function wrapFetchError(error: unknown, url: string): Nene2ClientError {
+  if (error instanceof Nene2ClientError) {
+    return error;
+  }
+  if (error instanceof Error) {
+    const prefix =
+      error.name === 'AbortError' || error.name === 'TimeoutError'
+        ? 'NENE2 request aborted or timed out'
+        : 'NENE2 network request failed';
+    return new Nene2ClientError(`${prefix}: ${error.message}`, { status: 0, url });
+  }
+  return new Nene2ClientError('NENE2 network request failed', { status: 0, url });
+}
+
+async function fetchRequest(
+  config: ResolvedNene2ClientConfig,
+  url: string,
+  init: RequestInit,
+): Promise<Response> {
+  try {
+    return await config.fetch(url, withSignal(config, init));
+  } catch (error) {
+    throw wrapFetchError(error, url);
+  }
 }
 
 export function buildAuthHeaders(config: ResolvedNene2ClientConfig): Headers {
@@ -90,10 +119,10 @@ export async function getJson<T>(
   options?: JsonRequestOptions,
 ): Promise<T> {
   const url = `${config.baseUrl}${path}`;
-  const response = await config.fetch(
-    url,
-    withSignal(config, { method: 'GET', headers: buildAuthHeaders(config) }),
-  );
+  const response = await fetchRequest(config, url, {
+    method: 'GET',
+    headers: buildAuthHeaders(config),
+  });
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -112,10 +141,11 @@ export async function postJson<T>(
   const url = `${config.baseUrl}${path}`;
   const headers = buildAuthHeaders(config);
   headers.set('Content-Type', 'application/json');
-  const response = await config.fetch(
-    url,
-    withSignal(config, { method: 'POST', headers, body: JSON.stringify(payload) }),
-  );
+  const response = await fetchRequest(config, url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload),
+  });
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -134,10 +164,11 @@ export async function putJson<T>(
   const url = `${config.baseUrl}${path}`;
   const headers = buildAuthHeaders(config);
   headers.set('Content-Type', 'application/json');
-  const response = await config.fetch(
-    url,
-    withSignal(config, { method: 'PUT', headers, body: JSON.stringify(payload) }),
-  );
+  const response = await fetchRequest(config, url, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify(payload),
+  });
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -152,10 +183,10 @@ export async function deleteNoContent(
   options?: JsonRequestOptions,
 ): Promise<void> {
   const url = `${config.baseUrl}${path}`;
-  const response = await config.fetch(
-    url,
-    withSignal(config, { method: 'DELETE', headers: buildAuthHeaders(config) }),
-  );
+  const response = await fetchRequest(config, url, {
+    method: 'DELETE',
+    headers: buildAuthHeaders(config),
+  });
 
   await throwOnErrorResponse(response, url, options);
 }
