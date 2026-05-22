@@ -24,15 +24,15 @@ Policy loop: [ADR 0004](../adr/0004-field-trial-friction-resolution-cycle.md) ·
 
 ## Resolved friction
 
-| ID                 | Severity | Phenomenon                                        | Owner        | Resolution                                                                      | Links                                                                                                                          |
-| ------------------ | -------- | ------------------------------------------------- | ------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Marathon / **#46** | medium   | Wrong process on port still passes `health()`     | nene2-js     | `health({ strictService: true })`; npm **0.1.2**                                | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46), [#48](https://github.com/hideyukiMORI/nene2-js/pull/48)             |
-| **F-2-1 / #578**   | high     | `/notes` vs `/examples/notes` on python           | nene2-python | Mount under `/examples` + ping                                                  | [#578](https://github.com/hideyukiMORI/nene2-python/issues/578), [#579](https://github.com/hideyukiMORI/nene2-python/pull/579) |
-| **F-5-1 / #582**   | medium   | `GET /` 404 on python (`frameworkSmoke`)          | nene2-python | Framework smoke route                                                           | [#582](https://github.com/hideyukiMORI/nene2-python/issues/582), [#583](https://github.com/hideyukiMORI/nene2-python/pull/583) |
-| **F-5-2**          | low      | `/machine/health` 404; wrong API key header       | nene2-python | Route + `X-NENE2-API-Key` + evac default key                                    | Same as #583                                                                                                                   |
-| **FT6 gap / #586** | medium   | No `/examples/protected` on python                | nene2-python | `LocalBearerJwtVerifier` + Bearer route                                         | [#586](https://github.com/hideyukiMORI/nene2-python/issues/586), [#587](https://github.com/hideyukiMORI/nene2-python/pull/587) |
-| **FT12 / #588**    | medium   | Notes 422 missing `body` on python (title only)   | nene2-python | create/update validate empty body                                               | [#588](https://github.com/hideyukiMORI/nene2-python/issues/588), [#589](https://github.com/hideyukiMORI/nene2-python/pull/589) |
-| **FT25 / #77**     | low      | `OpenApiPaths` not in published npm 0.1.2 tarball | nene2-js     | PR [#78](https://github.com/hideyukiMORI/nene2-js/pull/78) — 0.1.3 + smoke-pack |
+| ID                 | Severity | Phenomenon                                        | Owner        | Resolution                                       | Links                                                                                                                          |
+| ------------------ | -------- | ------------------------------------------------- | ------------ | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Marathon / **#46** | medium   | Wrong process on port still passes `health()`     | nene2-js     | `health({ strictService: true })`; npm **0.1.2** | [#46](https://github.com/hideyukiMORI/nene2-js/issues/46), [#48](https://github.com/hideyukiMORI/nene2-js/pull/48)             |
+| **F-2-1 / #578**   | high     | `/notes` vs `/examples/notes` on python           | nene2-python | Mount under `/examples` + ping                   | [#578](https://github.com/hideyukiMORI/nene2-python/issues/578), [#579](https://github.com/hideyukiMORI/nene2-python/pull/579) |
+| **F-5-1 / #582**   | medium   | `GET /` 404 on python (`frameworkSmoke`)          | nene2-python | Framework smoke route                            | [#582](https://github.com/hideyukiMORI/nene2-python/issues/582), [#583](https://github.com/hideyukiMORI/nene2-python/pull/583) |
+| **F-5-2**          | low      | `/machine/health` 404; wrong API key header       | nene2-python | Route + `X-NENE2-API-Key` + evac default key     | Same as #583                                                                                                                   |
+| **FT6 gap / #586** | medium   | No `/examples/protected` on python                | nene2-python | `LocalBearerJwtVerifier` + Bearer route          | [#586](https://github.com/hideyukiMORI/nene2-python/issues/586), [#587](https://github.com/hideyukiMORI/nene2-python/pull/587) |
+| **FT12 / #588**    | medium   | Notes 422 missing `body` on python (title only)   | nene2-python | create/update validate empty body                | [#588](https://github.com/hideyukiMORI/nene2-python/issues/588), [#589](https://github.com/hideyukiMORI/nene2-python/pull/589) |
+| **FT25 / #77**     | low      | `OpenApiPaths` not in published npm 0.1.2 tarball | nene2-js     | **Resolved** @0.1.3                              |
 
 ## Documentation / DX (no separate runtime bug)
 
@@ -77,12 +77,12 @@ Reports: `../nene2-js-FT/docs/field-trials/` (local only).
 
 ## Open / deferred
 
-| Item                       | Notes                                                                              |
-| -------------------------- | ---------------------------------------------------------------------------------- |
-| **#77** OpenApiPaths npm   | PR [#78](https://github.com/hideyukiMORI/nene2-js/pull/78) — 0.1.3 publish pending |
-| nene2-node parity          | `NENE2_JS_NODE_BASE_URL` optional in matrix                                        |
-| Guard codegen from OpenAPI | ADR 0006 follow-up Issue (hand guards remain intentional)                          |
-| Published Pages lag        | Wait for deploy after docs PRs                                                     |
+| Item                       | Notes                                                     |
+| -------------------------- | --------------------------------------------------------- |
+| nene2-node parity          | `NENE2_JS_NODE_BASE_URL` optional in matrix               |
+| Guard codegen from OpenAPI | ADR 0006 follow-up Issue (hand guards remain intentional) |
+| Pagination `total` on PHP  | OpenAPI optional; python returns `total`, PHP may omit    |
+| 1.0.0 stability            | See [roadmap.md](../roadmap.md) criteria                  |
 
 ## Phase 1 historical (resolved)
 
