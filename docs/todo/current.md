@@ -8,7 +8,7 @@ _(none — 1.0.0 shipped; track semver in Issues)_
 
 ## Completed (recent)
 
-- [x] [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) — npm **1.0.0** (roadmap criteria 1–5)
+- [x] [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) — npm **1.0.0** (roadmap criteria 1–5); nene2-js-FT FT35 matrix green
 - [x] [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) / [#88](https://github.com/hideyukiMORI/nene2-js/pull/88) · [#89](https://github.com/hideyukiMORI/nene2-js/pull/89) · [#90](https://github.com/hideyukiMORI/nene2-js/pull/90) — guard codegen epic + VitePress 全ロケール
 - [x] [#82](https://github.com/hideyukiMORI/nene2-js/issues/82) / [#83](https://github.com/hideyukiMORI/nene2-js/pull/83) — docs FT31–34 / 0.1.4 sync
 
