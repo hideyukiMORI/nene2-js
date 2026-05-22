@@ -5,7 +5,14 @@ Last updated: 2026-05-22 (JST)
 ## Active
 
 - [ ] Optional: OpenAPI-derived runtime guards / client method codegen (**open Issue before work**)
-- [ ] nene2-js-FT FT31+ — await [nene2-js#78](https://github.com/hideyukiMORI/nene2-js/pull/78) npm 0.1.3 publish (`../nene2-js-FT/`)
+- [ ] 1.0.0 API stability declaration — see [roadmap.md](../roadmap.md)
+
+## Completed (recent)
+
+- [x] [#77](https://github.com/hideyukiMORI/nene2-js/issues/77) / [#78](https://github.com/hideyukiMORI/nene2-js/pull/78) — npm **0.1.3** (`OpenApiPaths`, pack smoke)
+- [x] [#79](https://github.com/hideyukiMORI/nene2-js/issues/79) — network wrap + `timeoutMs` (in 0.1.3)
+- [x] [#80](https://github.com/hideyukiMORI/nene2-js/issues/80) / [#81](https://github.com/hideyukiMORI/nene2-js/pull/81) — npm **0.1.4** (`error.rateLimit`, `parseRateLimitHeaders`)
+- [x] nene2-js-FT FT31–34 @0.1.3–0.1.4 (`../nene2-js-FT/`) — zero friction
 
 ## Completed
 
@@ -46,7 +53,7 @@ Last updated: 2026-05-22 (JST)
 ## Handoff
 
 ```bash
-npm install @hideyukimori/nene2-client@0.1.2
+npm install @hideyukimori/nene2-client@0.1.4
 npm run test:ft-marathon          # 502 tests
 npm run verify:backends           # needs :18080 + :18000
 export NENE2_JS_API_BASE_URL=http://localhost:18080
