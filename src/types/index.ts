@@ -10,4 +10,6 @@ export {
   isCreateNoteRequest,
   isExampleNoteListResponse,
   isExampleNoteResponse,
+  isProtectedResponse,
 } from './examples/index.js';
+export type { ProtectedResponse } from './examples/index.js';

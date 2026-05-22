@@ -4,10 +4,12 @@ import { getJson, postJson } from './request.js';
 import {
   isExampleNoteListResponse,
   isExampleNoteResponse,
+  isProtectedResponse,
   type CreateNoteRequest,
   type ExampleNote,
   type ExampleNoteListResponse,
   type ListNotesParams,
+  type ProtectedResponse,
 } from '../types/examples/index.js';
 import {
   isExamplePingResponse,
@@ -53,6 +55,11 @@ export interface Nene2Client {
    * `POST /examples/notes` — create note (OpenAPI `createExampleNote`).
    */
   createNote(body: CreateNoteRequest): Promise<ExampleNote>;
+
+  /**
+   * `GET /examples/protected` — JWT claims demo (OpenAPI `getProtected`). Requires `bearer` in config.
+   */
+  getProtected(): Promise<ProtectedResponse>;
 }
 
 /**
@@ -87,5 +94,6 @@ export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
       ),
     getNote: (id) => getJson(resolved, `/examples/notes/${String(id)}`, isExampleNoteResponse),
     createNote: (body) => postJson(resolved, '/examples/notes', body, isExampleNoteResponse),
+    getProtected: () => getJson(resolved, '/examples/protected', isProtectedResponse),
   };
 }
