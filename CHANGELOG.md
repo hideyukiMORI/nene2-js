@@ -9,7 +9,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - ADR 0007 — OpenAPI guard codegen spike (Ajv standalone, #86 Phase A).
-- `tools/codegen-guards-spike.mjs` + `tests/codegen/guards-spike.test.ts` — fixture parity with hand guards.
+- `npm run codegen:guards` → `src/generated/guards.ts`; `codegen:guards:check` in CI (#86 Phase B).
+- Hand `is*` guards delegate to generated validators (Phase C migration).
 
 ## [0.1.4] - 2026-05-22
 

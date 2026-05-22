@@ -1,25 +1,19 @@
-#!/usr/bin/env node
 /**
- * Phase A spike (#86): generate Ajv standalone validators from OpenAPI schemas.
- * Output is for spike/tests only — not committed to src/generated/ until Phase B.
+ * OpenAPI component schema → internal validator export name (ADR 0007).
+ * Public `is*` guards live in src/types/* as thin wrappers.
  */
-import SwaggerParser from '@apidevtools/swagger-parser';
-import Ajv from 'ajv';
-import standaloneCode from 'ajv/dist/standalone/index.js';
-
-/** Client-used component schemas → public guard names (Phase B/C). */
 export const GUARD_SCHEMA_MAP = {
-  HealthResponse: 'isHealthResponse',
-  ExamplePingResponse: 'isExamplePingResponse',
-  FrameworkSmokeResponse: 'isFrameworkSmokeResponse',
-  MachineHealthResponse: 'isMachineHealthResponse',
-  ExampleNoteResponse: 'isExampleNoteResponse',
-  ExampleNoteListResponse: 'isExampleNoteListResponse',
-  CreateNoteRequest: 'isCreateNoteRequest',
-  ExampleTagResponse: 'isExampleTagResponse',
-  ExampleTagListResponse: 'isExampleTagListResponse',
-  CreateTagRequest: 'isCreateTagRequest',
-  ProtectedResponse: 'isProtectedResponse',
+  HealthResponse: 'validateHealthResponse',
+  ExamplePingResponse: 'validateExamplePingResponse',
+  FrameworkSmokeResponse: 'validateFrameworkSmokeResponse',
+  MachineHealthResponse: 'validateMachineHealthResponse',
+  ExampleNoteResponse: 'validateExampleNoteResponse',
+  ExampleNoteListResponse: 'validateExampleNoteListResponse',
+  CreateNoteRequest: 'validateCreateNoteRequest',
+  ExampleTagResponse: 'validateExampleTagResponse',
+  ExampleTagListResponse: 'validateExampleTagListResponse',
+  CreateTagRequest: 'validateCreateTagRequest',
+  ProtectedResponse: 'validateProtectedResponse',
 };
 
 /**
@@ -27,6 +21,10 @@ export const GUARD_SCHEMA_MAP = {
  * @returns {Promise<{ moduleSource: string; schemaNames: string[] }>}
  */
 export async function generateGuardModuleSource(openapiPath) {
+  const SwaggerParser = (await import('@apidevtools/swagger-parser')).default;
+  const Ajv = (await import('ajv')).default;
+  const standaloneCode = (await import('ajv/dist/standalone/index.js')).default;
+
   const api = await SwaggerParser.dereference(openapiPath);
   const schemas = api.components?.schemas;
   if (schemas === undefined) {
@@ -47,49 +45,45 @@ export async function generateGuardModuleSource(openapiPath) {
       allErrors: false,
     });
     const validate = ajv.compile(stripFormats(structuredClone(raw)));
-    const block = postProcessStandaloneBlock(standaloneCode(ajv, validate), schemaName);
+    const exportName = GUARD_SCHEMA_MAP[schemaName];
+    const block = postProcessStandaloneBlock(standaloneCode(ajv, validate), exportName, schemaName);
     validatorBlocks.push(block);
   }
 
-  const sharedRuntime = `function ucs2length(str) {
+  const moduleSource = `/**
+ * @generated from contracts/openapi.yaml — do not edit.
+ * Regenerate: npm run codegen:guards
+ * @see docs/adr/0007-openapi-guard-codegen-ajv-standalone.md
+ */
+/* eslint-disable */
+// @ts-nocheck
+
+function ucs2length(str: string): number {
   return [...str].length;
 }
-`;
 
-  const wrappers = Object.entries(GUARD_SCHEMA_MAP)
-    .map(
-      ([schemaName, guardName]) =>
-        `export function ${guardName}Generated(value) {
-  return validate${schemaName}(value);
-}`,
-    )
-    .join('\n\n');
-
-  const moduleSource = `/** @generated spike — ADR 0007 */
-/* eslint-disable */
-${sharedRuntime}
 ${validatorBlocks.join('\n\n')}
-
-${wrappers}
 `;
 
   return { moduleSource, schemaNames };
 }
 
-/** Rename internal validateN, drop duplicate default exports, ESM-fix minLength runtime. */
-function postProcessStandaloneBlock(block, schemaName) {
-  const fnName = `validate${schemaName}`;
+/** Rename internal validateN, export, ESM-fix minLength runtime. */
+function postProcessStandaloneBlock(block, exportName, schemaName) {
   const schemaConst = `schema_${schemaName}`;
   block = block.replace(/\bschema\d+\b/g, schemaConst);
   const match = block.match(/function (validate\d+)/);
   const internal = match?.[1] ?? 'validate';
-  let out = block.replace(new RegExp(`\\b${internal}\\b`, 'g'), fnName);
+  let out = block.replace(new RegExp(`\\b${internal}\\b`, 'g'), exportName);
   out = out.replace(/^export default .*;\n?/gm, '');
   out = out.replace(/^export const validate = .*;\n?/gm, '');
   out = out.replace(/^export const validate\w+ = .*;\n?/gm, '');
   out = out.replace(/^"use strict";\n?/gm, '');
   out = out.replace(/const func2 = require\("ajv\/dist\/runtime\/ucs2length"\)\.default;/g, '');
   out = out.replace(/\bfunc2\b/g, 'ucs2length');
+  if (!out.startsWith('export ')) {
+    out = out.replace(`function ${exportName}`, `export function ${exportName}`);
+  }
   return out.trim();
 }
 
