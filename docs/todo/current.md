@@ -4,10 +4,12 @@ Last updated: 2026-05-22 (JST)
 
 ## Active
 
+- [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡
 - [ ] Optional: OpenAPI-derived runtime guards / client method codegen (**open Issue before work**)
-- [ ] 1.0.0 API stability declaration — see [roadmap.md](../roadmap.md)
 
 ## Completed (recent)
+
+- [x] [#82](https://github.com/hideyukiMORI/nene2-js/issues/82) / [#83](https://github.com/hideyukiMORI/nene2-js/pull/83) — docs FT31–34 / 0.1.4 sync
 
 - [x] [#77](https://github.com/hideyukiMORI/nene2-js/issues/77) / [#78](https://github.com/hideyukiMORI/nene2-js/pull/78) — npm **0.1.3** (`OpenApiPaths`, pack smoke)
 - [x] [#79](https://github.com/hideyukiMORI/nene2-js/issues/79) — network wrap + `timeoutMs` (in 0.1.3)
