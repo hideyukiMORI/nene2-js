@@ -38,7 +38,7 @@ async function probeBackend(baseUrl: string): Promise<ProbeOutcome> {
   let listNotes: ProbeOutcome['listNotes'] = 'skipped';
 
   try {
-    const body = await client.health();
+    const body = await client.health({ strictService: true });
     health = 'ok';
     if (body.service !== 'NENE2') {
       notes.push(`health: unexpected service field "${body.service}"`);
