@@ -6,6 +6,7 @@
 
 ```bash
 export NENE2_JS_API_BASE_URL=http://localhost:8080
+export NENE2_JS_PYTHON_BASE_URL=http://localhost:8000
 ```
 
 マルチバックエンド（ADR 0003）:

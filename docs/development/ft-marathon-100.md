@@ -19,12 +19,13 @@ npm run ft:marathon
 
 ## Layout
 
-| Path                                     | Role                                                     |
-| ---------------------------------------- | -------------------------------------------------------- |
-| `tools/ft-marathon/catalog.mjs`          | 100 scenario definitions (theme, handler, persona notes) |
-| `tests/field-trials/runners.ts`          | Handler implementations                                  |
-| `tests/field-trials/ft-marathon.test.ts` | Vitest driver                                            |
-| `tools/ft-marathon/write-reports.mjs`    | Writes `docs/field-trials/2026-05-field-trial-NN.md`     |
+| Path                                          | Role                                                     |
+| --------------------------------------------- | -------------------------------------------------------- |
+| `tools/ft-marathon/catalog.mjs`               | 100 scenario definitions (theme, handler, persona notes) |
+| `tests/field-trials/runners.ts`               | Handler implementations                                  |
+| `tests/field-trials/ft-marathon.test.ts`      | Vitest driver                                            |
+| `tools/ft-marathon/build-report-markdown.mjs` | Full report body (NENE2 / nene2-python granularity)      |
+| `tools/ft-marathon/write-reports.mjs`         | Writes `docs/field-trials/2026-05-field-trial-NN.md`     |
 
 ## Categories (100 total)
 

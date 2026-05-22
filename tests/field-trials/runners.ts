@@ -21,6 +21,7 @@ import {
   problemResponse,
   sequentialFetch,
 } from './helpers/mock-fetch.js';
+import { isDocsOnboardingHandler, runDocsOnboardingHandler } from './runners-docs-onboarding.js';
 
 const BASE = 'http://localhost:18080';
 const API_KEY = 'ft-evac-local-machine-api-key-32ch!!';
@@ -886,6 +887,10 @@ const HANDLERS: Record<string, () => void | Promise<void>> = {
 };
 
 export async function runFtHandler(handler: string): Promise<void> {
+  if (isDocsOnboardingHandler(handler)) {
+    await runDocsOnboardingHandler(handler);
+    return;
+  }
   const fn = HANDLERS[handler];
   if (fn === undefined) {
     throw new Error(`Unknown FT handler: ${handler}`);
