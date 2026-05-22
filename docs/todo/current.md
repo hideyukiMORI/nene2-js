@@ -1,6 +1,6 @@
 # Current work
 
-Last updated: 2026-05-22 (FT3 notes client)
+Last updated: 2026-05-22 (FT6 tags client)
 
 ## Active
 
@@ -15,12 +15,13 @@ Last updated: 2026-05-22 (FT3 notes client)
 - [x] [#16](https://github.com/hideyukiMORI/nene2-js/issues/16) + [#17](https://github.com/hideyukiMORI/nene2-js/issues/17) + [FT3](docs/field-trials/2026-05-field-trial-3.md) notes client
 - [x] [#19](https://github.com/hideyukiMORI/nene2-js/issues/19) + [FT4](docs/field-trials/2026-05-field-trial-4.md) getProtected
 - [x] [#21](https://github.com/hideyukiMORI/nene2-js/issues/21) + [FT5](docs/field-trials/2026-05-field-trial-5.md) update/delete + evac ports
+- [x] [#23](https://github.com/hideyukiMORI/nene2-js/issues/23) + [FT6](docs/field-trials/2026-05-field-trial-6.md) tags CRUD
 
 ## Next Issues
 
-| #   | Title                      |
-| --- | -------------------------- |
-| —   | FT6: tags CRUD or live JWT |
+| #   | Title               |
+| --- | ------------------- |
+| —   | FT7: live JWT smoke |
 
 ## Handoff
 

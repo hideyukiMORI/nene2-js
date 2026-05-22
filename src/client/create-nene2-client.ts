@@ -5,7 +5,13 @@ import {
   isExampleNoteListResponse,
   isExampleNoteResponse,
   isProtectedResponse,
+  isExampleTagListResponse,
+  isExampleTagResponse,
   type CreateNoteRequest,
+  type CreateTagRequest,
+  type ExampleTag,
+  type ExampleTagListResponse,
+  type ListTagsParams,
   type ExampleNote,
   type ExampleNoteListResponse,
   type ListNotesParams,
@@ -67,6 +73,31 @@ export interface Nene2Client {
   deleteNote(id: number): Promise<void>;
 
   /**
+   * `GET /examples/tags` — paginated list (OpenAPI `listExampleTags`).
+   */
+  listTags(params?: ListTagsParams): Promise<ExampleTagListResponse>;
+
+  /**
+   * `GET /examples/tags/{id}` — single tag (OpenAPI `getExampleTagById`).
+   */
+  getTag(id: number): Promise<ExampleTag>;
+
+  /**
+   * `POST /examples/tags` — create tag (OpenAPI `createExampleTag`).
+   */
+  createTag(body: CreateTagRequest): Promise<ExampleTag>;
+
+  /**
+   * `PUT /examples/tags/{id}` — update tag (OpenAPI `updateExampleTagById`).
+   */
+  updateTag(id: number, body: CreateTagRequest): Promise<ExampleTag>;
+
+  /**
+   * `DELETE /examples/tags/{id}` — delete tag (OpenAPI `deleteExampleTagById`, 204).
+   */
+  deleteTag(id: number): Promise<void>;
+
+  /**
    * `GET /examples/protected` — JWT claims demo (OpenAPI `getProtected`). Requires `bearer` in config.
    */
   getProtected(): Promise<ProtectedResponse>;
@@ -107,6 +138,20 @@ export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
     updateNote: (id, body) =>
       putJson(resolved, `/examples/notes/${String(id)}`, body, isExampleNoteResponse),
     deleteNote: (id) => deleteNoContent(resolved, `/examples/notes/${String(id)}`),
+    listTags: (params) =>
+      getJson(
+        resolved,
+        withQuery('/examples/tags', {
+          limit: params?.limit,
+          offset: params?.offset,
+        }),
+        isExampleTagListResponse,
+      ),
+    getTag: (id) => getJson(resolved, `/examples/tags/${String(id)}`, isExampleTagResponse),
+    createTag: (body) => postJson(resolved, '/examples/tags', body, isExampleTagResponse),
+    updateTag: (id, body) =>
+      putJson(resolved, `/examples/tags/${String(id)}`, body, isExampleTagResponse),
+    deleteTag: (id) => deleteNoContent(resolved, `/examples/tags/${String(id)}`),
     getProtected: () => getJson(resolved, '/examples/protected', isProtectedResponse),
   };
 }
