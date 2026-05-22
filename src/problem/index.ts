@@ -1,11 +1,5 @@
-/**
- * @hideyukimori/nene2-client — TypeScript client for NENE2 JSON APIs.
- * @see docs/roadmap.md
- */
-export const NENE2_CLIENT_PACKAGE = '@hideyukimori/nene2-client' as const;
-
+export { NENE2_PROBLEM_TYPE_VALIDATION_FAILED } from './constants.js';
 export {
-  NENE2_PROBLEM_TYPE_VALIDATION_FAILED,
   isNene2ValidationFailedProblem,
   isNene2ValidationFailedType,
   isProblemDetails,
@@ -15,11 +9,11 @@ export {
   parseProblemDetailsResponse,
   parseValidationProblemDetails,
   problemDetailsExtensions,
-} from './problem/index.js';
+} from './guards.js';
 export type {
   ProblemDetails,
   ProblemDetailsDocument,
   ValidationError,
   ValidationProblemDetails,
   ValidationProblemDetailsDocument,
-} from './problem/index.js';
+} from './types.js';

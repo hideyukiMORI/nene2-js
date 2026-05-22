@@ -1,6 +1,6 @@
 # Current work
 
-Last updated: 2026-05-22 (ADR 0002 OpenAPI pin)
+Last updated: 2026-05-22 (Problem Details guards)
 
 ## Active
 
@@ -8,13 +8,13 @@ Last updated: 2026-05-22 (ADR 0002 OpenAPI pin)
 - [x] GitHub: https://github.com/hideyukiMORI/nene2-js
 - [x] `npm run check` passes locally
 - [x] [#1](https://github.com/hideyukiMORI/nene2-js/issues/1) ADR 0002 — OpenAPI pin (`contracts/`, `contracts:sync|check`)
+- [x] [#2](https://github.com/hideyukiMORI/nene2-js/issues/2) Problem Details guards (`src/problem/`)
 
 ## Next Issues
 
-| #                                                       | Title                                |
-| ------------------------------------------------------- | ------------------------------------ |
-| [#2](https://github.com/hideyukiMORI/nene2-js/issues/2) | Problem Details 型ガード（RFC 9457） |
-| [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) | health / ping の typed client        |
+| #                                                       | Title                         |
+| ------------------------------------------------------- | ----------------------------- |
+| [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) | health / ping の typed client |
 
 ## Handoff
 

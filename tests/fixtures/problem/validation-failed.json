@@ -1,0 +1,13 @@
+{
+  "type": "https://nene2.dev/problems/validation-failed",
+  "title": "Validation Failed",
+  "status": 422,
+  "detail": "The request body contains invalid values.",
+  "errors": [
+    {
+      "field": "email",
+      "message": "Email must be a valid email address.",
+      "code": "invalid_email"
+    }
+  ]
+}

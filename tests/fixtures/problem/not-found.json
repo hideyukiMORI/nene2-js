@@ -1,0 +1,7 @@
+{
+  "type": "https://nene2.dev/problems/not-found",
+  "title": "Not Found",
+  "status": 404,
+  "detail": "The requested resource was not found.",
+  "instance": "/examples/notes/999"
+}
