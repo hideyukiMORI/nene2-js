@@ -1,5 +1,17 @@
-export type { ExamplePingResponse, HealthResponse, HealthStatus } from './system.js';
-export { isExamplePingResponse, isHealthResponse } from './system.js';
+export type {
+  ExamplePingResponse,
+  FrameworkSmokeResponse,
+  HealthResponse,
+  HealthStatus,
+  MachineHealthResponse,
+  SmokeCheckResult,
+} from './system.js';
+export {
+  isExamplePingResponse,
+  isFrameworkSmokeResponse,
+  isHealthResponse,
+  isMachineHealthResponse,
+} from './system.js';
 export type {
   CreateNoteRequest,
   ExampleNote,

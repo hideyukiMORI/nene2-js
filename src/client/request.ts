@@ -3,6 +3,13 @@ import type { ProblemDetailsDocument } from '../problem/types.js';
 import { Nene2ClientError } from './errors.js';
 import type { ResolvedNene2ClientConfig } from './config.js';
 
+function withSignal(config: ResolvedNene2ClientConfig, init: RequestInit): RequestInit {
+  if (config.signal === undefined) {
+    return init;
+  }
+  return { ...init, signal: config.signal };
+}
+
 export function buildAuthHeaders(config: ResolvedNene2ClientConfig): Headers {
   const headers = new Headers({ Accept: 'application/json' });
   if (config.apiKey !== undefined) {
@@ -31,11 +38,16 @@ async function parseJsonBody<T>(
   url: string,
   isValid: (value: unknown) => value is T,
 ): Promise<T> {
+  const contentType = response.headers.get('content-type') ?? '';
   let body: unknown;
   try {
     body = await response.json();
   } catch {
-    throw new Nene2ClientError('NENE2 response is not valid JSON', {
+    const hint =
+      contentType.includes('text/html') || contentType.includes('text/plain')
+        ? ' — response looks like HTML/text; check baseUrl points at NENE2 JSON API'
+        : '';
+    throw new Nene2ClientError(`NENE2 response is not valid JSON${hint}`, {
       status: response.status,
       url,
     });
@@ -78,10 +90,10 @@ export async function getJson<T>(
   options?: JsonRequestOptions,
 ): Promise<T> {
   const url = `${config.baseUrl}${path}`;
-  const response = await config.fetch(url, {
-    method: 'GET',
-    headers: buildAuthHeaders(config),
-  });
+  const response = await config.fetch(
+    url,
+    withSignal(config, { method: 'GET', headers: buildAuthHeaders(config) }),
+  );
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -100,11 +112,10 @@ export async function postJson<T>(
   const url = `${config.baseUrl}${path}`;
   const headers = buildAuthHeaders(config);
   headers.set('Content-Type', 'application/json');
-  const response = await config.fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(payload),
-  });
+  const response = await config.fetch(
+    url,
+    withSignal(config, { method: 'POST', headers, body: JSON.stringify(payload) }),
+  );
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -123,11 +134,10 @@ export async function putJson<T>(
   const url = `${config.baseUrl}${path}`;
   const headers = buildAuthHeaders(config);
   headers.set('Content-Type', 'application/json');
-  const response = await config.fetch(url, {
-    method: 'PUT',
-    headers,
-    body: JSON.stringify(payload),
-  });
+  const response = await config.fetch(
+    url,
+    withSignal(config, { method: 'PUT', headers, body: JSON.stringify(payload) }),
+  );
 
   await throwOnErrorResponse(response, url, options);
   return parseJsonBody(response, url, isValid);
@@ -142,10 +152,10 @@ export async function deleteNoContent(
   options?: JsonRequestOptions,
 ): Promise<void> {
   const url = `${config.baseUrl}${path}`;
-  const response = await config.fetch(url, {
-    method: 'DELETE',
-    headers: buildAuthHeaders(config),
-  });
+  const response = await config.fetch(
+    url,
+    withSignal(config, { method: 'DELETE', headers: buildAuthHeaders(config) }),
+  );
 
   await throwOnErrorResponse(response, url, options);
 }

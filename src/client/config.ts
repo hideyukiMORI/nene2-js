@@ -10,6 +10,8 @@ export interface Nene2ClientConfig {
   readonly bearer?: string | undefined;
   /** Custom fetch implementation (tests, Node 18 polyfill). */
   readonly fetch?: typeof fetch | undefined;
+  /** Optional abort signal forwarded to every request (Persona A: cancel in-flight calls). */
+  readonly signal?: AbortSignal | undefined;
 }
 
 /** @internal */
@@ -18,6 +20,7 @@ export interface ResolvedNene2ClientConfig {
   readonly apiKey: string | undefined;
   readonly bearer: string | undefined;
   readonly fetch: typeof fetch;
+  readonly signal: AbortSignal | undefined;
 }
 
 /** @internal */
@@ -35,5 +38,6 @@ export function resolveConfig(config: Nene2ClientConfig): ResolvedNene2ClientCon
     apiKey: config.apiKey,
     bearer: config.bearer,
     fetch: fetchFn,
+    signal: config.signal,
   };
 }

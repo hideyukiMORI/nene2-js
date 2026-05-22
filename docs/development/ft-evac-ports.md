@@ -10,6 +10,12 @@ When other agents occupy default ports, use **alternate URLs** via env vars only
 | nene2-python | 8000    | **18000**      | `NENE2_JS_PYTHON_BASE_URL` |
 | nene2-node   | 3000    | **13000**      | `NENE2_JS_NODE_BASE_URL`   |
 
+Env for machine health (evac default in compose):
+
+```bash
+export NENE2_MACHINE_API_KEY=ft-evac-local-machine-api-key-32ch!!
+```
+
 MySQL for NENE2 Docker evac: host port **13307** (see `tools/compose-ft-evac.yaml`).
 
 ## NENE2 Docker (evac)
