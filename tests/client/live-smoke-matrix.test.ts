@@ -28,6 +28,7 @@ type ProbeOutcome = {
   readonly ping: 'ok' | 'failed';
   readonly listNotes: 'ok' | 'skipped' | 'failed';
   readonly listTags: 'ok' | 'skipped' | 'failed';
+  readonly frameworkSmoke: 'ok' | 'skipped' | 'failed';
   readonly notes: string[];
 };
 
@@ -38,6 +39,7 @@ async function probeBackend(baseUrl: string): Promise<ProbeOutcome> {
   let ping: ProbeOutcome['ping'] = 'failed';
   let listNotes: ProbeOutcome['listNotes'] = 'skipped';
   let listTags: ProbeOutcome['listTags'] = 'skipped';
+  let frameworkSmoke: ProbeOutcome['frameworkSmoke'] = 'skipped';
 
   try {
     const body = await client.health({ strictService: true });
@@ -91,7 +93,21 @@ async function probeBackend(baseUrl: string): Promise<ProbeOutcome> {
     );
   }
 
-  return { health, ping, listNotes, listTags, notes };
+  try {
+    const root = await client.frameworkSmoke();
+    frameworkSmoke = 'ok';
+    if (root.status !== 'ok' || root.name !== 'NENE2') {
+      notes.push(`frameworkSmoke: unexpected body ${JSON.stringify(root)}`);
+      frameworkSmoke = 'failed';
+    }
+  } catch (err) {
+    frameworkSmoke = 'failed';
+    notes.push(
+      `frameworkSmoke: ${err instanceof Nene2ClientError ? `${err.status} ${err.message}` : String(err)}`,
+    );
+  }
+
+  return { health, ping, listNotes, listTags, frameworkSmoke, notes };
 }
 
 for (const backend of BACKENDS) {
@@ -106,6 +122,7 @@ for (const backend of BACKENDS) {
         expect(outcome.ping, outcome.notes.join('; ')).toBe('ok');
         expect(outcome.listNotes, outcome.notes.join('; ')).toBe('ok');
         expect(outcome.listTags, outcome.notes.join('; ')).toBe('ok');
+        expect(outcome.frameworkSmoke, outcome.notes.join('; ')).toBe('ok');
         const client = createNene2Client({ baseUrl: baseUrl! });
         const health = await client.health();
         expect(health.service).toBe('NENE2');
@@ -119,10 +136,11 @@ for (const backend of BACKENDS) {
         outcome.health !== 'ok' ||
         outcome.ping !== 'ok' ||
         outcome.listNotes === 'failed' ||
-        outcome.listTags === 'failed'
+        outcome.listTags === 'failed' ||
+        outcome.frameworkSmoke === 'failed'
       ) {
         console.info(
-          `[${backend.id}] compatibility probe: health=${outcome.health} ping=${outcome.ping} listNotes=${outcome.listNotes} listTags=${outcome.listTags}`,
+          `[${backend.id}] compatibility probe: health=${outcome.health} ping=${outcome.ping} listNotes=${outcome.listNotes} listTags=${outcome.listTags} frameworkSmoke=${outcome.frameworkSmoke}`,
           outcome.notes,
         );
       }
@@ -132,9 +150,16 @@ for (const backend of BACKENDS) {
           ping: outcome.ping,
           listNotes: outcome.listNotes,
           listTags: outcome.listTags,
+          frameworkSmoke: outcome.frameworkSmoke,
         },
         `OpenAPI contract mismatch — record in docs/field-trials/ and track in ${backend.label}: ${outcome.notes.join('; ')}`,
-      ).toEqual({ health: 'ok', ping: 'ok', listNotes: 'ok', listTags: 'ok' });
+      ).toEqual({
+        health: 'ok',
+        ping: 'ok',
+        listNotes: 'ok',
+        listTags: 'ok',
+        frameworkSmoke: 'ok',
+      });
     });
   });
 }
