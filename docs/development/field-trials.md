@@ -98,7 +98,8 @@ State explicitly in the report: **“No actionable friction — FT complete.”*
 | Phase    | Sandbox                                                                      |
 | -------- | ---------------------------------------------------------------------------- |
 | Now      | `tests/fixtures/` + optional live env URLs (see multi-backend below)         |
-| After #3 | `examples/smoke/` or sibling `../nene2-js-FT/` if a multi-file app is needed |
+| App FT   | Local sibling `../nene2-js-FT/` (`apps/notes-console`) — **not** a separate GitHub repo; see `AGENTS.md` there |
+| After #3 | `examples/smoke/` or `../nene2-js-FT/` for multi-file consumer apps |
 
 Do not commit secrets, `.env`, or production URLs.
 
