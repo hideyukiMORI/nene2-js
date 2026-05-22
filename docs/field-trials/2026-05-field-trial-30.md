@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-22  
 **NENE2 pin**: `contracts/nene2-openapi-pin.json` → `nene2-openapi-pin.json`  
-**Package**: `@hideyukimori/nene2-client` @ `0.1.1`  
+**Package**: `@hideyukimori/nene2-client` @ `0.1.2`  
 **Issues / PRs**: [#31](https://github.com/hideyukiMORI/nene2-js/issues/31) (marathon 100 (FT30–129))  
 **Sandbox**: `tests/fixtures/` + `tests/field-trials/`
 
@@ -16,15 +16,15 @@ health 200 ok. Handler `health_ok` (fixture, category `health`). Fixture / docs 
 
 ## What was exercised
 
-| Item        | Notes                                                          |
-| ----------- | -------------------------------------------------------------- |
-| Category    | `health`                                                       |
-| Handler     | `health_ok`                                                    |
-| Mode        | fixture                                                        |
-| Commands    | `npm run test:ft-marathon` · optional `npm run ft:marathon`    |
+| Item | Notes |
+| ---- | ----- |
+| Category | `health` |
+| Handler | `health_ok` |
+| Mode | fixture |
+| Commands | `npm run test:ft-marathon` · optional `npm run ft:marathon` |
 | Client APIs | `createNene2Client`, Problem Details helpers (as per scenario) |
-| OpenAPI     | Pinned NENE2 contract — see pin file                           |
-| Sandbox     | `tests/fixtures/` + `tests/field-trials/`                      |
+| OpenAPI | Pinned NENE2 contract — see pin file |
+| Sandbox | `tests/fixtures/` + `tests/field-trials/` |
 
 ```text
 cd nene2-js
@@ -38,31 +38,31 @@ npm run test:ft-marathon -- -t "FT30"
 
 ## Application under test (nene2-js-FT)
 
-| Item            | Value                                                                                   |
-| --------------- | --------------------------------------------------------------------------------------- |
-| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo                   |
-| App             | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client`                      |
-| AI policy       | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
-| This FT         | SDK/docs verification — app FT starts at FT230 in nene2-js-FT                           |
+| Item | Value |
+| ---- | ----- |
+| Sandbox (local) | `../nene2-js-FT/` — sibling directory, **not** a separate GitHub repo |
+| App | `apps/notes-console` — Vite + React + `@hideyukimori/nene2-client` |
+| AI policy | **Only** public docs: https://hideyukimori.github.io/nene2-js/ja/ (+ npm package types) |
+| This FT | SDK/docs verification — app FT starts at FT230 in nene2-js-FT |
 
 ---
 
 ## Backend compatibility
 
-| Backend      | URL (example)                            | health | ping | notes CRUD | protected | Notes          |
-| ------------ | ---------------------------------------- | ------ | ---- | ---------- | --------- | -------------- |
-| NENE2 (PHP)  | `http://localhost:8080` or evac `:18080` | n/a    | n/a  | n/a        | n/a       | Canonical      |
-| nene2-python | `http://localhost:8000` or `:18000`      | n/a    | n/a  | n/a        | n/a       | Parity         |
-| nene2-node   | `http://localhost:3000`                  | n/a    | n/a  | n/a        | n/a       | When available |
+| Backend | URL (example) | health | ping | notes CRUD | protected | Notes |
+| ------- | ------------- | ------ | ---- | ---------- | --------- | ----- |
+| NENE2 (PHP) | `http://localhost:8080` or evac `:18080` | n/a | n/a | n/a | n/a | Canonical |
+| nene2-python | `http://localhost:8000` or `:18000` | n/a | n/a | n/a | n/a | Parity |
+| nene2-node | `http://localhost:3000` | n/a | n/a | n/a | n/a | When available |
 
 ---
 
 ## Test results
 
-| Suite              | Tests | Result           |
-| ------------------ | ----- | ---------------- |
-| `ft-marathon` FT30 | 1     | PASS (automated) |
-| `npm run check`    | full  | run on PR        |
+| Suite | Tests | Result |
+| ----- | ----- | ------ |
+| `ft-marathon` FT30 | 1 | PASS (automated) |
+| `npm run check` | full | run on PR |
 
 ```text
 npm run test:ft-marathon -- -t "FT30"
@@ -156,17 +156,17 @@ Docker evac: `compose-ft-evac.yaml` + `:18080`。degraded health は `allowDegra
 ## nene2-js ドキュメント / パッケージとの整合
 
 - 公開ドキュメント: https://hideyukimori.github.io/nene2-js/ja/
-- npm: `@hideyukimori/nene2-client@0.1.1`
+- npm: `@hideyukimori/nene2-client@0.1.2`
 - リポジトリ内 ADR・CONTRIBUTING は AI 禁止（nene2-js-FT AGENTS.md）
 
 ---
 
 ## Follow-up Issues (resolution tracker)
 
-| Repo                  | Issue | PR  | Status                  |
-| --------------------- | ----- | --- | ----------------------- |
-| hideyukiMORI/nene2-js | #31   | —   | open / merged per batch |
-| hideyukiMORI/nene2-js | #46   | —   | open (health.service)   |
+| Repo | Issue | PR | Status |
+| ---- | ----- | -- | ------ |
+| hideyukiMORI/nene2-js | #31 | — | open / merged per batch |
+| hideyukiMORI/nene2-js | #46 | — | open (health.service) |
 
 **FT completion:** done
 

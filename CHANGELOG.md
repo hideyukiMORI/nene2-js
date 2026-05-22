@@ -6,7 +6,31 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-05-22
+
+### Added
+
+- `health({ strictService: true })` rejects `service !== "NENE2"` after a valid JSON body (Issue #46).
+- FT130–229 docs-driven onboarding marathon; full-granularity field-trial reports (Issue #45).
+
+### Documentation
+
+- VitePress site (6 locales) at https://hideyukimori.github.io/nene2-js/
+
+## [0.1.1] - 2026-05-22
+
+### Added
+
+- OpenAPI codegen types; Phase 3 client surface.
+
+## [0.1.0] - 2026-05-22
+
+### Added
+
+- Initial published `@hideyukimori/nene2-client` on npm.
+
+## [0.0.0] - bootstrap
+
 ### Added
 
 - Repository bootstrap: scope, workflow, ADR 0001, AGENTS.md, governance docs
-- Placeholder package `@hideyukimori/nene2-client` (`0.0.0`, private)

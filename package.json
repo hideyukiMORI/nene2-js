@@ -1,6 +1,6 @@
 {
   "name": "@hideyukimori/nene2-client",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "TypeScript client ecosystem for NENE2 JSON APIs (OpenAPI-aligned)",
   "type": "module",
   "license": "MIT",
