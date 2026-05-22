@@ -5,7 +5,6 @@ Last updated: 2026-05-22 (JST)
 ## Active
 
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
-- [ ] nene2-js-FT FT5+ — further consumer apps (`../nene2-js-FT/`)
 
 ## Completed
 
@@ -21,7 +20,9 @@ Last updated: 2026-05-22 (JST)
 - [x] [#59](https://github.com/hideyukiMORI/nene2-js/issues/59) / PR [#60](https://github.com/hideyukiMORI/nene2-js/pull/60) — locale `strictService` + `install-nene2-python`
 - [x] nene2-js-FT FT3 dual-backend smoke (`../nene2-js-FT/docs/field-trials/2026-05-field-trial-3.md`)
 - [x] [#62](https://github.com/hideyukiMORI/nene2-js/issues/62) / PR [#63](https://github.com/hideyukiMORI/nene2-js/pull/63) — matrix `listTags` + consumer sandbox doc
-- [x] nene2-js-FT FT4 Tags Studio + FT5 health-board (`../nene2-js-FT/`)
+- [x] nene2-js-FT FT4–6 consumer apps (`../nene2-js-FT/`) — tags, health-board, protected-smoke
+- [x] [nene2-python#582](https://github.com/hideyukiMORI/nene2-python/issues/582) / [#583](https://github.com/hideyukiMORI/nene2-python/pull/583) — `GET /`, `/machine/health`
+- [x] [#65](https://github.com/hideyukiMORI/nene2-js/issues/65) — `verify:backends` framework + machine health (PR pending)
 
 ## Handoff
 
