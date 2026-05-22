@@ -137,7 +137,7 @@ Work is **GitHub Issue driven**. Read [docs/CONTRIBUTING.md](docs/CONTRIBUTING.m
 
 AI agents: start at [AGENTS.md](AGENTS.md).
 
-Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT30–529 marathon; see [methodology](docs/development/field-trials.md)). Local app sandbox: sibling `../nene2-js-FT/`. Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
+Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT30–529 marathon; see [methodology](docs/development/field-trials.md), [friction registry](docs/development/ft-friction-registry.md)). Local app sandbox: sibling `../nene2-js-FT/`. Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
 
 **Release:** [docs/development/publish.md](docs/development/publish.md) · Phase history: [docs/phase-2.md](docs/phase-2.md).
 
