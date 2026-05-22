@@ -5,7 +5,7 @@ Last updated: 2026-05-22 (JST)
 ## Active
 
 - [ ] Optional: OpenAPI-derived runtime guards / client method codegen (**open Issue before work**)
-- [ ] nene2-js-FT FT11+ — consumer apps (`../nene2-js-FT/`); friction → Issue first ([registry](development/ft-friction-registry.md))
+- [ ] nene2-js-FT FT31+ — await [nene2-js#78](https://github.com/hideyukiMORI/nene2-js/pull/78) npm 0.1.3 publish (`../nene2-js-FT/`)
 
 ## Completed
 
@@ -29,6 +29,19 @@ Last updated: 2026-05-22 (JST)
 - [x] Phase 3 exit — `OpenApiPaths` export; [ft-friction-registry.md](development/ft-friction-registry.md)
 - [x] [#72](https://github.com/hideyukiMORI/nene2-js/issues/72) / [#73](https://github.com/hideyukiMORI/nene2-js/issues/73) — Issue-first policy + live notes CRUD matrix
 - [x] nene2-js-FT FT8–10 (notes/tags editor, degraded probe) — zero friction
+- [x] nene2-js-FT FT11 pagination probe — zero friction
+- [x] nene2-js-FT FT12 ops-dashboard (complex UI) — [#588](https://github.com/hideyukiMORI/nene2-python/issues/588) / [#589](https://github.com/hideyukiMORI/nene2-python/pull/589)
+- [x] nene2-js-FT FT13 crud-workbench (master-detail UI) — zero friction
+- [x] nene2-js-FT FT14 friction-probe — agent python :28000; wrong port / auth / 422 / pagination
+- [x] nene2-js-FT FT15–17 race-dashboard, error-lab, auth-console — zero friction
+- [x] nene2-js-FT FT18 dual-workbench (notes+tags split) — zero friction
+- [x] nene2-js-FT FT19–22 health-toggles, tombstone, cancel-lab, system-console — zero friction
+- [x] nene2-js-FT FT23 smoke matrix — [#592](https://github.com/hideyukiMORI/nene2-python/issues/592) 429 on burst
+- [x] nene2-js-FT FT24–26 query-lab, types-smoke, #592 fixed ([#593](https://github.com/hideyukiMORI/nene2-python/pull/593))
+- [x] nene2-js-FT FT27 tag-crud-lab — zero friction
+- [x] nene2-js-FT FT28 full smoke matrix (22 apps × 2 backends)
+- [x] nene2-js-FT FT29 config-lab — zero friction
+- [x] nene2-js-FT FT30 npm 0.1.3 pack smoke — [PR #78](https://github.com/hideyukiMORI/nene2-js/pull/78)
 
 ## Handoff
 

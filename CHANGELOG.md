@@ -6,6 +6,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-05-22
+
+### Added
+
+- Export `OpenApiPaths` and `OpenApiSchemas` from the public package entry (Issue #77).
+- `pack:smoke` asserts `OpenApiPaths` / `OpenApiSchemas` in the published tarball.
+
+### Fixed
+
+- JSDoc placement for `Nene2ClientError` and `isNene2ClientError`.
+
 ## [0.1.2] - 2026-05-22
 
 ### Added

@@ -18,7 +18,8 @@ FT1–129 and current `createNene2Client` use **throw** via `Nene2ClientError` f
 2. Export **`Nene2ClientError`** and **`isNene2ClientError`** as the primary error surface; attach parsed **`problem`** when the body is Problem Details.
 3. **Do not** add a parallel `Result<T, E>` return type or wrapper methods in Phase 2.
 4. Document the pattern in README and [howto/consume-client.md](../howto/consume-client.md).
-5. Revisit only if a separate ADR proposes an additive opt-in API (e.g. `safeHealth()`) without breaking existing throws.
+5. **`parseProblemDetailsResponse`**: when `Content-Type` is JSON but the body is not Problem Details, return `undefined` (no throw). Callers use `err.problem` optionally; success-path JSON parsing still throws on shape mismatch (see `request.ts`).
+6. Revisit only if a separate ADR proposes an additive opt-in API (e.g. `safeHealth()`) without breaking existing throws.
 
 ## Consequences
 
