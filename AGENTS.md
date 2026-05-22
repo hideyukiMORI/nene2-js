@@ -44,6 +44,7 @@ npm install
 npm run check    # type-check, lint, format, contracts, codegen:check, build, test, pack:smoke
 npm run build    # dist/ only (not committed)
 npm run codegen  # src/generated/openapi.ts from contracts/openapi.yaml
+npm run docs:dev # VitePress (docs-site/, http://localhost:5175)
 ```
 
 Optional live smoke (NENE2 running on :8080):

@@ -6,6 +6,8 @@
 
 TypeScript ecosystem for [NENE2](https://github.com/hideyukiMORI/NENE2): OpenAPI-aligned types, HTTP client helpers, and Problem Details utilities for apps that consume NENE2 JSON APIs.
 
+**Documentation:** https://hideyukimori.github.io/nene2-js/ (English, 日本語, Français, 中文, Português, Deutsch)
+
 **This repository is not a Node.js port of the PHP framework.** The PHP runtime stays in [NENE2](https://github.com/hideyukiMORI/NENE2). MCP stdio servers in PHP live in [nene-mcp](https://github.com/hideyukiMORI/nene-mcp).
 
 ## What this repo is for
@@ -115,6 +117,16 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 ```
 
 Unset URLs are skipped; CI runs fixture tests only. Field-trial friction: [ADR 0004](docs/adr/0004-field-trial-friction-resolution-cycle.md).
+
+## Documentation site (local)
+
+```bash
+npm install
+npm run docs:dev    # http://localhost:5175
+npm run docs:build  # static output → .vitepress/dist
+```
+
+Published on push to `main` via [.github/workflows/docs.yml](.github/workflows/docs.yml).
 
 ## Contributing
 
