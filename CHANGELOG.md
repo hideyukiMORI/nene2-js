@@ -6,6 +6,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.4] - 2026-05-22
+
 ### Added
 
 - `Nene2ClientError.rateLimit` — `Retry-After` and `X-RateLimit-*` parsed from error responses (Issue #80).
