@@ -2,7 +2,22 @@ import { parseProblemDetailsResponse } from '../problem/guards.js';
 import type { ProblemDetailsDocument } from '../problem/types.js';
 import type { ResolvedNene2ClientConfig } from './config.js';
 import { Nene2ClientError } from './errors.js';
+import { parseRateLimitHeaders } from './rate-limit.js';
 import { mergeRequestSignal } from './signal.js';
+
+function errorFromResponse(
+  message: string,
+  response: Response,
+  url: string,
+  problem?: ProblemDetailsDocument,
+): Nene2ClientError {
+  return new Nene2ClientError(message, {
+    status: response.status,
+    url,
+    problem,
+    rateLimit: parseRateLimitHeaders(response.headers),
+  });
+}
 
 function withSignal(config: ResolvedNene2ClientConfig, init: RequestInit): RequestInit {
   const signal = mergeRequestSignal(config.signal, config.timeoutMs);
@@ -76,17 +91,11 @@ async function parseJsonBody<T>(
       contentType.includes('text/html') || contentType.includes('text/plain')
         ? ' — response looks like HTML/text; check baseUrl points at NENE2 JSON API'
         : '';
-    throw new Nene2ClientError(`NENE2 response is not valid JSON${hint}`, {
-      status: response.status,
-      url,
-    });
+    throw errorFromResponse(`NENE2 response is not valid JSON${hint}`, response, url);
   }
 
   if (!isValid(body)) {
-    throw new Nene2ClientError('NENE2 response body does not match expected shape', {
-      status: response.status,
-      url,
-    });
+    throw errorFromResponse('NENE2 response body does not match expected shape', response, url);
   }
 
   return body;
@@ -102,11 +111,7 @@ async function throwOnErrorResponse(
   }
   const problem: ProblemDetailsDocument | undefined = await parseProblemDetailsResponse(response);
   const detail = problem?.detail ?? problem?.title ?? response.statusText;
-  throw new Nene2ClientError(`NENE2 request failed: ${detail}`, {
-    status: response.status,
-    url,
-    problem,
-  });
+  throw errorFromResponse(`NENE2 request failed: ${detail}`, response, url, problem);
 }
 
 /**
