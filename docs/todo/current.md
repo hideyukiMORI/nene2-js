@@ -5,7 +5,7 @@ Last updated: 2026-05-22 (JST)
 ## Active
 
 - [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡
-- [ ] **Guard codegen (ADR 0006 follow-up)** — [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) Phase B done (`codegen:guards`); Phase C VitePress locales pending
+- [ ] **#86 guard codegen** — close epic after VitePress locale docs (PR pending)
 
 ## Completed (recent)
 

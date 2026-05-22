@@ -23,7 +23,7 @@ features:
 
   - icon: 📄
     title: OpenAPI zuerst
-    details: NENE2-Vertrag gepinnt, CI-Prüfung, Codegen für Schemas.
+    details: NENE2-Vertrag gepinnt, CI-Prüfung; Codegen synchronisiert Schemas und Guards.
 
   - icon: 🛡️
     title: Problem Details

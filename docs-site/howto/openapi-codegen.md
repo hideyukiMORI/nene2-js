@@ -13,8 +13,10 @@ Contributors pin NENE2 OpenAPI in this repo and regenerate TypeScript types.
 
 ```bash
 npm run contracts:sync   # refresh pin + contracts/openapi.yaml
-npm run codegen          # src/generated/openapi.ts
-npm run codegen:check    # drift gate (in npm run check)
+npm run codegen          # src/generated/openapi.ts (types)
+npm run codegen:check    # types drift gate (in npm run check)
+npm run codegen:guards   # src/generated/guards.ts (validators)
+npm run codegen:guards:check
 ```
 
 ## Workflow on NENE2 bump
@@ -24,7 +26,7 @@ npm run codegen:check    # drift gate (in npm run check)
 3. `contracts:sync` → `codegen` → `codegen:guards` → `npm run check`.
 4. PR updates guards/types if the public client surface changed.
 
-Codegen is **types** (`codegen`) + **guards** (`codegen:guards`, ADR 0007) — `createNene2Client` stays hand-maintained.
+Codegen is **types** (`codegen`, ADR 0006) + **guards** (`codegen:guards`, ADR 0007). `createNene2Client` and `src/problem/guards.ts` stay hand-maintained.
 
 ## Pin file
 

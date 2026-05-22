@@ -23,7 +23,7 @@ features:
 
   - icon: 📄
     title: OpenAPI primeiro
-    details: Contrato NENE2 fixado, verificado no CI, codegen de schemas.
+    details: Contrato NENE2 fixado, verificado no CI; codegen sincroniza schemas e guards.
 
   - icon: 🛡️
     title: Problem Details

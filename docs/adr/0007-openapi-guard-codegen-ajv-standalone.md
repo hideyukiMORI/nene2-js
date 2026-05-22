@@ -54,4 +54,4 @@
 - [x] `npm run codegen:guards` → `src/generated/guards.ts`
 - [x] `codegen:guards:check` in CI
 - [x] Migrate `src/types/system.ts` and `src/types/examples/*` to re-export wrappers
-- [ ] Update VitePress `howto/openapi-codegen.md` (all locales)
+- [x] Update VitePress `howto/openapi-codegen.md` (all locales)

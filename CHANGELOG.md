@@ -12,6 +12,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 - `npm run codegen:guards` → `src/generated/guards.ts`; `codegen:guards:check` in CI (#86 Phase B).
 - Hand `is*` guards delegate to generated validators (Phase C migration).
 
+### Documentation
+
+- VitePress `howto/openapi-codegen.md` — all 6 locales document `codegen:guards` (#86).
+
 ## [0.1.4] - 2026-05-22
 
 ### Added
