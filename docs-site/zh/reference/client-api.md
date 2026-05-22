@@ -1,3 +1,7 @@
 # createNene2Client API
 
-`health`、`ping`、`smoke`、notes/tags CRUD、`getProtected`。失败抛出 `Nene2ClientError`。
+`createNene2Client(config)` → `Nene2Client`。
+
+系统：`frameworkSmoke`、`health({ allowDegraded?, strictService? })`、`machineHealth`、`ping`、`smoke`。
+
+示例：notes / tags CRUD、`getProtected`。错误 → `Nene2ClientError`。

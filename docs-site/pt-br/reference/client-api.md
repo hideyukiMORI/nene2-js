@@ -1,3 +1,7 @@
 # API createNene2Client
 
-`health`, `ping`, `smoke`, CRUD notes/tags, `getProtected`. Falhas → `Nene2ClientError`.
+`createNene2Client(config)` → `Nene2Client`.
+
+Sistema: `frameworkSmoke`, `health({ allowDegraded?, strictService? })`, `machineHealth`, `ping`, `smoke`.
+
+Exemplos: CRUD notes/tags, `getProtected`. Erros → `Nene2ClientError`.

@@ -23,6 +23,9 @@ cd nene2-python
 ```bash
 curl -sS http://localhost:8000/health | jq .
 # service は NENE2（parity）
+
+curl -sS http://localhost:8000/examples/notes?limit=1 | jq .
+# OpenAPI 契約と同じ /examples/* パス（nene2-python #578 以降）
 ```
 
 ## 4. TypeScript クライアント
@@ -33,7 +36,8 @@ npm install @hideyukimori/nene2-client
 
 ```ts
 const client = createNene2Client({ baseUrl: 'http://localhost:8000' });
-await client.smoke();
+await client.health({ strictService: true });
+await client.listNotes({ limit: 5 });
 ```
 
 マルチバックエンド検証: [live smoke](live-smoke) の `NENE2_JS_PYTHON_BASE_URL`。
