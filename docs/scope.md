@@ -13,7 +13,7 @@ The contract source of truth remains **NENE2** `docs/openapi/openapi.yaml`. This
 | Area                    | Examples                                                                                                            |
 | ----------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | **HTTP client surface** | Typed `fetch` wrappers, base URL config, auth header helpers (`Bearer`, `X-NENE2-API-Key`)                          |
-| **OpenAPI alignment**   | Generated or hand-maintained TypeScript types; drift checks against a pinned OpenAPI revision                       |
+| **OpenAPI alignment**   | Generated types and schema guards from pinned OpenAPI; drift checks via `codegen:check` and `codegen:guards:check`  |
 | **Problem Details**     | Parse `application/problem+json`; map `validation-failed` to structured errors                                      |
 | **Shared DX**           | `.env.example`, local smoke scripts against `NENE2_JS_API_BASE_URL`                                                 |
 | **Documentation**       | Issue-driven workflow, ADRs, roadmap, AI agent entry (`AGENTS.md`)                                                  |

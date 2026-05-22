@@ -1,6 +1,6 @@
 # OpenAPI sync & codegen
 
-Contributors pin NENE2 OpenAPI in this repo and regenerate TypeScript types.
+Contributors pin NENE2 OpenAPI in this repo and regenerate TypeScript types and schema guards.
 
 ## Sibling layout
 
