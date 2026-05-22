@@ -10,6 +10,8 @@ Docs: https://hideyukimori.github.io/nene2-python/
 
 ```ts
 createNene2Client({ baseUrl: 'http://localhost:8000' });
+// Use /examples/notes paths (OpenAPI parity with NENE2 PHP)
+await client.health({ strictService: true });
 ```
 
 See [Live smoke](live-smoke) for `NENE2_JS_PYTHON_BASE_URL`.
