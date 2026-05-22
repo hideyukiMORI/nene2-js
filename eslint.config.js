@@ -25,4 +25,15 @@ export default tseslint.config(
       },
     },
   },
+  {
+    files: ['tests/field-trials/**/*.ts'],
+    rules: {
+      '@typescript-eslint/require-await': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-base-to-string': 'off',
+    },
+  },
 );

@@ -1,6 +1,6 @@
 # Current work
 
-Last updated: 2026-05-22 (FT10–29 marathon)
+Last updated: 2026-05-22 (FT30–129 marathon)
 
 ## Active
 
@@ -19,7 +19,8 @@ Last updated: 2026-05-22 (FT10–29 marathon)
 - [x] [#25](https://github.com/hideyukiMORI/nene2-js/issues/25) + [FT7](docs/field-trials/2026-05-field-trial-7.md) live JWT protected
 - [x] [#26](https://github.com/hideyukiMORI/nene2-js/issues/26) + [FT8](docs/field-trials/2026-05-field-trial-8.md) live notes CRUD
 - [x] [#27](https://github.com/hideyukiMORI/nene2-js/issues/27) + [FT9](docs/field-trials/2026-05-field-trial-9.md) live tags CRUD
-- [x] [#30](https://github.com/hideyukiMORI/nene2-js/issues/30) + [FT10–29](docs/field-trials/INDEX.md) marathon
+- [x] [#29](https://github.com/hideyukiMORI/nene2-js/issues/29) + [FT10–29](docs/field-trials/INDEX.md) marathon
+- [ ] [#31](https://github.com/hideyukiMORI/nene2-js/issues/31) + [FT30–129](docs/field-trials/INDEX.md) 100-scenario marathon
 
 ## Next Issues
 
@@ -33,7 +34,7 @@ Last updated: 2026-05-22 (FT10–29 marathon)
 - Sync: `npm run contracts:sync` (source: sibling `../NENE2/...` or GitHub raw at pin ref)
 - Authoritative author: `../NENE2/docs/openapi/openapi.yaml`
 - Do not duplicate MCP server work from `../nene-mcp`
-- Field trials: `docs/field-trials/INDEX.md` — FT1–29 complete; next Phase 2 publish
+- Field trials: `docs/field-trials/INDEX.md` — FT1–129 (marathon runner: `npm run test:ft-marathon`); next Phase 2 publish
 - Evac ports: [ft-evac-ports.md](development/ft-evac-ports.md) — NENE2 `18080`, python `18000`, `./scripts/run-live-smoke-evac.sh`
 - Client: `smoke()`, `frameworkSmoke()`, `machineHealth()`, validation helpers; parity [#553](https://github.com/hideyukiMORI/nene2-python/issues/553) open
 - Live matrix: `NENE2_JS_*_BASE_URL` → `npm test -- tests/client/live-smoke-matrix.test.ts` (ADR 0003)
