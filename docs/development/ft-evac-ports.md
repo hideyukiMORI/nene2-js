@@ -60,3 +60,14 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 ```
 
 Unset vars are skipped. Restore defaults when ports are free.
+
+## Quick verify (both backends)
+
+```bash
+cd nene2-js
+export NENE2_JS_API_BASE_URL=http://localhost:18080
+export NENE2_JS_PYTHON_BASE_URL=http://localhost:18000
+npm run verify:backends
+```
+
+Requires nene2-python with `/examples/*` paths ([nene2-python#578](https://github.com/hideyukiMORI/nene2-python/issues/578)).
