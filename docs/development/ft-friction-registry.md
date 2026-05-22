@@ -60,6 +60,7 @@ npm test -- tests/client/live-protected.test.ts
 | 4   | tags-studio     | —              | done   |
 | 5   | health-board    | F-5-1/2 (#582) | done   |
 | 6–7 | protected-smoke | #586 (python)  | done   |
+| 8–11 | notes/tags editor, degraded, pagination | — | done (zero friction) |
 
 Reports: `../nene2-js-FT/docs/field-trials/` (local only).
 
