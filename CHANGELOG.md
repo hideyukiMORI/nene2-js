@@ -6,6 +6,11 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+
+- ADR 0007 — OpenAPI guard codegen spike (Ajv standalone, #86 Phase A).
+- `tools/codegen-guards-spike.mjs` + `tests/codegen/guards-spike.test.ts` — fixture parity with hand guards.
+
 ## [0.1.4] - 2026-05-22
 
 ### Added
