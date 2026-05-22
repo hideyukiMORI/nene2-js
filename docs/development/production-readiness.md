@@ -15,7 +15,7 @@ This client targets **typed access to NENE2 JSON APIs** for internal tools, MVPs
 | Gap                                      | Workaround                                              | Planned                                      |
 | ---------------------------------------- | ------------------------------------------------------- | -------------------------------------------- |
 | SLA-critical API with no app-layer retry | Implement retry in consumer; use `timeoutMs` + `signal` | Retry policy out of scope until ADR          |
-| 429 `Retry-After` / rate-limit headers   | Read headers in custom `fetch` wrapper today            | Issue backlog — `problem` only today         |
+| 429 `Retry-After` / rate-limit headers   | Use `error.rateLimit` on `Nene2ClientError` (since #80) | —                                            |
 | Pagination `total` on all backends       | python may include `total`; PHP may omit optional field | OpenAPI optional field                       |
 | `1.0.0` stability guarantee              | Stay on pinned `0.x`                                    | See [roadmap.md](../roadmap.md) 1.0 criteria |
 

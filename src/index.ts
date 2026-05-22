@@ -28,11 +28,13 @@ export {
   createNene2Client,
   isNene2ClientError,
   Nene2ClientError,
+  parseRateLimitHeaders,
   validationErrorsByField,
   validationErrorsFromClientError,
   type HealthOptions,
   type Nene2Client,
   type Nene2ClientConfig,
+  type RateLimitInfo,
 } from './client/index.js';
 export type { OpenApiPaths, OpenApiSchemas } from './types/schemas.js';
 export type {

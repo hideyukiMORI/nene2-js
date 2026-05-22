@@ -117,6 +117,40 @@ describe('createNene2Client', () => {
       name: 'Nene2ClientError',
       status: 404,
       problem,
+      rateLimit: undefined,
+    } satisfies Partial<Nene2ClientError>);
+  });
+
+  it('throws Nene2ClientError with rateLimit on 429 response', async () => {
+    const problem = {
+      type: 'https://nene2.dev/problems/too-many-requests',
+      title: 'Too Many Requests',
+      status: 429,
+      detail: 'Rate limit exceeded.',
+    };
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify(problem), {
+        status: 429,
+        headers: {
+          'content-type': 'application/problem+json',
+          'Retry-After': '60',
+          'X-RateLimit-Limit': '100',
+          'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': '1716048060',
+        },
+      }),
+    );
+
+    const client = createNene2Client({ baseUrl: 'http://localhost:8080', fetch: fetchMock });
+
+    await expect(client.listNotes()).rejects.toMatchObject({
+      status: 429,
+      rateLimit: {
+        retryAfterSeconds: 60,
+        limit: 100,
+        remaining: 0,
+        reset: 1716048060,
+      },
     } satisfies Partial<Nene2ClientError>);
   });
 });

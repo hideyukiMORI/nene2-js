@@ -2,15 +2,28 @@
 
 ## Nene2ClientError
 
-| Property  | Description                               |
-| --------- | ----------------------------------------- |
-| `status`  | HTTP status (`0` = network/abort/timeout) |
-| `url`     | Request URL                               |
-| `problem` | Parsed Problem Details, if body matched   |
+| Property    | Description                                  |
+| ----------- | -------------------------------------------- |
+| `status`    | HTTP status (`0` = network/abort/timeout)    |
+| `url`       | Request URL                                  |
+| `problem`   | Parsed Problem Details, if body matched      |
+| `rateLimit` | `Retry-After` / `X-RateLimit-*` when present |
 
 `isNene2ClientError(error)` type guard — use for **all** client failures including DNS and connection errors.
 
-**Known gap:** 429 responses parse `problem` from the body but **do not** expose `Retry-After` or `X-RateLimit-*` headers on the error object yet. Use a custom `fetch` wrapper if you need header-based backoff.
+### Rate limit backoff (429)
+
+When the server sends rate-limit headers, they appear on `error.rateLimit`:
+
+```ts
+catch (error) {
+  if (isNene2ClientError(error) && error.status === 429 && error.rateLimit?.retryAfterSeconds) {
+    await sleep(error.rateLimit.retryAfterSeconds * 1000);
+  }
+}
+```
+
+`parseRateLimitHeaders(headers)` is exported for custom `fetch` wrappers.
 
 ## Validation helpers
 
