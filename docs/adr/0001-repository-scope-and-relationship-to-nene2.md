@@ -43,3 +43,7 @@ Three naming candidates were considered for a sibling repository: `nene2-typescr
 | `nene2-typescript`     | Acceptable but less common than `-js` in OSS  |
 | Monorepo inside NENE2  | Keeps PHP repo heavier; publish cycle coupled |
 | Full TS framework port | Violates NENE2 “small PHP core” philosophy    |
+
+## Amendment (2026-05-22) — sibling `nene2-node`
+
+The Node.js **framework port** lives in **[nene2-node](https://github.com/hideyukiMORI/nene2-node)** (`@hideyukimori/nene2-framework`). **This repository stays client-only.** The earlier rejection of `nene2-node` applied to a single-repo model; with two repositories, `nene2-node` is the correct framework name.

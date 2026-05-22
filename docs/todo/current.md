@@ -10,9 +10,9 @@ Last updated: 2026-05-22 (repository bootstrap)
 
 ## Next Issues
 
-| #                                                    | Title                                |
-| ---------------------------------------------------- | ------------------------------------ |
-| [#1](https://github.com/hideyukiMORI/nene2-js/issues/1) | OpenAPI 取り込み方針を ADR で決める |
+| #                                                       | Title                                |
+| ------------------------------------------------------- | ------------------------------------ |
+| [#1](https://github.com/hideyukiMORI/nene2-js/issues/1) | OpenAPI 取り込み方針を ADR で決める  |
 | [#2](https://github.com/hideyukiMORI/nene2-js/issues/2) | Problem Details 型ガード（RFC 9457） |
 | [#3](https://github.com/hideyukiMORI/nene2-js/issues/3) | health / ping の typed client        |
 

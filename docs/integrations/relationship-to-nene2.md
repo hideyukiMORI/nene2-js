@@ -2,11 +2,12 @@
 
 ## Roles
 
-| Repository   | Responsibility                                                                  |
-| ------------ | ------------------------------------------------------------------------------- |
-| **NENE2**    | PHP HTTP runtime, OpenAPI authoring, MCP catalog, examples, `frontend/` starter |
-| **nene2-js** | TypeScript types and client libraries for consumers of NENE2 APIs               |
-| **nene-mcp** | PHP stdio MCP server (framework-agnostic, NENE2-compatible catalog format)      |
+| Repository     | Responsibility                                                                                                          |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| **NENE2**      | PHP HTTP runtime, OpenAPI authoring, MCP catalog, examples, `frontend/` starter                                         |
+| **nene2-js**   | TypeScript types and client libraries for consumers of NENE2 APIs                                                       |
+| **nene2-node** | Node.js framework port (`@hideyukimori/nene2-framework`) — see [nene2-node](https://github.com/hideyukiMORI/nene2-node) |
+| **nene-mcp**   | PHP stdio MCP server (framework-agnostic, NENE2-compatible catalog format)                                              |
 
 ## Contract flow
 

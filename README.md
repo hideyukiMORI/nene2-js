@@ -63,6 +63,7 @@ AI agents: start at [AGENTS.md](AGENTS.md).
 | Project                                                                 | Role                                                     |
 | ----------------------------------------------------------------------- | -------------------------------------------------------- |
 | [NENE2](https://github.com/hideyukiMORI/NENE2)                          | PHP API framework, OpenAPI contract, MCP catalog in-repo |
+| [nene2-node](https://github.com/hideyukiMORI/nene2-node)                | Node.js framework port (`@hideyukimori/nene2-framework`) |
 | [nene-mcp](https://github.com/hideyukiMORI/nene-mcp)                    | Standalone PHP stdio MCP server                          |
 | [hideyukimori/nene2](https://packagist.org/packages/hideyukimori/nene2) | Composer package for PHP consumers                       |
 
