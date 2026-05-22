@@ -4,7 +4,8 @@ Last updated: 2026-05-22 (JST)
 
 ## Active
 
-- [ ] Optional: OpenAPI-derived runtime guards / client method codegen (new Issue; out of ADR 0006 scope)
+- [ ] Optional: OpenAPI-derived runtime guards / client method codegen (**open Issue before work**)
+- [ ] nene2-js-FT FT11+ — consumer apps (`../nene2-js-FT/`); friction → Issue first ([registry](development/ft-friction-registry.md))
 
 ## Completed
 
@@ -26,6 +27,8 @@ Last updated: 2026-05-22 (JST)
 - [x] [nene2-python#586](https://github.com/hideyukiMORI/nene2-python/issues/586) / [#587](https://github.com/hideyukiMORI/nene2-python/pull/587) — `/examples/protected` JWT
 - [x] nene2-js-FT FT7 python protected parity
 - [x] Phase 3 exit — `OpenApiPaths` export; [ft-friction-registry.md](development/ft-friction-registry.md)
+- [x] [#72](https://github.com/hideyukiMORI/nene2-js/issues/72) / [#73](https://github.com/hideyukiMORI/nene2-js/issues/73) — Issue-first policy + live notes CRUD matrix
+- [x] nene2-js-FT FT8–10 (notes/tags editor, degraded probe) — zero friction
 
 ## Handoff
 
