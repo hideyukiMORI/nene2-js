@@ -14,30 +14,23 @@ export function buildAuthHeaders(config: ResolvedNene2ClientConfig): Headers {
   return headers;
 }
 
-/**
- * GET JSON and validate the body with a type guard. Throws {@link Nene2ClientError} on failure.
- */
-export async function getJson<T>(
-  config: ResolvedNene2ClientConfig,
-  path: string,
+export type JsonRequestOptions = {
+  /** HTTP status codes to treat as success (e.g. 503 degraded health). */
+  readonly alsoOkStatuses?: readonly number[];
+};
+
+function isSuccessStatus(response: Response, options?: JsonRequestOptions): boolean {
+  if (response.ok) {
+    return true;
+  }
+  return options?.alsoOkStatuses?.includes(response.status) ?? false;
+}
+
+async function parseJsonBody<T>(
+  response: Response,
+  url: string,
   isValid: (value: unknown) => value is T,
 ): Promise<T> {
-  const url = `${config.baseUrl}${path}`;
-  const response = await config.fetch(url, {
-    method: 'GET',
-    headers: buildAuthHeaders(config),
-  });
-
-  if (!response.ok) {
-    const problem: ProblemDetailsDocument | undefined = await parseProblemDetailsResponse(response);
-    const detail = problem?.detail ?? problem?.title ?? response.statusText;
-    throw new Nene2ClientError(`NENE2 request failed: ${detail}`, {
-      status: response.status,
-      url,
-      problem,
-    });
-  }
-
   let body: unknown;
   try {
     body = await response.json();
@@ -56,4 +49,63 @@ export async function getJson<T>(
   }
 
   return body;
+}
+
+async function throwOnErrorResponse(
+  response: Response,
+  url: string,
+  options?: JsonRequestOptions,
+): Promise<void> {
+  if (isSuccessStatus(response, options)) {
+    return;
+  }
+  const problem: ProblemDetailsDocument | undefined = await parseProblemDetailsResponse(response);
+  const detail = problem?.detail ?? problem?.title ?? response.statusText;
+  throw new Nene2ClientError(`NENE2 request failed: ${detail}`, {
+    status: response.status,
+    url,
+    problem,
+  });
+}
+
+/**
+ * GET JSON and validate the body with a type guard. Throws {@link Nene2ClientError} on failure.
+ */
+export async function getJson<T>(
+  config: ResolvedNene2ClientConfig,
+  path: string,
+  isValid: (value: unknown) => value is T,
+  options?: JsonRequestOptions,
+): Promise<T> {
+  const url = `${config.baseUrl}${path}`;
+  const response = await config.fetch(url, {
+    method: 'GET',
+    headers: buildAuthHeaders(config),
+  });
+
+  await throwOnErrorResponse(response, url, options);
+  return parseJsonBody(response, url, isValid);
+}
+
+/**
+ * POST JSON and validate the response body. Throws {@link Nene2ClientError} on failure.
+ */
+export async function postJson<T>(
+  config: ResolvedNene2ClientConfig,
+  path: string,
+  payload: unknown,
+  isValid: (value: unknown) => value is T,
+  options?: JsonRequestOptions,
+): Promise<T> {
+  const url = `${config.baseUrl}${path}`;
+  const headers = buildAuthHeaders(config);
+  headers.set('Content-Type', 'application/json');
+  const response = await config.fetch(url, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload),
+  });
+
+  await throwOnErrorResponse(response, url, options);
+  return parseJsonBody(response, url, isValid);
 }

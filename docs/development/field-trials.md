@@ -68,24 +68,24 @@ When friction appears (including failed parity probes), follow this loop **befor
 
 ### Issue / PR routing
 
-| Owner | Open Issue / PR in |
-| ----- | ------------------ |
-| OpenAPI contract change | **NENE2** → then `npm run contracts:sync` in nene2-js |
-| Client library (`@hideyukimori/nene2-client`) | **nene2-js** |
-| NENE2 PHP runtime (vs OpenAPI) | **NENE2** |
-| nene2-python parity drift | **nene2-python** |
-| nene2-node parity drift | **nene2-node** |
-| Docs / FT template only | **nene2-js** |
+| Owner                                         | Open Issue / PR in                                    |
+| --------------------------------------------- | ----------------------------------------------------- |
+| OpenAPI contract change                       | **NENE2** → then `npm run contracts:sync` in nene2-js |
+| Client library (`@hideyukimori/nene2-client`) | **nene2-js**                                          |
+| NENE2 PHP runtime (vs OpenAPI)                | **NENE2**                                             |
+| nene2-python parity drift                     | **nene2-python**                                      |
+| nene2-node parity drift                       | **nene2-node**                                        |
+| Docs / FT template only                       | **nene2-js**                                          |
 
 Link cross-repo Issues in the FT report (e.g. “blocked by NENE2 #NNN”).
 
 ### Completion rules
 
-| Situation | Next FT allowed? |
-| --------- | ---------------- |
-| All F-n Issues **merged** (or fixed in same FT PR with Closes #) | Yes |
-| F-n **deferred** with reason + Issue in backlog | Yes, only if noted in report + INDEX |
-| Open friction Issues without defer | **No** |
+| Situation                                                        | Next FT allowed?                     |
+| ---------------------------------------------------------------- | ------------------------------------ |
+| All F-n Issues **merged** (or fixed in same FT PR with Closes #) | Yes                                  |
+| F-n **deferred** with reason + Issue in backlog                  | Yes, only if noted in report + INDEX |
+| Open friction Issues without defer                               | **No**                               |
 
 After server fixes that change the contract: bump `contracts/` in nene2-js in a separate focused PR.
 

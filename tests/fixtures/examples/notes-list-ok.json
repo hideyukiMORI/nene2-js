@@ -1,0 +1,11 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "title": "Example Note",
+      "body": "This is the body of an example note."
+    }
+  ],
+  "limit": 20,
+  "offset": 0
+}

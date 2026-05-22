@@ -1,5 +1,14 @@
 import { resolveConfig, type Nene2ClientConfig } from './config.js';
-import { getJson } from './request.js';
+import { withQuery } from './path.js';
+import { getJson, postJson } from './request.js';
+import {
+  isExampleNoteListResponse,
+  isExampleNoteResponse,
+  type CreateNoteRequest,
+  type ExampleNote,
+  type ExampleNoteListResponse,
+  type ListNotesParams,
+} from '../types/examples/index.js';
 import {
   isExamplePingResponse,
   isHealthResponse,
@@ -7,20 +16,43 @@ import {
   type HealthResponse,
 } from '../types/system.js';
 
+export type HealthOptions = {
+  /**
+   * When true, HTTP 503 with a valid {@link HealthResponse} body (`status: degraded`) is returned instead of throwing.
+   * Matches OpenAPI `getHealth` degraded response.
+   */
+  readonly allowDegraded?: boolean;
+};
+
 /**
- * Typed NENE2 HTTP client (minimal Phase 2 surface).
+ * Typed NENE2 HTTP client (Phase 2 surface).
  */
 export interface Nene2Client {
   /**
    * `GET /health` — operational health (OpenAPI `getHealth`).
-   * May return 503 with a degraded body; that still throws {@link Nene2ClientError}.
+   * By default, non-2xx (including 503 degraded) throws {@link Nene2ClientError}.
    */
-  health(): Promise<HealthResponse>;
+  health(options?: HealthOptions): Promise<HealthResponse>;
 
   /**
    * `GET /examples/ping` — example scaffold ping (OpenAPI `getExamplePing`).
    */
   ping(): Promise<ExamplePingResponse>;
+
+  /**
+   * `GET /examples/notes` — paginated list (OpenAPI `listExampleNotes`).
+   */
+  listNotes(params?: ListNotesParams): Promise<ExampleNoteListResponse>;
+
+  /**
+   * `GET /examples/notes/{id}` — single note (OpenAPI `getExampleNoteById`).
+   */
+  getNote(id: number): Promise<ExampleNote>;
+
+  /**
+   * `POST /examples/notes` — create note (OpenAPI `createExampleNote`).
+   */
+  createNote(body: CreateNoteRequest): Promise<ExampleNote>;
 }
 
 /**
@@ -30,14 +62,30 @@ export interface Nene2Client {
  * ```ts
  * const client = createNene2Client({ baseUrl: 'http://localhost:8080' });
  * const health = await client.health();
- * const pong = await client.ping();
+ * const notes = await client.listNotes({ limit: 10 });
  * ```
  */
 export function createNene2Client(config: Nene2ClientConfig): Nene2Client {
   const resolved = resolveConfig(config);
 
   return {
-    health: () => getJson(resolved, '/health', isHealthResponse),
+    health: (options) => {
+      if (options?.allowDegraded) {
+        return getJson(resolved, '/health', isHealthResponse, { alsoOkStatuses: [503] });
+      }
+      return getJson(resolved, '/health', isHealthResponse);
+    },
     ping: () => getJson(resolved, '/examples/ping', isExamplePingResponse),
+    listNotes: (params) =>
+      getJson(
+        resolved,
+        withQuery('/examples/notes', {
+          limit: params?.limit,
+          offset: params?.offset,
+        }),
+        isExampleNoteListResponse,
+      ),
+    getNote: (id) => getJson(resolved, `/examples/notes/${String(id)}`, isExampleNoteResponse),
+    createNote: (body) => postJson(resolved, '/examples/notes', body, isExampleNoteResponse),
   };
 }

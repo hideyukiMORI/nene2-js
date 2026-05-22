@@ -1,0 +1,7 @@
+{
+  "status": "degraded",
+  "service": "NENE2",
+  "checks": {
+    "database": "error"
+  }
+}

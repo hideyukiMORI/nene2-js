@@ -49,9 +49,16 @@ npm test -- tests/client/live-smoke.test.ts
 
 ### F-1: Degraded health (503) is indistinguishable from “broken client” (severity: medium)
 
-**What happened:** OpenAPI allows HTTP 503 with a `HealthResponse` body (`status: degraded`). `getJson` treats any `!response.ok` as `Nene2ClientError`.  
+| Field      | Value                                                     |
+| ---------- | --------------------------------------------------------- |
+| **Owner**  | `nene2-js`                                                |
+| **Issue**  | [#16](https://github.com/hideyukiMORI/nene2-js/issues/16) |
+| **PR**     | FT3 client PR                                             |
+| **Status** | merged                                                    |
+
+**What happened:** OpenAPI allows HTTP 503 with a `HealthResponse` body (`status: degraded`). `getJson` treated any `!response.ok` as `Nene2ClientError`.  
 **Why:** Simple success/fail split for Phase 2.  
-**Follow-up:** Document in README; consider `health({ allowDegraded: true })` or separate method in a later Issue.
+**Resolution:** `health({ allowDegraded: true })` accepts 503 when body validates (FT3).
 
 ### F-2: `fetch` must exist or be injected (severity: low)
 
@@ -90,13 +97,15 @@ Cloned `nene2-js` only, set `NENE2_JS_API_BASE_URL`, ran live smoke.
 **One surprise:** `health` and `ping` are separate methods — expected single `smoke()` helper; not required.  
 **Risk:** low.
 
-## Follow-up Issues
+## Follow-up Issues (resolution tracker)
 
-| Issue | Summary                                          |
-| ----- | ------------------------------------------------ |
-| —     | Optional: degraded health handling policy (ADR)  |
-| —     | FT3: Note list client when OpenAPI surface grows |
+| Repo                  | Issue                                                                     | Status       |
+| --------------------- | ------------------------------------------------------------------------- | ------------ |
+| hideyukiMORI/nene2-js | [#16](https://github.com/hideyukiMORI/nene2-js/issues/16) degraded health | merged (FT3) |
+| hideyukiMORI/nene2-js | [#17](https://github.com/hideyukiMORI/nene2-js/issues/17) notes client    | merged (FT3) |
+
+**FT completion:** done
 
 ## Next FT
 
-**FT3** — first CRUD consumer (`/examples/notes`) or auth headers end-to-end with protected route.
+See [FT3](2026-05-field-trial-3.md). **FT4** — update/delete notes or protected route.
