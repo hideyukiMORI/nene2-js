@@ -46,9 +46,16 @@ One paragraph: what consumer workflow was exercised.
 
 ### F-1: [Title] (severity: high / medium / low)
 
+| Field | Value |
+| ----- | ----- |
+| **Owner** | `nene2-js` / `NENE2` / `nene2-python` / `nene2-node` / `docs` |
+| **Issue** | https://github.com/…/issues/NNN |
+| **PR** | https://github.com/…/pull/NNN (or —) |
+| **Status** | open / merged / deferred |
+
 **What happened:**  
 **Why:**  
-**Follow-up:** Issue #NNN / doc / ADR / wontfix
+**Resolution:** (filled after fix — what changed, which repo)
 
 ---
 
@@ -73,11 +80,18 @@ First time pinning OpenAPI or using RFC 9457 from a PHP-backed API.
 
 ---
 
-## Follow-up Issues
+## Follow-up Issues (resolution tracker)
 
-| Issue | Summary |
-| ----- | ------- |
-| #NNN  | …       |
+List every Issue opened for this FT. Do not start the next FT until these are **merged** or **deferred** (see [field-trial friction cycle](../development/field-trials.md#friction-resolution-cycle-mandatory)).
+
+| Repo | Issue | PR | Status |
+| ---- | ----- | -- | ------ |
+| hideyukiMORI/nene2-js | #NNN | #MMM | open/merged/deferred |
+| hideyukiMORI/NENE2 | #NNN | #MMM | … |
+| hideyukiMORI/nene2-python | #NNN | #MMM | … |
+| hideyukiMORI/nene2-node | #NNN | #MMM | … |
+
+**FT completion:** open / blocked / done
 
 ---
 

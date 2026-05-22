@@ -9,6 +9,7 @@ Architecture Decision Records preserve intent without rereading old chats.
 - Error handling model (`throw` vs `Result`)
 - Splitting packages (`nene2-client` vs subpackages)
 - Multi-backend live verification (NENE2 / nene2-python / nene2-node)
+- Field trial friction resolution cycle (report → Issue → PR → next FT)
 - Node-only tooling exceptions
 
 ## Format

@@ -11,3 +11,4 @@ alwaysApply: true
 - Work from GitHub Issues; branch `type/issue-number-summary`; no direct commits to `main`.
 - Conventional Commits: English type/scope, Japanese description, Issue number in subject.
 - Do not commit secrets, `.env`, or `node_modules/`.
+- Field trials: friction → report → Issue (owning repo) → fix PR → close → next FT (`docs/development/field-trials.md`, ADR 0004).

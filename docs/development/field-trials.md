@@ -25,13 +25,73 @@ Skip an FT for docs-only typo fixes unrelated to consumer DX.
 
 ```text
 1. Pick a theme from docs/todo/current.md or roadmap Phase 1–2
-2. Exercise the smallest real path (Vitest fixtures and/or live NENE2 on :8080)
-3. Record friction as F-1, F-2, … (observed only)
-4. Write docs/field-trials/2026-05-field-trial-NN.md (template below)
-5. DX Review: Persona A (primary) + Persona B (short) — see template
-6. Open Issues only for friction that needs code or policy changes
-7. Update docs/field-trials/INDEX.md and docs/todo/current.md
+2. Exercise the smallest real path (fixtures + optional live matrix — see below)
+3. Write docs/field-trials/2026-05-field-trial-NN.md (draft friction + DX Review)
+4. Run the friction resolution cycle (§ below) — do not skip
+5. Mark FT "done" in INDEX only when cycle is complete
+6. Start FT(N+1)
 ```
+
+Policy: [ADR 0004](../adr/0004-field-trial-friction-resolution-cycle.md).
+
+## Friction resolution cycle (mandatory)
+
+When friction appears (including failed parity probes), follow this loop **before** the next FT.
+
+```text
+┌─────────────┐
+│ Run FT      │
+└──────┬──────┘
+       ▼
+┌─────────────────────────────┐
+│ Report: F-1, F-2, …         │  ← owner + severity in template
+└──────┬──────────────────────┘
+       ▼
+┌─────────────────────────────┐
+│ Open Issue(s)             │  ← correct repo (see routing table)
+└──────┬──────────────────────┘
+       ▼
+┌─────────────────────────────┐
+│ Fix via PR                  │  ← server bug → server repo PR
+└──────┬──────────────────────┘  ← client bug → nene2-js PR
+       ▼
+┌─────────────────────────────┐
+│ Verify + update report      │  ← links, re-run matrix if live
+└──────┬──────────────────────┘
+       ▼
+┌─────────────────────────────┐
+│ Close Issues → FT done      │
+└──────┬──────────────────────┘
+       ▼
+   Next FT
+```
+
+### Issue / PR routing
+
+| Owner | Open Issue / PR in |
+| ----- | ------------------ |
+| OpenAPI contract change | **NENE2** → then `npm run contracts:sync` in nene2-js |
+| Client library (`@hideyukimori/nene2-client`) | **nene2-js** |
+| NENE2 PHP runtime (vs OpenAPI) | **NENE2** |
+| nene2-python parity drift | **nene2-python** |
+| nene2-node parity drift | **nene2-node** |
+| Docs / FT template only | **nene2-js** |
+
+Link cross-repo Issues in the FT report (e.g. “blocked by NENE2 #NNN”).
+
+### Completion rules
+
+| Situation | Next FT allowed? |
+| --------- | ---------------- |
+| All F-n Issues **merged** (or fixed in same FT PR with Closes #) | Yes |
+| F-n **deferred** with reason + Issue in backlog | Yes, only if noted in report + INDEX |
+| Open friction Issues without defer | **No** |
+
+After server fixes that change the contract: bump `contracts/` in nene2-js in a separate focused PR.
+
+### Zero friction
+
+State explicitly in the report: **“No actionable friction — FT complete.”** Skip Issue creation; proceed to next FT.
 
 ## Sandbox layout
 
@@ -73,6 +133,7 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 
 ## Related
 
+- Friction cycle policy: [ADR 0004](../adr/0004-field-trial-friction-resolution-cycle.md)
 - Template: `docs/templates/field-trial-report.md`
 - Index: `docs/field-trials/INDEX.md`
 - NENE2 LLM trial direction: `../NENE2/docs/integrations/llm-field-trial.md` (MCP/API boundary ideas)
