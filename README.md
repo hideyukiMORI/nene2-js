@@ -55,6 +55,8 @@ npm install
 npm run check
 ```
 
+OpenAPI types: `npm run codegen` (see [Phase 3](docs/phase-3.md)).
+
 Point local development at a running NENE2 API when needed:
 
 ```bash
