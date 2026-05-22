@@ -2,7 +2,7 @@
 
 **Date**: YYYY-MM-DD  
 **NENE2 pin**: `contracts/nene2-openapi-pin.json` → `nene2GitRef`  
-**Package**: `@hideyukimori/nene2-client` @ `0.x.x`  
+**Package**: `@hideyukimori/nene2-client` @ `x.y.z`  
 **Issues / PRs**: #NNN  
 **Sandbox**: `../nene2-js-FT/apps/…` または `tests/fixtures/`
 

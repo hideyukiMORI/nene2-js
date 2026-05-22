@@ -12,12 +12,11 @@ This client targets **typed access to NENE2 JSON APIs** for internal tools, MVPs
 
 ## Not ready alone for
 
-| Gap                                      | Workaround                                                                                          | Planned                                                                       |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| SLA-critical API with no app-layer retry | Implement retry in consumer; use `timeoutMs` + `signal`                                             | Retry policy out of scope until ADR                                           |
-| 429 `Retry-After` / rate-limit headers   | Use `error.rateLimit` on `Nene2ClientError` (since #80)                                             | —                                                                             |
-| Pagination `total` on all backends       | python may include `total`; PHP may omit optional field                                             | OpenAPI optional field                                                        |
-| `1.0.0` stability guarantee              | Semver `^1` in production; read [production-readiness.md](development/production-readiness.md) gaps | Shipped **1.0.0** ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84)) |
+| Gap                                      | Workaround                                              | Planned                             |
+| ---------------------------------------- | ------------------------------------------------------- | ----------------------------------- |
+| SLA-critical API with no app-layer retry | Implement retry in consumer; use `timeoutMs` + `signal` | Retry policy out of scope until ADR |
+| 429 `Retry-After` / rate-limit headers   | Use `error.rateLimit` on `Nene2ClientError` (since #80) | —                                   |
+| Pagination `total` on all backends       | python may include `total`; PHP may omit optional field | OpenAPI optional field              |
 
 ## Error model (since 0.1.3+)
 

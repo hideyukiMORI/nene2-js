@@ -38,3 +38,7 @@ Phase 1–2 hand-maintained `src/types/*` and runtime guards track `contracts/op
 
 - **openapi-generator** — heavier; full client codegen not wanted yet (ADR 0001 boundary).
 - **No commit of generated file** — rejected; CI and offline clones need deterministic types without running codegen first.
+
+## Update (2026-05-23)
+
+Schema runtime guards shipped via [ADR 0007](0007-openapi-guard-codegen-ajv-standalone.md) ([#86](https://github.com/hideyukiMORI/nene2-js/issues/86)). `src/types/*` `is*` functions delegate to `src/generated/guards.ts`. Decision items 5–6 and the #86 follow-up apply to **schema guards only**; `src/problem/guards.ts` stays hand-maintained (ADR 0007 §7).
