@@ -30,7 +30,7 @@ Answer: can a blank-slate implementer (especially an AI agent) ship a working ap
 | Cancel lab       | `apps/cancel-lab/`          | AbortSignal cancel in-flight list                      |
 | System console   | `apps/system-console/`      | frameworkSmoke, smoke(), limit=0 422                   |
 | Query lab        | `apps/query-lab/`           | listNotes limit/offset form                            |
-| Types smoke      | `apps/types-smoke/`         | npm guards + `OpenApiPaths` + `RateLimitInfo` (@0.1.4) |
+| Types smoke      | `apps/types-smoke/`         | npm guards + `OpenApiPaths` + `RateLimitInfo` (@1.0.0) |
 | Tag CRUD lab     | `apps/tag-crud-lab/`        | updateTag empty name 422                               |
 | Config lab       | `apps/config-lab/`          | apiKey / bearer config matrix                          |
 | Rate limit lab   | `apps/rate-limit-lab/`      | mock 429 → `error.rateLimit` (#80)                     |

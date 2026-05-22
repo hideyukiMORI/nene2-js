@@ -6,9 +6,13 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-05-23
+
+First stable release. Roadmap 1.0.0 criteria satisfied ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84)): public API additive-only across 0.1.2–0.1.4; error model, timeout/rate-limit, OpenAPI codegen + guard migration, nene2-js-FT matrix green.
+
 ### Added
 
-- ADR 0007 — OpenAPI guard codegen spike (Ajv standalone, #86 Phase A).
+- ADR 0007 — OpenAPI guard codegen (Ajv standalone, #86 Phase A).
 - `npm run codegen:guards` → `src/generated/guards.ts`; `codegen:guards:check` in CI (#86 Phase B).
 - Hand `is*` guards delegate to generated validators (Phase C migration).
 

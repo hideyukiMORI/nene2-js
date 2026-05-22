@@ -80,9 +80,9 @@ Reports: `../nene2-js-FT/docs/field-trials/` (local only).
 | Item                       | Notes                                                                                                            |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | nene2-node parity          | `NENE2_JS_NODE_BASE_URL` optional in matrix                                                                      |
-| Guard codegen from OpenAPI | [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) — shipped (`codegen:guards`); epic close after docs PR |
+| Guard codegen from OpenAPI | **Resolved** — `codegen:guards` shipped in **1.0.0** ([#86](https://github.com/hideyukiMORI/nene2-js/issues/86)) |
 | Pagination `total` on PHP  | OpenAPI optional; python returns `total`, PHP may omit                                                           |
-| 1.0.0 stability            | See [roadmap.md](../roadmap.md) criteria                                                                         |
+| 1.0.0 stability            | **Shipped** — `@hideyukimori/nene2-client@1.0.0` ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84))     |
 
 ## Phase 1 historical (resolved)
 

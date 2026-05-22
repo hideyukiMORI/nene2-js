@@ -52,14 +52,16 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 
 See `docs/scope.md` for the authoritative boundary list.
 
-## 1.0.0 criteria (planned)
+## 1.0.0 — stable client (shipped 2026-05-23)
 
-Ship **`1.0.0`** when all of the following hold:
+**npm:** `@hideyukimori/nene2-client@1.0.0` — tracked in [#84](https://github.com/hideyukiMORI/nene2-js/issues/84).
 
-1. Public client surface stable for two minor releases without breaking changes (except OpenAPI-driven optional fields).
+Criteria met:
+
+1. Public client surface additive-only across 0.1.2 → 0.1.3 → 0.1.4 (no breaking API changes).
 2. Documented error model: HTTP errors + `status: 0` network/abort (Issue #79).
 3. `timeoutMs` + `signal` documented; rate-limit headers on `Nene2ClientError` (#80); retry policy remains consumer/ADR scope.
-4. OpenAPI pin + codegen types exported on npm; hand guards migration per [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) (ADR 0006 follow-up).
+4. OpenAPI pin + codegen types on npm; guard migration ([#86](https://github.com/hideyukiMORI/nene2-js/issues/86), ADR 0007).
 5. Consumer sandbox (nene2-js-FT) matrix green on NENE2 + nene2-python evac ports.
 
-Until then, **`0.x`** — pin exact version in production apps and read [production-readiness.md](development/production-readiness.md).
+Post-1.0 changes follow semver; OpenAPI-driven optional fields may still evolve per ADR 0002.

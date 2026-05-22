@@ -4,10 +4,11 @@ Last updated: 2026-05-23 (JST)
 
 ## Active
 
-- [ ] **1.0.0 安定化** — [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) チェックリスト追跡（残: criterion 1 — 0.1.x 安定観測）
+_(none — 1.0.0 shipped; track semver in Issues)_
 
 ## Completed (recent)
 
+- [x] [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) — npm **1.0.0** (roadmap criteria 1–5)
 - [x] [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) / [#88](https://github.com/hideyukiMORI/nene2-js/pull/88) · [#89](https://github.com/hideyukiMORI/nene2-js/pull/89) · [#90](https://github.com/hideyukiMORI/nene2-js/pull/90) — guard codegen epic + VitePress 全ロケール
 - [x] [#82](https://github.com/hideyukiMORI/nene2-js/issues/82) / [#83](https://github.com/hideyukiMORI/nene2-js/pull/83) — docs FT31–34 / 0.1.4 sync
 
@@ -55,7 +56,7 @@ Last updated: 2026-05-23 (JST)
 ## Handoff
 
 ```bash
-npm install @hideyukimori/nene2-client@0.1.4
+npm install @hideyukimori/nene2-client@1.0.0
 npm run test:ft-marathon          # 502 tests
 npm run verify:backends           # needs :18080 + :18000
 export NENE2_JS_API_BASE_URL=http://localhost:18080

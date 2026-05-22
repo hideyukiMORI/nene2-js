@@ -30,7 +30,7 @@ See [docs/scope.md](docs/scope.md) for the full in-scope / out-of-scope matrix.
 ## Install (npm)
 
 ```bash
-npm install @hideyukimori/nene2-client@0.1.2
+npm install @hideyukimori/nene2-client@1.0.0
 ```
 
 Requires **Node 22+** (native `fetch`) or a browser with `fetch`. TypeScript consumers get `.d.ts` from the package.
