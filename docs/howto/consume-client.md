@@ -2,10 +2,18 @@
 
 Quick reference for TypeScript consumers (FT19 / Persona A).
 
-## Install (local monorepo)
+## Install
+
+**npm (consumers):**
 
 ```bash
-cd nene2-js && npm install
+npm install @hideyukimori/nene2-client
+```
+
+**This repo (development):**
+
+```bash
+cd nene2-js && npm install && npm run build
 ```
 
 ## Minimal smoke

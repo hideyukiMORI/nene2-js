@@ -22,19 +22,19 @@ nene2-js is the TypeScript companion to [NENE2](https://github.com/hideyukiMORI/
 - [x] Field trials FT1–129 + marathon runner (`npm run test:ft-marathon`)
 - [x] Vitest tests with fixture JSON (no live server required in CI)
 
-## Phase 2 — Typed client (current)
+## Phase 2 — Typed client (complete)
 
 **Goal:** publish-quality `@hideyukimori/nene2-client` surface for documented example endpoints.
 
-**Kickoff:** [docs/phase-2.md](phase-2.md) · **ADR:** [0005 throw model](adr/0005-client-error-model-throw-not-result.md)
+**Docs:** [phase-2.md](phase-2.md) · [publish.md](development/publish.md) · **ADR:** [0005 throw model](adr/0005-client-error-model-throw-not-result.md)
 
-- [x] `createNene2Client({ baseUrl, apiKey?, bearer?, signal? })` — implemented in Phase 1
+- [x] `createNene2Client({ baseUrl, apiKey?, bearer?, signal? })`
 - [x] Error model: throw `Nene2ClientError` (ADR 0005)
-- [ ] `npm run build` → `dist/` + `package.json` exports
-- [ ] README usage for browser and Node + npm install
-- [ ] `private: false` and first `0.1.0` npm publish when API stable
+- [x] `npm run build` → `dist/` + `package.json` exports
+- [x] README + howto npm install; `0.1.0`, `private` removed
+- [x] CI build + `pack:smoke`; registry publish via [publish.md](development/publish.md)
 
-## Phase 3 — Codegen (optional)
+## Phase 3 — Codegen (current)
 
 **Goal:** reduce hand-written drift for large OpenAPI surfaces.
 

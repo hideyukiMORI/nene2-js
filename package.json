@@ -1,10 +1,25 @@
 {
   "name": "@hideyukimori/nene2-client",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
   "description": "TypeScript client ecosystem for NENE2 JSON APIs (OpenAPI-aligned)",
   "type": "module",
   "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hideyukiMORI/nene2-js.git"
@@ -25,7 +40,10 @@
     "ft:marathon": "npm run test:ft-marathon && npm run ft:reports",
     "contracts:sync": "node tools/sync-openapi.mjs",
     "contracts:check": "node tools/sync-openapi.mjs --check",
-    "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run test"
+    "build": "tsc -p tsconfig.build.json",
+    "pack:smoke": "node tools/smoke-pack.mjs",
+    "prepublishOnly": "npm run build",
+    "check": "npm run type-check && npm run lint && npm run format && npm run contracts:check && npm run build && npm run test && npm run pack:smoke"
   },
   "keywords": [
     "nene2",

@@ -1,6 +1,6 @@
 # Phase 2 — Typed client (publish path)
 
-**Status:** in progress (2026-05-22)  
+**Status:** complete (2026-05-22)  
 **Tracking Issue:** [#33](https://github.com/hideyukiMORI/nene2-js/issues/33)  
 **ADR:** [0005 — throw, not Result](adr/0005-client-error-model-throw-not-result.md)
 
@@ -8,22 +8,22 @@ Phase 1 delivered contract pin, Problem Details, `createNene2Client` for documen
 
 ## Exit criteria
 
-- [ ] `npm run build` emits `dist/` with declarations and `package.json` `exports`
-- [ ] `private: false` and version `0.1.0` (or first stable pre-release) when API frozen
-- [ ] README + howto cover install from npm (not only sibling clone)
-- [ ] CI runs build; publish workflow documented (manual or GitHub Actions)
-- [ ] Phase 2 FT or smoke script against published tarball (`npm pack`)
+- [x] `npm run build` emits `dist/` with declarations and `package.json` `exports`
+- [x] `private: false` and version `0.1.0` when API frozen
+- [x] README + howto cover install from npm (not only sibling clone)
+- [x] CI runs build; publish workflow documented (manual + workflow_dispatch)
+- [x] Pack smoke script against tarball (`npm run pack:smoke`)
 
 ## Work breakdown
 
-| Step | Owner    | Notes                                            |
-| ---- | -------- | ------------------------------------------------ |
-| 1    | nene2-js | ADR 0005 accepted — throw model locked           |
-| 2    | nene2-js | `tsconfig.build.json` + `build` script → `dist/` |
-| 3    | nene2-js | `package.json` `exports`, `files`, `types`       |
-| 4    | nene2-js | README: npm install, Node 22+, browser `fetch`   |
-| 5    | nene2-js | First npm publish `@hideyukimori/nene2-client`   |
-| 6    | nene2-js | Optional: changesets or release doc              |
+| Step | Owner    | Notes                                                    |
+| ---- | -------- | -------------------------------------------------------- |
+| 1    | nene2-js | ADR 0005 accepted — throw model locked                   |
+| 2    | nene2-js | `tsconfig.build.json` + `build` script → `dist/`         |
+| 3    | nene2-js | `package.json` `exports`, `files`, `types`               |
+| 4    | nene2-js | README: npm install, Node 22+, browser `fetch`           |
+| 5    | nene2-js | First npm publish — [publish.md](development/publish.md) |
+| 6    | nene2-js | `publish.yml` workflow_dispatch + pack smoke             |
 
 ## Known issues (tracked, not Phase 2 blockers)
 
