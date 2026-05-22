@@ -24,6 +24,14 @@ One paragraph: what consumer workflow was exercised.
 (paste exact commands; no secrets)
 ```
 
+## Backend compatibility (when live smoke was run)
+
+| Backend      | URL (safe to publish) | health      | ping        | Notes     |
+| ------------ | --------------------- | ----------- | ----------- | --------- |
+| NENE2 (PHP)  |                       | ok/fail     | ok/fail     | canonical |
+| nene2-python |                       | ok/fail     | ok/fail     | parity    |
+| nene2-node   |                       | ok/fail/n/a | ok/fail/n/a | parity    |
+
 ## Outcomes
 
 **Worked well:**

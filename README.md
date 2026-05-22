@@ -75,12 +75,19 @@ try {
 }
 ```
 
-Works in Node 22+ and browsers that provide `fetch`. Optional live smoke in CI skip mode:
+Works in Node 22+ and browsers that provide `fetch`.
+
+**Multi-backend live smoke** (same client, OpenAPI contract — see [ADR 0003](docs/adr/0003-multi-backend-live-verification.md)):
 
 ```bash
-export NENE2_JS_API_BASE_URL=http://localhost:8080
-npm test
+export NENE2_JS_API_BASE_URL=http://localhost:8080      # NENE2 PHP
+export NENE2_JS_PYTHON_BASE_URL=http://localhost:8000   # optional: nene2-python
+# export NENE2_JS_NODE_BASE_URL=http://localhost:3000   # optional: nene2-node
+
+npm test -- tests/client/live-smoke-matrix.test.ts
 ```
+
+Unset URLs are skipped; CI runs fixture tests only.
 
 ## Contributing
 
