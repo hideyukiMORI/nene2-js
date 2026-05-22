@@ -5,7 +5,8 @@ Last updated: 2026-05-22
 ## Active
 
 - [ ] Phase 3 follow-up — generated client / guard codegen (optional Issue)
-- [ ] Local app FT — `../nene2-js-FT/apps/notes-console` (blank-slate AI, live NENE2)
+- [ ] npm `0.1.2` publish (`strictService`, FT reports regen)
+- [x] Local app FT — `../nene2-js-FT/apps/notes-console` live on :18080 (FT1 report)
 
 ## Completed
 

@@ -12,6 +12,12 @@ describe.skipIf(!baseUrl)('live system (evac)', () => {
     expect(body.name).toBe('NENE2');
   });
 
+  it('health({ strictService: true }) on live NENE2', async () => {
+    const client = createNene2Client({ baseUrl: baseUrl! });
+    const health = await client.health({ strictService: true });
+    expect(health.service).toBe('NENE2');
+  });
+
   it('smoke() on live NENE2', async () => {
     const client = createNene2Client({ baseUrl: baseUrl! });
     const { health, ping } = await client.smoke();

@@ -2,7 +2,7 @@
 
 **Date**: 2026-05-22  
 **NENE2 pin**: `contracts/nene2-openapi-pin.json` → `nene2-openapi-pin.json`  
-**Package**: `@hideyukimori/nene2-client` @ `0.1.1`  
+**Package**: `@hideyukimori/nene2-client` @ `0.1.2`  
 **Issues / PRs**: [#45](https://github.com/hideyukiMORI/nene2-js/issues/45) (docs onboarding 100 (FT130–229))  
 **Sandbox**: Docs: https://hideyukimori.github.io/nene2-js/ja/ · Future app: `../nene2-js-FT/apps/`
 
@@ -156,7 +156,7 @@ Docker evac: `compose-ft-evac.yaml` + `:18080`。degraded health は `allowDegra
 ## nene2-js ドキュメント / パッケージとの整合
 
 - 公開ドキュメント: https://hideyukimori.github.io/nene2-js/ja/
-- npm: `@hideyukimori/nene2-client@0.1.1`
+- npm: `@hideyukimori/nene2-client@0.1.2`
 - リポジトリ内 ADR・CONTRIBUTING は AI 禁止（nene2-js-FT AGENTS.md）
 
 ---

@@ -54,7 +54,7 @@ const rows1to29 = existingRows
 
 const newRows = FT_CATALOG.map((e) => {
   const issue = issueForFt(e.ft);
-  const friction = e.handler.includes('health_wrong_service') ? '#46' : `#${issue}`;
+  const friction = e.handler.includes('health_wrong_service') ? 'resolved #46' : `#${issue}`;
   return `| ${e.ft}  | [2026-05-field-trial-${e.ft}.md](2026-05-field-trial-${e.ft}.md) | ${e.theme.slice(0, 40)} | done | ${friction} |`;
 });
 
