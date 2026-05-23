@@ -1,6 +1,7 @@
 # nene2-js
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@hideyukimori/nene2-client.svg)](https://www.npmjs.com/package/@hideyukimori/nene2-client)
 [![Node](https://img.shields.io/badge/Node-%3E%3D22%20LTS-339933)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6)](https://www.typescriptlang.org/)
 
@@ -139,7 +140,7 @@ AI agents: start at [AGENTS.md](AGENTS.md).
 
 Consumer DX evidence: [field trials](docs/field-trials/INDEX.md) (FT30–529 marathon; see [methodology](docs/development/field-trials.md), [friction registry](docs/development/ft-friction-registry.md)). Local app sandbox: sibling `../nene2-js-FT/`. Quick start: [howto/consume-client.md](docs/howto/consume-client.md).
 
-**Release:** [docs/development/publish.md](docs/development/publish.md) · Phase history: [docs/phase-2.md](docs/phase-2.md).
+**Release:** [releases.md](docs/development/releases.md) · [publish.md](docs/development/publish.md) · [GitHub Releases](https://github.com/hideyukiMORI/nene2-js/releases) · Phase history: [phase-2.md](docs/phase-2.md).
 
 ## Related projects
 

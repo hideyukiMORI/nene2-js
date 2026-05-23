@@ -2,9 +2,10 @@
 
 ## Supported versions
 
-| Version | Supported               |
-| ------- | ----------------------- |
-| `0.x`   | Best effort until `1.0` |
+| Version | Supported                                         |
+| ------- | ------------------------------------------------- |
+| `1.x`   | Current stable (`@hideyukimori/nene2-client`)     |
+| `<1.0`  | No longer supported (upgrade to `1.0.0` or later) |
 
 ## Reporting
 

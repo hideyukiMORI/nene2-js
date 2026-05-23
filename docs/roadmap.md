@@ -56,6 +56,8 @@ See `docs/scope.md` for the authoritative boundary list.
 
 **npm:** `@hideyukimori/nene2-client@1.0.0` — tracked in [#84](https://github.com/hideyukiMORI/nene2-js/issues/84).
 
+**GitHub:** [Release `v1.0.0`](https://github.com/hideyukiMORI/nene2-js/releases/tag/v1.0.0) (tag at PR [#92](https://github.com/hideyukiMORI/nene2-js/pull/92); publish policy in [#97](https://github.com/hideyukiMORI/nene2-js/pull/97)).
+
 Criteria met:
 
 1. Public client surface additive-only across 0.1.2 → 0.1.3 → 0.1.4 (no breaking API changes).
