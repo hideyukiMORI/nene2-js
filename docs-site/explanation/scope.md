@@ -24,4 +24,4 @@ Full matrix: [docs/scope.md](https://github.com/hideyukiMORI/nene2-js/blob/main/
 
 ## Versioning
 
-Stable npm release: **`@hideyukimori/nene2-client@1.0.0`**. Semver applies to the public client surface; see [CHANGELOG](https://github.com/hideyukiMORI/nene2-js/blob/main/CHANGELOG.md).
+Stable npm release: **`@hideyukimori/nene2-client@1.0.0`**. Semver applies to the public client surface; see [CHANGELOG](https://github.com/hideyukiMORI/nene2-js/blob/main/CHANGELOG.md) and [GitHub Releases](https://github.com/hideyukiMORI/nene2-js/releases).

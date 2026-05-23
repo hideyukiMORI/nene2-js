@@ -14,6 +14,7 @@ Entry point for AI agents working on **nene2-js**.
 - Multi-backend live smoke: `docs/adr/0003-multi-backend-live-verification.md`
 - Field trials: `docs/development/field-trials.md`, `docs/field-trials/INDEX.md`, ADR 0004 friction cycle
 - Roadmap: `docs/roadmap.md`
+- Releases (semver, tags, GitHub Release): `docs/development/releases.md`
 - Current work: `docs/todo/current.md`
 
 ## Operating rules
@@ -33,7 +34,7 @@ TypeScript companion to NENE2:
 - OpenAPI-aligned types and client helpers
 - RFC 9457 Problem Details utilities
 - strict, testable, AI-readable modules
-- Published package `@hideyukimori/nene2-client` **1.0.0** stable; see `docs/development/publish.md`
+- Published package `@hideyukimori/nene2-client` **1.0.0** stable; see `docs/development/releases.md` and `publish.md`
 
 PHP runtime and OpenAPI authoring stay in [NENE2](https://github.com/hideyukiMORI/NENE2).
 

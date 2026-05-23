@@ -53,7 +53,8 @@ The contract source of truth remains **NENE2** `docs/openapi/openapi.yaml`. This
 
 ## Versioning
 
-- **`1.0.0`** — first stable `@hideyukimori/nene2-client` on npm ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84)); semver applies to the public client surface.
+- **`1.0.0`** — first stable `@hideyukimori/nene2-client` on npm and [GitHub Release `v1.0.0`](https://github.com/hideyukiMORI/nene2-js/releases/tag/v1.0.0) ([#84](https://github.com/hideyukiMORI/nene2-js/issues/84)); semver applies to the public client surface.
+- **Every publish** — git tag `vX.Y.Z` + GitHub Release (CHANGELOG body); see [releases.md](development/releases.md).
 - **Major** bumps align with breaking OpenAPI or client API changes; document NENE2 contract mapping in [CHANGELOG.md](../CHANGELOG.md).
 - **Minor / patch** — additive client features or fixes; OpenAPI optional fields may evolve per [ADR 0002](adr/0002-openapi-pin-policy.md).
 - OpenAPI input is pinned under `contracts/` with `npm run contracts:sync|check` and codegen drift gates (`codegen:check`, `codegen:guards:check`).

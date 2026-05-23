@@ -16,14 +16,14 @@ Phase 1 delivered contract pin, Problem Details, `createNene2Client` for documen
 
 ## Work breakdown
 
-| Step | Owner    | Notes                                                    |
-| ---- | -------- | -------------------------------------------------------- |
-| 1    | nene2-js | ADR 0005 accepted — throw model locked                   |
-| 2    | nene2-js | `tsconfig.build.json` + `build` script → `dist/`         |
-| 3    | nene2-js | `package.json` `exports`, `files`, `types`               |
-| 4    | nene2-js | README: npm install, Node 22+, browser `fetch`           |
-| 5    | nene2-js | First npm publish — [publish.md](development/publish.md) |
-| 6    | nene2-js | `publish.yml` workflow_dispatch + pack smoke             |
+| Step | Owner    | Notes                                                                                   |
+| ---- | -------- | --------------------------------------------------------------------------------------- |
+| 1    | nene2-js | ADR 0005 accepted — throw model locked                                                  |
+| 2    | nene2-js | `tsconfig.build.json` + `build` script → `dist/`                                        |
+| 3    | nene2-js | `package.json` `exports`, `files`, `types`                                              |
+| 4    | nene2-js | README: npm install, Node 22+, browser `fetch`                                          |
+| 5    | nene2-js | First npm publish — [publish.md](development/publish.md)                                |
+| 6    | nene2-js | `publish.yml` — npm + git tag + GitHub Release ([releases.md](development/releases.md)) |
 
 ## Known issues (tracked, not Phase 2 blockers)
 

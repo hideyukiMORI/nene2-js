@@ -14,4 +14,4 @@ PHP ランタイム（NENE2）、stdio MCP（nene-mcp）、DB 直アクセス（
 
 ## バージョニング
 
-安定版 npm: **`@hideyukimori/nene2-client@1.0.0`**。公開 API は semver に従います — [CHANGELOG](https://github.com/hideyukiMORI/nene2-js/blob/main/CHANGELOG.md)。
+安定版 npm: **`@hideyukimori/nene2-client@1.0.0`**。公開 API は semver に従います — [CHANGELOG](https://github.com/hideyukiMORI/nene2-js/blob/main/CHANGELOG.md) · [GitHub Releases](https://github.com/hideyukiMORI/nene2-js/releases)

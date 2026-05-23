@@ -47,4 +47,6 @@ node scripts/extract-changelog-release.mjs 1.0.0
 
 ## Retroactive tags
 
-Historical npm versions published before tag policy (0.1.0–0.1.4) have no git tags. **v1.0.0** is tagged at commit `c850548` (PR #92 — first stable bump).
+Historical npm versions published before tag policy (0.1.0–0.1.4) have no git tags.
+
+**v1.0.0** — tagged at commit `c850548` (PR #92); [GitHub Release](https://github.com/hideyukiMORI/nene2-js/releases/tag/v1.0.0). Tag + Release automation landed in PR #97.
