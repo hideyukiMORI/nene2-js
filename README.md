@@ -28,27 +28,38 @@ TypeScript ecosystem for [NENE2](https://github.com/hideyukiMORI/NENE2): OpenAPI
 
 See [docs/scope.md](docs/scope.md) for the full in-scope / out-of-scope matrix.
 
-## Install (npm)
+## Install (consumers)
+
+Use the published package from **your app’s project root** (React/Vite frontend, Node script, etc.). You do **not** clone `nene2-js` or lay it out next to NENE2 for normal usage.
 
 ```bash
-npm install @hideyukimori/nene2-client@1.0.0
+cd your-app
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
 
 Requires **Node 22+** (native `fetch`) or a browser with `fetch`. TypeScript consumers get `.d.ts` from the package.
 
-**Monorepo / contributors:** clone this repo and use `npm run check` (builds `dist/` and runs pack smoke).
+```ts
+import { createNene2Client } from '@hideyukimori/nene2-client';
 
-## Local layout (sibling of NENE2)
-
-```text
-../docker/
-├── NENE2/          # PHP framework (contract source: docs/openapi/openapi.yaml)
-├── nene2-js/       # this repository
-├── nene-mcp/       # PHP MCP stdio library (separate concern)
-└── NENE2-FT/       # field-trial reference apps
+const client = createNene2Client({
+  baseUrl: process.env.NENE2_JS_API_BASE_URL!,
+});
 ```
 
-Clone next to your existing NENE2 checkout:
+More examples: [howto/consume-client.md](docs/howto/consume-client.md) · [VitePress tutorial](https://hideyukimori.github.io/nene2-js/tutorial/getting-started).
+
+## Develop this repository (contributors)
+
+**Optional** sibling layout when working on **nene2-js itself** (OpenAPI sync, codegen, tests) next to NENE2 — not required to consume the npm package.
+
+```text
+../docker/                    # example parent directory
+├── NENE2/                    # PHP framework (OpenAPI source: docs/openapi/openapi.yaml)
+├── nene2-js/                 # this repository
+├── nene-mcp/                 # PHP MCP stdio library (separate concern)
+└── NENE2-FT/                 # field-trial reference apps (historical name; see nene2-js-FT)
+```
 
 ```bash
 cd /path/to/parent-of-NENE2
@@ -60,7 +71,7 @@ npm run check
 
 OpenAPI types: `npm run codegen` (see [Phase 3](docs/phase-3.md)).
 
-Point local development at a running NENE2 API when needed:
+Point live tests at a running NENE2 API when needed:
 
 ```bash
 cp .env.example .env

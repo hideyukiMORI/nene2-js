@@ -8,9 +8,13 @@
 
 ## インストール
 
+**利用側アプリ**（Vite/React フロント、Node スクリプト等）のプロジェクトルートで:
+
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
+
+`nene2-js` を clone したり NENE2 の隣に置く必要はありません。`baseUrl` で動作中の NENE2 API を指します。
 
 **Node 22+**（ネイティブ `fetch`）またはモダンブラウザが必要です。
 
