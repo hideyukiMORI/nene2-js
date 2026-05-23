@@ -4,13 +4,14 @@ Quick reference for TypeScript consumers (FT19 / Persona A).
 
 ## Install
 
-**npm (consumers):**
+In **your consumer app** (frontend, script, etc.) — not by cloning this repo:
 
 ```bash
-npm install @hideyukimori/nene2-client
+cd your-app
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
 
-**This repo (development):**
+**This repo (contributors only):**
 
 ```bash
 cd nene2-js && npm install && npm run build

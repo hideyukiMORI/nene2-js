@@ -4,9 +4,13 @@ Install the published client and call a running NENE2 JSON API.
 
 ## Install
 
+In **your app’s project root** (Vite/React frontend, Node script, etc.):
+
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
+
+You do not need to clone `nene2-js` or place it next to NENE2. Point `baseUrl` at your running NENE2 (or nene2-python) API.
 
 Requires **Node 22+** (native `fetch`) or a modern browser. TypeScript consumers get `.d.ts` from the package.
 
