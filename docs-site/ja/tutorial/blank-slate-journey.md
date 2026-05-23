@@ -15,7 +15,7 @@
 ## 経路 A — NENE2 (PHP) ファースト（推奨）
 
 1. [NENE2 を起動](../howto/install-nene2) → `http://localhost:8080`
-2. `npm install @hideyukimori/nene2-client`
+2. **利用側アプリ**で `npm install @hideyukimori/nene2-client@^1.0.0`（`nene2-js` の clone は不要）
 3. [はじめに](getting-started) の `createNene2Client` + `smoke()`
 4. 必要なら [live smoke](../howto/live-smoke)
 

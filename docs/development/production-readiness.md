@@ -4,11 +4,11 @@ This client targets **typed access to NENE2 JSON APIs** for internal tools, MVPs
 
 ## Suitable today
 
-| Use case                                   | Notes                                             |
-| ------------------------------------------ | ------------------------------------------------- |
-| Internal admin / ops dashboards            | Use `@hideyukimori/nene2-client@^1.0.0`           |
-| Startup MVP on NENE2                       | Wrap client in your app’s retry/backoff if needed |
-| AI-driven consumer sandboxes (nene2-js-FT) | Documented friction cycle                         |
+| Use case                                   | Notes                                                                        |
+| ------------------------------------------ | ---------------------------------------------------------------------------- |
+| Internal admin / ops dashboards            | Use `@hideyukimori/nene2-client@^1.0.0`                                      |
+| Startup MVP on NENE2                       | Use `@hideyukimori/nene2-client@^1.0.0`; wrap in app retry/backoff if needed |
+| AI-driven consumer sandboxes (nene2-js-FT) | Documented friction cycle                                                    |
 
 ## Not ready alone for
 

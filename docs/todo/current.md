@@ -8,6 +8,9 @@ _(none — 1.0.0 shipped on npm + GitHub; track semver in Issues)_
 
 ## Completed (recent)
 
+- [x] [#100](https://github.com/hideyukiMORI/nene2-js/issues/100) — 全ロケール doc 鮮度監査（de/fr/zh/pt-br getting-started、maintainer docs）
+- [x] [#99](https://github.com/hideyukiMORI/nene2-js/pull/99) — README consumer vs contributor install; en/ja getting-started `@^1.0.0`
+- [x] [#98](https://github.com/hideyukiMORI/nene2-js/pull/98) — SECURITY 1.x, README badge, roadmap/releases links
 - [x] [#97](https://github.com/hideyukiMORI/nene2-js/pull/97) — git tag `vX.Y.Z` + GitHub Release on publish; retroactive [`v1.0.0`](https://github.com/hideyukiMORI/nene2-js/releases/tag/v1.0.0)
 - [x] [#84](https://github.com/hideyukiMORI/nene2-js/issues/84) — npm **1.0.0** (roadmap criteria 1–5); nene2-js-FT FT35 matrix green
 - [x] [#86](https://github.com/hideyukiMORI/nene2-js/issues/86) / [#88](https://github.com/hideyukiMORI/nene2-js/pull/88) · [#89](https://github.com/hideyukiMORI/nene2-js/pull/89) · [#90](https://github.com/hideyukiMORI/nene2-js/pull/90) — guard codegen epic + VitePress 全ロケール
@@ -57,7 +60,7 @@ _(none — 1.0.0 shipped on npm + GitHub; track semver in Issues)_
 ## Handoff
 
 ```bash
-npm install @hideyukimori/nene2-client@1.0.0
+npm install @hideyukimori/nene2-client@^1.0.0
 npm run test:ft-marathon          # 502 tests
 npm run verify:backends           # needs :18080 + :18000
 export NENE2_JS_API_BASE_URL=http://localhost:18080

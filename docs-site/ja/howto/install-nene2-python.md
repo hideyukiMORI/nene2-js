@@ -31,7 +31,7 @@ curl -sS http://localhost:8000/examples/notes?limit=1 | jq .
 ## 4. TypeScript クライアント
 
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
 
 ```ts

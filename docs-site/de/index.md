@@ -19,7 +19,7 @@ hero:
 features:
   - icon: 📦
     title: Auf npm veröffentlicht
-    details: '@hideyukimori/nene2-client — strict TypeScript, ESM, npm provenance.'
+    details: '@hideyukimori/nene2-client@1.0.0 — strict TypeScript, ESM, npm provenance. GitHub Release pro semver.'
 
   - icon: 📄
     title: OpenAPI zuerst
