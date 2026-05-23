@@ -30,7 +30,7 @@ Phase 1 delivered contract pin, Problem Details, `createNene2Client` for documen
 | Item                           | Repo         | Issue                                                           | Action                                                                           |
 | ------------------------------ | ------------ | --------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | nene2-python ping/notes parity | nene2-python | [#553](https://github.com/hideyukiMORI/nene2-python/issues/553) | Live matrix skips or fails when `NENE2_JS_PYTHON_BASE_URL` set; client unchanged |
-| OpenAPI codegen                | nene2-js     | Phase 3                                                         | Hand types until codegen ADR                                                     |
+| OpenAPI codegen                | nene2-js     | [#37](https://github.com/hideyukiMORI/nene2-js/issues/37)       | **Resolved** — Phase 3 complete; see [phase-3.md](phase-3.md)                    |
 | Port 8080 not NENE2            | docs         | —                                                               | [ft-evac-ports.md](development/ft-evac-ports.md), README health curl check       |
 
 ## Non-goals (Phase 2)

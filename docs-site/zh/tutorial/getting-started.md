@@ -4,9 +4,13 @@
 
 ## 安装
 
+在**你的应用项目根目录**（Vite/React 前端、Node 脚本等）：
+
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
+
+无需 clone `nene2-js` 或将其放在 NENE2 旁边。`baseUrl` 指向正在运行的 NENE2（或 nene2-python）API。
 
 需要 **Node 22+**（原生 `fetch`）或现代浏览器。
 

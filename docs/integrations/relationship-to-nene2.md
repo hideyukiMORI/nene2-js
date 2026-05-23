@@ -15,6 +15,8 @@
 2. nene2-js opens an Issue to sync types/client (may depend on NENE2 release tag).
 3. Consumer apps upgrade `@hideyukimori/nene2-client` when ready.
 
+**npm consumers** do not need a sibling clone — install from npm in your app and set `baseUrl`. The sibling layout below is for **nene2-js contributors** syncing OpenAPI and running tests.
+
 ## Local development paths
 
 Default sibling layout:

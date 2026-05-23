@@ -1,12 +1,16 @@
 # Premiers pas
 
-Installez le client npm et appelez une API JSON NENE2 en cours d'exécution.
+Installez le client npm publié et appelez une API JSON NENE2 en cours d'exécution.
 
 ## Installation
 
+À la **racine de votre application** (frontend Vite/React, script Node, etc.) :
+
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
+
+Inutile de cloner `nene2-js` ou de le placer à côté de NENE2. Pointez `baseUrl` vers votre API NENE2 (ou nene2-python) en cours d'exécution.
 
 **Node 22+** (`fetch` natif) ou un navigateur moderne.
 

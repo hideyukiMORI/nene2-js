@@ -1,6 +1,6 @@
 # Publishing `@hideyukimori/nene2-client`
 
-Release flow after the first public publish (`0.1.0` on npm). CI uses [Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC) — no long-lived `NPM_TOKEN`.
+Release flow for `@hideyukimori/nene2-client` (stable **1.0.0** on npm; semver publishes also create git tag + GitHub Release — see [releases.md](releases.md)). CI uses [Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC) — no long-lived `NPM_TOKEN`.
 
 ## First publish (done once)
 
@@ -59,7 +59,7 @@ npm publish --access public
 ## Consumer install
 
 ```bash
-npm install @hideyukimori/nene2-client
+npm install @hideyukimori/nene2-client@^1.0.0
 ```
 
 See [howto/consume-client.md](../howto/consume-client.md).

@@ -19,7 +19,7 @@ hero:
 features:
   - icon: 📦
     title: npm 发布
-    details: '@hideyukimori/nene2-client — 严格 TypeScript、ESM、npm provenance。'
+    details: '@hideyukimori/nene2-client@1.0.0 — 严格 TypeScript、ESM、npm provenance。每个 semver 对应 GitHub Release。'
 
   - icon: 📄
     title: OpenAPI 优先
