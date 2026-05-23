@@ -40,8 +40,13 @@ npm publish --dry-run
 1. Actions → **Publish npm** → Run workflow on `main`.
 2. Optional: `dry_run: true` first.
 3. Release: `dry_run: false` (uses OIDC; requires Trusted Publisher configured).
+4. On success the workflow creates git tag **`vX.Y.Z`** and a **GitHub Release** whose notes come from [CHANGELOG.md](../../CHANGELOG.md) (`scripts/extract-changelog-release.mjs`). Skips if the tag already exists.
 
-Workflow: [`.github/workflows/publish.yml`](../../.github/workflows/publish.yml) — `permissions.id-token: write`, `npm install -g npm@latest` before publish.
+**Before publish:** merge the version bump PR only — run publish on that commit so tag, Release, and npm tarball match.
+
+Workflow: [`.github/workflows/publish.yml`](../../.github/workflows/publish.yml) — `permissions.id-token: write`, `contents: write`, `npm install -g npm@latest` before publish.
+
+See also [releases.md](releases.md) — tag + Release policy.
 
 ## Publish locally (maintainer)
 

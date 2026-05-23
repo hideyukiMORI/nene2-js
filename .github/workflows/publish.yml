@@ -10,16 +10,18 @@ on:
         type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -28,6 +30,9 @@ jobs:
       - run: npm run check
       - run: npm run build
       - run: npm run pack:smoke
+      - name: Verify CHANGELOG section
+        if: ${{ !inputs.dry_run }}
+        run: node scripts/extract-changelog-release.mjs "$(node -p "require('./package.json').version")" >/dev/null
       - run: npm install -g npm@latest
       - name: Dry run
         if: ${{ inputs.dry_run }}
@@ -35,3 +40,16 @@ jobs:
       - name: Publish
         if: ${{ !inputs.dry_run }}
         run: npm publish --access public
+      - name: Create git tag and GitHub Release
+        if: ${{ !inputs.dry_run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v${VERSION}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists; skipping GitHub Release."
+            exit 0
+          fi
+          node scripts/extract-changelog-release.mjs "$VERSION" > release-notes.md
+          gh release create "$TAG" --title "$TAG" --notes-file release-notes.md
