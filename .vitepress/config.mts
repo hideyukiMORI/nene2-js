@@ -24,6 +24,10 @@ type SidebarLabels = {
   nene2Boundary: string;
   refGroup: string;
   clientApi: string;
+  /** v1.1.0 transport page — EN/JA only for now (#102); other locales follow. */
+  transport?: string;
+  /** v1.1.0 migration guide — EN/JA only for now (#102); other locales follow. */
+  migrateProduct?: string;
   configuration: string;
   errors: string;
   intGroup: string;
@@ -85,6 +89,9 @@ function sidebar(t: SidebarLabels, p: string = '') {
           { text: t.installPython, link: `${p}/howto/install-nene2-python` },
           { text: t.liveSmoke, link: `${p}/howto/live-smoke` },
           { text: t.openapiCodegen, link: `${p}/howto/openapi-codegen` },
+          ...(t.migrateProduct !== undefined
+            ? [{ text: t.migrateProduct, link: `${p}/howto/migrate-product-client` }]
+            : []),
         ],
       },
     ],
@@ -103,6 +110,9 @@ function sidebar(t: SidebarLabels, p: string = '') {
         text: t.refGroup,
         items: [
           { text: t.clientApi, link: `${p}/reference/client-api` },
+          ...(t.transport !== undefined
+            ? [{ text: t.transport, link: `${p}/reference/transport` }]
+            : []),
           { text: t.configuration, link: `${p}/reference/configuration` },
           { text: t.errors, link: `${p}/reference/errors` },
         ],
@@ -140,6 +150,8 @@ const enSide: SidebarLabels = {
   nene2Boundary: 'Relationship to NENE2',
   refGroup: 'Reference',
   clientApi: 'createNene2Client API',
+  transport: 'Fleet transport API',
+  migrateProduct: 'Adopt the fleet transport',
   configuration: 'Configuration',
   errors: 'Errors & validation helpers',
   intGroup: 'Integrations',
@@ -169,6 +181,8 @@ const jaSide: SidebarLabels = {
   nene2Boundary: 'NENE2 との関係',
   refGroup: 'リファレンス',
   clientApi: 'createNene2Client API',
+  transport: 'フリートトランスポート API',
+  migrateProduct: 'フリートトランスポート導入',
   configuration: '設定',
   errors: 'エラーとバリデーション',
   intGroup: '連携',
