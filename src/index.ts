@@ -36,6 +36,19 @@ export {
   type Nene2ClientConfig,
   type RateLimitInfo,
 } from './client/index.js';
+export {
+  createNene2Transport,
+  createSessionTokenStore,
+  type AuthFailureContext,
+  type BlobDownload,
+  type Nene2Transport,
+  type Nene2TransportConfig,
+  type RawBodyRequestOptions,
+  type SessionTokenStore,
+  type SessionTokenStoreOptions,
+  type TokenStore,
+  type TransportRequestOptions,
+} from './transport/index.js';
 export type { OpenApiPaths, OpenApiSchemas } from './types/schemas.js';
 export type {
   CreateNoteRequest,

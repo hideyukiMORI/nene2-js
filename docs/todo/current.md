@@ -1,10 +1,10 @@
 # Current work
 
-Last updated: 2026-05-23 (JST, post-`v1.0.0` GitHub Release)
+Last updated: 2026-07-14 (JST)
 
 ## Active
 
-_(none — 1.0.0 shipped on npm + GitHub; track semver in Issues)_
+- [ ] [#102](https://github.com/hideyukiMORI/nene2-js/issues/102) — fleet-standard frontend transport (`createNene2Transport` + `createSessionTokenStore`, X-Authorization mirror, 401/403 hooks) — **v1.1.0** release-candidate PR open; publish is done by the maintainer after merge
 
 ## Completed (recent)
 
