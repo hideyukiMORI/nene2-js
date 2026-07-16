@@ -59,12 +59,12 @@ migration is a refactor, not the place to change where the token lives.
   ```
 
 - 🔴 **In-memory posture** (e.g. **invoice**, deliberately: `client.ts` keeps the
-  access token in a module variable and restores the session from the refresh
-  cookie after reload — ADR 0014) → **adapt your in-memory store to
-  `TokenStore`**. Do **not** switch to `createSessionTokenStore`: moving an
-  in-memory token into `sessionStorage` **widens the XSS exposure surface** and
-  is a posture regression that needs its own ADR, not a silent side effect of
-  this migration.
+  access token **in memory** — a module variable, lost on reload — while the
+  **httpOnly refresh cookie** survives the reload and restores the token via
+  `refreshSession()`, ADR 0014) → **adapt your in-memory store to `TokenStore`**.
+  Do **not** switch to `createSessionTokenStore`: moving an in-memory token into
+  `sessionStorage` **widens the XSS exposure surface** and is a posture
+  regression that needs its own ADR, not a silent side effect of this migration.
 
   ```ts
   // Wrap the token variable your app already owns.
@@ -185,34 +185,45 @@ export { refreshSession, subscribeAuthChange /* … */ };
 > directly (they go through `entities/auth`). Holding those re-exports stable is
 > what keeps the ~20 auth-surface consumers from churning.
 
-## 🔴 The promotion gate — wire it, don't (yet) enable it under path mode
+## 🔴 The promotion gate is **per tenancy mode**, not blanket
 
-`recoverAuth` is **opt-in**. For a **path-scoped / multi-tenant** deployment,
-**wire the seam but do not pass `recoverAuth`** — leave the transport in its
-fail-closed default so behavior is identical to today (one-shot; reload →
-login). Enabling silent-refresh there is unsafe until the `_work/issues.md` **#38**
-cookie-`Path` root fix lands server-side (the rotated `ni_refresh` is reissued at
-the slug-stripped `Path`, so a second refresh re-presents a consumed token →
-family revoke). See [ADR 0008 §3](../adr/0008-recover-auth-seam.md).
+`recoverAuth` is **opt-in**, and whether you may enable it depends on the
+deployment's **tenancy mode** — because `_work/issues.md` **#38** is a
+**path-mode** bug, not a universal one. Decide per mode:
 
-Concretely, in the migration PR:
+| Tenancy mode                                 | `#38` applies?                            | `recoverAuth`                           |
+| -------------------------------------------- | ----------------------------------------- | --------------------------------------- |
+| **single / host** (one org, no slug)         | **No** — no slug, no path-scoped rotation | **Enable now** (`#38`-independent)      |
+| **path-scoped / multi-tenant** (`/{slug}/…`) | **Yes** — the rotation bug                | **Wire but don't pass** until `#38` fix |
+
+- **single / host mode**: there is no slug and no path-scoped refresh cookie, so
+  the `#38` rotation bug cannot occur. Pass `recoverAuth` — silent refresh is
+  safe today.
+- **path-scoped / multi-tenant mode** (e.g. the invoice disposable-org demo,
+  `invoice.ayane.co.jp/demo/…`): the server reissues the rotated `ni_refresh` at
+  the slug-stripped `Path`, so a second refresh re-presents a consumed token →
+  family revoke. **Wire the seam but do not pass `recoverAuth`** — leave the
+  transport in its fail-closed default (behavior identical to today: one-shot;
+  reload → login) until the `#38` cookie-`Path` root fix lands server-side, then
+  flip it on. See [ADR 0008 §3](../adr/0008-recover-auth-seam.md).
+
+A product that runs **both** modes decides at runtime from whatever tells it
+which mode it is in (invoice: install-base slug vs asset base). Concretely:
 
 ```ts
 const transport = createNene2Transport({
   baseUrl: apiBasePath,
   tokenStore,
   onUnauthorized,
-  // recoverAuth,  ← keep commented / behind a flag under path mode until #38
+  // single/host mode → pass it; path mode → omit until #38:
+  ...(isPathMode ? {} : { recoverAuth }),
 });
 ```
 
-- **Single-tenant / host mode**: no path-mode rotation bug — you may pass
-  `recoverAuth` now.
-- **Path/multi-tenant** (e.g. the invoice disposable-org demo,
-  `invoice.ayane.co.jp/demo/…`): wiring only until #38; then flip it on.
-
-This keeps the migration a **behavior-preserving refactor**, decoupled from the
-server-side #38 fix.
+Either way the migration itself is a **behavior-preserving refactor**: in path
+mode you ship the wiring with `recoverAuth` withheld, decoupled from the
+server-side `#38` fix; in single mode you turn it on and gain rotation-safe
+silent refresh immediately.
 
 ## Verify
 
