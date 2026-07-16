@@ -6,6 +6,19 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-16
+
+Opt-in silent re-authentication for the transport ([#107](https://github.com/hideyukiMORI/nene2-js/issues/107), [ADR 0008](docs/adr/0008-recover-auth-seam.md)). Additive — no breaking changes to the 1.1.0 surface; the default behavior is unchanged.
+
+### Added
+
+- `Nene2TransportConfig.recoverAuth?: () => Promise<boolean>` — opt-in hook called on a 401 for an authenticated request **before** the token is cleared. Return `true` once a fresh token has been seated (the transport then replays the original request **once**), or `false`/throw to fail closed (clear token + `onUnauthorized`, the 1.1.0 default). Default `undefined` keeps the fail-closed 401 policy unchanged. The refresh mechanics (endpoint, CSRF, body) stay in the app; the transport owns single-flight + one replay + no-recursion.
+- `Nene2Transport.recover(): Promise<boolean>` — runs `recoverAuth` through the transport's shared single-flight and reports whether a token was seated. An app-start session probe must call this (not `recoverAuth` directly) so the probe and any concurrent 401-retry collapse into one refresh — a refresh-token-rotation reuse-defense requirement (concurrent `/auth/refresh` would trip server-side family revocation). Resolves `false` when no `recoverAuth` is configured.
+
+### Documentation
+
+- `howto/migrate-product-client` — migrate a product `apiClient` onto the transport seam: thin adapter (preserve verb signatures), token-store posture (sessionStorage vs in-memory adapter), refresh mechanics → `recoverAuth`, boot probe → `recover()`, and the promotion gate (path-mode: wire but don't enable until the `_work/issues.md #38` cookie-`Path` root fix).
+
 ## [1.1.0] - 2026-07-14
 
 Fleet-standard frontend transport ([#102](https://github.com/hideyukiMORI/nene2-js/issues/102)): one correct implementation of the request plumbing every nene-\* product used to hand-write. Additive — no breaking changes to the 1.0.0 surface.
