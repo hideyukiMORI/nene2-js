@@ -11,6 +11,11 @@ mirror, Problem Details (RFC 9457) mapping, 401/403 hooks, and — new in ADR 00
 The worked example throughout is **nene-invoice**
 (`frontend/src/shared/api/client.ts`), the first W2b consumer.
 
+> **Prerequisite:** the `recoverAuth` seam and `transport.recover()` ship in
+> **`@hideyukimori/nene2-client` >= 1.2.0**. 1.1.0 has the transport but not the
+> seam, so install/pin `>=1.2.0` before the migration — an older version will
+> not type-check against `recoverAuth` / `recover()`.
+
 ## The golden rule: keep your public surface, swap the internals
 
 The migration is **internal**. Your product's `apiClient` (and its auth module)
@@ -28,22 +33,56 @@ hundreds.
 ### 1. Stand up the transport and a token store
 
 ```ts
-import { createNene2Transport, createSessionTokenStore } from '@hideyukimori/nene2-client';
-
-const tokenStore = createSessionTokenStore({ key: 'nene_<product>_token' });
+import { createNene2Transport } from '@hideyukimori/nene2-client';
 
 const transport = createNene2Transport({
   baseUrl: apiBasePath, // your install-base prefix (ADR 0015 in invoice)
-  tokenStore,
+  tokenStore, // ← chosen by your token posture; see below
   onUnauthorized: () => authGate.showLoginInPlace(), // fail-closed side effect
   // recoverAuth: … // ← added in step 4, BUT see the promotion gate below
 });
 ```
 
-If your product keeps the access token in a plain in-memory variable rather than
-`sessionStorage`, either adopt `createSessionTokenStore` (fleet default) or adapt
-your store to the `TokenStore` interface (`getToken` / `clearToken`, plus
-`setToken` for the recover hook).
+#### Choose a token store to match your **existing** posture — do not regress it
+
+The transport only needs a `TokenStore` (`getToken` / `clearToken`, plus
+`setToken` for the recover hook). Pick the one your product already uses; a
+migration is a refactor, not the place to change where the token lives.
+
+- **sessionStorage posture** → `createSessionTokenStore({ key: 'nene_<product>_token' })`
+  (the fleet default: survives reloads, bounded XSS blast radius vs
+  `localStorage`).
+
+  ```ts
+  import { createSessionTokenStore } from '@hideyukimori/nene2-client';
+  const tokenStore = createSessionTokenStore({ key: 'nene_<product>_token' });
+  ```
+
+- 🔴 **In-memory posture** (e.g. **invoice**, deliberately: `client.ts` keeps the
+  access token in a module variable and restores the session from the refresh
+  cookie after reload — ADR 0014) → **adapt your in-memory store to
+  `TokenStore`**. Do **not** switch to `createSessionTokenStore`: moving an
+  in-memory token into `sessionStorage` **widens the XSS exposure surface** and
+  is a posture regression that needs its own ADR, not a silent side effect of
+  this migration.
+
+  ```ts
+  // Wrap the token variable your app already owns.
+  let accessToken: string | null = null;
+  const tokenStore: TokenStore = {
+    getToken: () => accessToken,
+    clearToken: () => {
+      accessToken = null;
+    },
+  };
+  // setToken (used by recoverAuth in step 3) seats the refreshed token:
+  function setAccessToken(t: string | null): void {
+    accessToken = t;
+  }
+  ```
+
+  `TokenStore` is exported from the package; the recover hook calls whatever
+  seats your token (`setAccessToken` above / your `setAuthToken`).
 
 ### 2. Make `apiClient` a thin adapter — preserve every signature
 
@@ -89,7 +128,7 @@ async function recoverAuth(): Promise<boolean> {
   if (!res.ok) return false;
   const token = (safeJsonParse(await res.text()) as { token?: unknown } | null)?.token;
   if (typeof token !== 'string') return false;
-  tokenStore.setToken(token);
+  setAccessToken(token); // session store: tokenStore.setToken(token) — in-memory: your setter (step 1)
   return true;
 }
 ```
