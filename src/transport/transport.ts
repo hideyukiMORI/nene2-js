@@ -75,6 +75,29 @@ export interface Nene2TransportConfig {
    * forbidden responses.
    */
   readonly clearTokenOnStatuses?: readonly number[] | undefined;
+  /**
+   * Opt-in silent re-authentication (ADR 0008). On a 401 for an authenticated
+   * request — **before** the token is cleared — the transport calls this hook;
+   * return `true` once a fresh token has been seated in the token store and the
+   * transport replays the original request **exactly once**, or `false` to fail
+   * closed (clear token + {@link onUnauthorized}, the default behavior).
+   *
+   * Own only the refresh *mechanics* here (call your refresh endpoint, echo the
+   * CSRF cookie, parse the body, `tokenStore.setToken(...)`). The transport owns
+   * the *orchestration*: concurrent 401s (and {@link Nene2Transport.recover})
+   * share one in-flight call, and the replay never re-enters recovery.
+   *
+   * The recovery request itself MUST bypass this transport instance's recovery
+   * path — issue it with a bare `fetch` or a transport configured without
+   * `recoverAuth` — otherwise it would await itself.
+   *
+   * Omit (default `undefined`) to keep the fail-closed 401 policy unchanged.
+   *
+   * @remarks Under refresh-token rotation, two concurrent refreshes trip
+   * server-side reuse detection (family revocation). The transport's shared
+   * single-flight is what makes this safe — see {@link Nene2Transport.recover}.
+   */
+  readonly recoverAuth?: (() => Promise<boolean>) | undefined;
 }
 
 /** Per-request options shared by all transport methods. */
@@ -135,6 +158,21 @@ export interface Nene2Transport {
    * `Content-Type: text/csv` by default.
    */
   postBytes<T>(path: string, body: Blob, options?: RawBodyRequestOptions): Promise<T>;
+  /**
+   * Run the configured {@link Nene2TransportConfig.recoverAuth} through the
+   * transport's shared single-flight and report whether a token was seated.
+   * Resolves `false` when no `recoverAuth` is configured.
+   *
+   * Call this — not `recoverAuth` directly — for an app-start session probe
+   * (after a reload the in-memory access token is gone but the refresh cookie
+   * may still be valid). Because it shares the **same** in-flight recovery as
+   * any concurrent 401-retry, the probe and an early retry collapse into one
+   * refresh call. That sharing is a correctness requirement, not an
+   * optimization: under refresh-token rotation two concurrent `/auth/refresh`
+   * calls present the same rotated token and trip server-side reuse defense
+   * (family revocation → hard logout).
+   */
+  recover(): Promise<boolean>;
 }
 
 interface ResolvedTransportConfig {
@@ -148,6 +186,7 @@ interface ResolvedTransportConfig {
   readonly onUnauthorized: ((context: AuthFailureContext) => void) | undefined;
   readonly onForbidden: ((context: AuthFailureContext) => void) | undefined;
   readonly clearTokenOnStatuses: readonly number[];
+  readonly recoverAuth: (() => Promise<boolean>) | undefined;
 }
 
 function resolveTransportConfig(config: Nene2TransportConfig): ResolvedTransportConfig {
@@ -167,6 +206,44 @@ function resolveTransportConfig(config: Nene2TransportConfig): ResolvedTransport
     onUnauthorized: config.onUnauthorized,
     onForbidden: config.onForbidden,
     clearTokenOnStatuses: config.clearTokenOnStatuses ?? [401],
+    recoverAuth: config.recoverAuth,
+  };
+}
+
+/**
+ * Shared single-flight around {@link Nene2TransportConfig.recoverAuth}. One
+ * instance per transport so every caller — the internal 401-retry and
+ * {@link Nene2Transport.recover} — awaits the *same* in-flight recovery
+ * (rotation reuse-defense; see the `recoverAuth` docs). A rejected `recoverAuth`
+ * is treated as a failed recovery (`false`), never a thrown request.
+ */
+interface RecoveryController {
+  recover(): Promise<boolean>;
+}
+
+function createRecoveryController(
+  recoverAuth: (() => Promise<boolean>) | undefined,
+): RecoveryController {
+  if (recoverAuth === undefined) {
+    return { recover: () => Promise.resolve(false) };
+  }
+  let inFlight: Promise<boolean> | null = null;
+  return {
+    recover(): Promise<boolean> {
+      if (inFlight !== null) {
+        return inFlight;
+      }
+      inFlight = (async (): Promise<boolean> => {
+        try {
+          return await recoverAuth();
+        } catch {
+          return false;
+        } finally {
+          inFlight = null;
+        }
+      })();
+      return inFlight;
+    },
   };
 }
 
@@ -186,8 +263,18 @@ interface SendInit {
  * {@link buildTransportHeaders}; error statuses are mapped to
  * {@link Nene2ClientError} with Problem Details (never raw HTML), 401/403 run
  * the token-clearing policy and hooks.
+ *
+ * When `recoverAuth` is configured, a 401 on an authenticated request first
+ * attempts one shared recovery (ADR 0008); on success the request is replayed
+ * once with `isReplay = true`, which disables further recovery so a replay that
+ * 401s again falls through to the fail-closed path.
  */
-async function send(config: ResolvedTransportConfig, init: SendInit): Promise<Response> {
+async function send(
+  config: ResolvedTransportConfig,
+  recovery: RecoveryController,
+  init: SendInit,
+  isReplay = false,
+): Promise<Response> {
   const url = `${config.baseUrl}${init.path}`;
   const token = config.tokenStore?.getToken() ?? null;
   const headers = buildTransportHeaders({
@@ -226,9 +313,21 @@ async function send(config: ResolvedTransportConfig, init: SendInit): Promise<Re
     return response;
   }
 
-  const problem = await parseProblemDetailsResponse(response);
   const status = response.status;
   const tokenAttached = token !== null;
+
+  // Silent re-authentication (ADR 0008): on a 401 for an authenticated request,
+  // try one shared recovery before clearing the token, then replay once. The
+  // replay re-reads the token store (top of send), so it carries the fresh
+  // token seated by `recoverAuth`.
+  if (status === 401 && tokenAttached && !isReplay && config.recoverAuth !== undefined) {
+    const recovered = await recovery.recover();
+    if (recovered) {
+      return send(config, recovery, init, true);
+    }
+  }
+
+  const problem = await parseProblemDetailsResponse(response);
 
   if (tokenAttached && config.clearTokenOnStatuses.includes(status)) {
     config.tokenStore?.clearToken();
@@ -319,6 +418,7 @@ function jsonBody(body: unknown): Pick<SendInit, 'body' | 'contentType'> {
  */
 export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Transport {
   const resolved = resolveTransportConfig(config);
+  const recovery = createRecoveryController(resolved.recoverAuth);
 
   async function requestJson<T>(
     method: string,
@@ -326,7 +426,7 @@ export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Tr
     body: unknown,
     options: TransportRequestOptions | undefined,
   ): Promise<T> {
-    const response = await send(resolved, {
+    const response = await send(resolved, recovery, {
       method,
       path,
       ...jsonBody(body),
@@ -341,7 +441,7 @@ export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Tr
     body: BodyInit,
     options: RawBodyRequestOptions | undefined,
   ): Promise<T> {
-    const response = await send(resolved, {
+    const response = await send(resolved, recovery, {
       method: 'POST',
       path,
       body,
@@ -364,11 +464,11 @@ export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Tr
     delete: <T = void>(path: string, options?: TransportRequestOptions) =>
       requestJson<T>('DELETE', path, undefined, options),
     getBlob: async (path, options) => {
-      const response = await send(resolved, { method: 'GET', path, options });
+      const response = await send(resolved, recovery, { method: 'GET', path, options });
       return toBlobDownload(response);
     },
     postBlob: async (path, body, options) => {
-      const response = await send(resolved, {
+      const response = await send(resolved, recovery, {
         method: 'POST',
         path,
         ...jsonBody(body),
@@ -378,7 +478,7 @@ export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Tr
     },
     upload: async <T>(path: string, formData: FormData, options?: TransportRequestOptions) => {
       // No Content-Type: the browser must add the multipart boundary.
-      const response = await send(resolved, {
+      const response = await send(resolved, recovery, {
         method: 'POST',
         path,
         body: formData,
@@ -391,5 +491,6 @@ export function createNene2Transport(config: Nene2TransportConfig = {}): Nene2Tr
       requestRaw<T>(path, csv, options),
     postBytes: <T>(path: string, body: Blob, options?: RawBodyRequestOptions) =>
       requestRaw<T>(path, body, options),
+    recover: () => recovery.recover(),
   };
 }
