@@ -4,6 +4,7 @@ Last updated: 2026-07-14 (JST)
 
 ## Active
 
+- [ ] [#107](https://github.com/hideyukiMORI/nene2-js/issues/107) — transport: opt-in `recoverAuth` seam (silent-refresh + single replay on 401) — [ADR 0008](../adr/0008-recover-auth-seam.md) Accepted; `feat/107-recover-auth-seam` PR open. Unblocks invoice W2b (board (B), due 2026-08-08). Opt-in (default `undefined` = unchanged); promotion to fleet default is gated on W2b completion **and** the `_work/issues.md #38` path-mode cookie-Path root fix. Follow-up: `howto/migrate-product-client` guide lands with the W2b migration.
 - [ ] [#102](https://github.com/hideyukiMORI/nene2-js/issues/102) — fleet-standard frontend transport (`createNene2Transport` + `createSessionTokenStore`, X-Authorization mirror, 401/403 hooks) — **v1.1.0** release-candidate PR open; publish is done by the maintainer after merge
 
 ## Completed (recent)
