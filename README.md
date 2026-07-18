@@ -133,6 +133,16 @@ npm test -- tests/client/live-smoke-matrix.test.ts
 
 Unset URLs are skipped; CI runs fixture tests only. Field-trial friction: [ADR 0004](docs/adr/0004-field-trial-friction-resolution-cycle.md).
 
+## Transport headers
+
+Every authenticated request carries the bearer token on **two** headers: the standard `Authorization` **and a non-standard `X-Authorization` mirror**. Both the typed client (`createNene2Client`) and the fleet transport (`createNene2Transport`) apply the mirror on every path — JSON verbs, blob downloads, multipart uploads, raw byte POSTs. Auth headers are applied **after** static and per-request headers, so no caller can drop or overwrite the mirror. **In the current version the mirror cannot be disabled** (`src/transport/headers.ts`, `src/client/request.ts`).
+
+**Why.** Some shared-hosting front proxies and reverse proxies strip the standard `Authorization` header before it reaches the application (observed on HETEML). NENE2 backends fall back to the `X-Authorization` mirror when the standard header is missing, so the mirror keeps auth working behind such proxies.
+
+**Operational note — please read.** Because the bearer is duplicated onto a non-standard header, add **`X-Authorization`** to the credential-masking rules of anything that records or inspects requests: application logs, access logs, WAF rules, and proxy log pipelines. An environment that masks only `Authorization` will otherwise record the bearer token in clear text.
+
+**Planned.** An opt-out flag is _planned_ for a future minor release, and making the mirror **off by default** is _planned_ for a future major release. Until then, treat the mirror as always-on and mask it accordingly.
+
 ## Documentation site (local)
 
 ```bash
