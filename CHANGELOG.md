@@ -6,6 +6,14 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Added
+
+- `mirrorAuthorizationHeader?: boolean` on both `Nene2TransportConfig` and `Nene2ClientConfig` — opt out of the non-standard `X-Authorization` mirror ([#119](https://github.com/hideyukiMORI/nene2-js/issues/119), audit A-3). Default `true` keeps the existing fleet posture (bearer on both `Authorization` and `X-Authorization`, for proxies that strip the standard header); `false` sends `Authorization` only. Construction-time switch — no per-request override, no behavior change for existing consumers. See the README **Transport headers** section.
+
+### Documentation
+
+- README / SECURITY **Transport headers**: document the opt-out flag and mark it available since 1.3.0; generalize the mirror rationale (no specific hosting-vendor name).
+
 ## [1.2.0] - 2026-07-16
 
 Opt-in silent re-authentication for the transport ([#107](https://github.com/hideyukiMORI/nene2-js/issues/107), [ADR 0008](docs/adr/0008-recover-auth-seam.md)). Additive — no breaking changes to the 1.1.0 surface; the default behavior is unchanged.

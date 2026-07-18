@@ -1,8 +1,10 @@
 /**
- * Invariant 1 (#102): every verb and every path — JSON, blob, multipart,
- * CSV/bytes — carries the bearer on BOTH `Authorization` and the
- * `X-Authorization` mirror (HETEML-class proxies strip the standard header;
- * nene-deal #83 / nene-clear #265 / nene-vault #118 regression class).
+ * Invariant 1 (#102): by default every verb and every path — JSON, blob,
+ * multipart, CSV/bytes — carries the bearer on BOTH `Authorization` and the
+ * `X-Authorization` mirror (Tier-A proxies strip the standard header;
+ * nene-deal #83 / nene-clear #265 / nene-vault #118 regression class). The
+ * mirror is opt-out at construction time via `mirrorAuthorizationHeader: false`
+ * (#119) — the final describe block pins that off-path.
  */
 import { describe, expect, it } from 'vitest';
 import { createNene2Transport, createSessionTokenStore } from '../../src/index.js';
@@ -160,5 +162,57 @@ describe('X-Authorization mirror on the typed createNene2Client', () => {
     const headers = new Headers(recorder.calls[0]?.init.headers);
     expect(headers.get('Authorization')).toBe('Bearer test-jwt');
     expect(headers.get('X-Authorization')).toBe('Bearer test-jwt');
+  });
+});
+
+describe('mirrorAuthorizationHeader: false opts out of the X-Authorization mirror (#119)', () => {
+  it('transport sends Authorization only, on every path', async () => {
+    for (const pathCase of cases) {
+      const recorder = recordingFetch(pathCase.response());
+      const store = createSessionTokenStore({
+        key: 'nene_test_token',
+        storage: createFakeStorage(),
+      });
+      store.setToken(TOKEN);
+      const transport = createNene2Transport({
+        baseUrl: 'http://api.example.test',
+        tokenStore: store,
+        mirrorAuthorizationHeader: false,
+        fetch: recorder.fetch,
+      });
+
+      await pathCase.run(transport);
+
+      const headers = new Headers(recorder.calls[0]?.init.headers);
+      expect(headers.get('Authorization'), `${pathCase.name}() keeps Authorization`).toBe(
+        `Bearer ${TOKEN}`,
+      );
+      expect(headers.get('X-Authorization'), `${pathCase.name}() drops the mirror`).toBeNull();
+    }
+  });
+
+  it('transport defaults to mirroring when the flag is omitted (regression)', async () => {
+    const recorder = recordingFetch(jsonResponse({ ok: true }));
+    await makeTransport(recorder.fetch).get('/items');
+
+    const headers = new Headers(recorder.calls[0]?.init.headers);
+    expect(headers.get('Authorization')).toBe(`Bearer ${TOKEN}`);
+    expect(headers.get('X-Authorization')).toBe(`Bearer ${TOKEN}`);
+  });
+
+  it('typed createNene2Client sends Authorization only', async () => {
+    const recorder = recordingFetch(jsonResponse({ user: { sub: 'u1' }, claims: {} }, 200));
+    const { createNene2Client } = await import('../../src/index.js');
+    const client = createNene2Client({
+      baseUrl: 'http://localhost:8080',
+      bearer: 'test-jwt',
+      mirrorAuthorizationHeader: false,
+      fetch: recorder.fetch,
+    });
+    await client.getProtected().catch(() => undefined);
+
+    const headers = new Headers(recorder.calls[0]?.init.headers);
+    expect(headers.get('Authorization')).toBe('Bearer test-jwt');
+    expect(headers.get('X-Authorization')).toBeNull();
   });
 });

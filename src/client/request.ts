@@ -60,12 +60,16 @@ export function buildAuthHeaders(config: ResolvedNene2ClientConfig): Headers {
     headers.set('X-NENE2-API-Key', config.apiKey);
   }
   if (config.bearer !== undefined) {
-    // The bearer rides on both headers: some shared-hosting front proxies
-    // (Tier A; observed on HETEML) strip the standard `Authorization` header
-    // before it reaches PHP, so NENE2 backends fall back to the
-    // `X-Authorization` mirror when the standard header is missing (#102).
+    // By default the bearer rides on both headers: some shared-hosting / reverse
+    // proxies (Tier A) strip the standard `Authorization` header before it
+    // reaches the backend, so NENE2 falls back to the `X-Authorization` mirror
+    // when the standard header is missing (#102). Opt out with
+    // `mirrorAuthorizationHeader: false` when the edge keeps `Authorization`
+    // intact (#119).
     headers.set('Authorization', `Bearer ${config.bearer}`);
-    headers.set('X-Authorization', `Bearer ${config.bearer}`);
+    if (config.mirrorAuthorizationHeader) {
+      headers.set('X-Authorization', `Bearer ${config.bearer}`);
+    }
   }
   return headers;
 }

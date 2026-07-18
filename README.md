@@ -135,13 +135,27 @@ Unset URLs are skipped; CI runs fixture tests only. Field-trial friction: [ADR 0
 
 ## Transport headers
 
-Every authenticated request carries the bearer token on **two** headers: the standard `Authorization` **and a non-standard `X-Authorization` mirror**. Both the typed client (`createNene2Client`) and the fleet transport (`createNene2Transport`) apply the mirror on every path — JSON verbs, blob downloads, multipart uploads, raw byte POSTs. Auth headers are applied **after** static and per-request headers, so no caller can drop or overwrite the mirror. **In the current version the mirror cannot be disabled** (`src/transport/headers.ts`, `src/client/request.ts`).
+By default, every authenticated request carries the bearer token on **two** headers: the standard `Authorization` **and a non-standard `X-Authorization` mirror**. Both the typed client (`createNene2Client`) and the fleet transport (`createNene2Transport`) apply the mirror on every path — JSON verbs, blob downloads, multipart uploads, raw byte POSTs. Auth headers are applied **after** static and per-request headers, so no per-request caller can drop or overwrite the mirror while it is enabled (`src/transport/headers.ts`, `src/client/request.ts`).
 
 **Why.** Some shared-hosting front proxies and reverse proxies strip the standard `Authorization` header before it reaches the application. NENE2 backends fall back to the `X-Authorization` mirror when the standard header is missing, so the mirror keeps auth working behind such proxies.
 
 **Operational note — please read.** Because the bearer is duplicated onto a non-standard header, add **`X-Authorization`** to the credential-masking rules of anything that records or inspects requests: application logs, access logs, WAF rules, and proxy log pipelines. An environment that masks only `Authorization` will otherwise record the bearer token in clear text.
 
-**Planned.** An opt-out flag is _planned_ for a future minor release, and making the mirror **off by default** is _planned_ for a future major release. Until then, treat the mirror as always-on and mask it accordingly.
+**Opting out (available since 1.3.0).** If you control the edge and know `Authorization` reaches the backend intact, disable the mirror at construction time with `mirrorAuthorizationHeader: false` — the client then sends `Authorization` only. This is a construction-time switch; there is no per-request override.
+
+```ts
+// Authorization only — no X-Authorization mirror
+const client = createNene2Client({
+  baseUrl: process.env.NENE2_JS_API_BASE_URL!,
+  bearer,
+  mirrorAuthorizationHeader: false,
+});
+
+// Same switch on the fleet transport
+const transport = createNene2Transport({ tokenStore, mirrorAuthorizationHeader: false });
+```
+
+The default remains `true` (mirror on) to keep working behind `Authorization`-stripping proxies. Making the mirror **off by default** is _planned_ for a future major release; until then, deployments that keep the default should continue to mask `X-Authorization`.
 
 ## Documentation site (local)
 

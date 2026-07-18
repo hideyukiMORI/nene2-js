@@ -19,8 +19,8 @@ This repository provides **client libraries**. It must not embed secrets, ship `
 
 ## Transport headers (X-Authorization mirror)
 
-The client sends the bearer token on both `Authorization` and a non-standard `X-Authorization` mirror on **every** authenticated request, on every transport path. This is a workaround for shared-hosting / reverse proxies that strip the standard `Authorization` header before it reaches the backend; NENE2 backends fall back to the mirror. **In the current version the mirror cannot be disabled.**
+By default the client sends the bearer token on both `Authorization` and a non-standard `X-Authorization` mirror on **every** authenticated request, on every transport path. This is a workaround for shared-hosting / reverse proxies that strip the standard `Authorization` header before it reaches the backend; NENE2 backends fall back to the mirror.
 
 Security implication: any logging, WAF, or proxy pipeline that masks credentials must include **`X-Authorization`** in its mask set. An environment that masks only `Authorization` will record the bearer token in clear text.
 
-An opt-out flag is _planned_ for a future minor release, and an off-by-default change is _planned_ for a future major release. See the README → **Transport headers** section for details.
+Opting out (available since 1.3.0): deployments that control the edge and know `Authorization` survives can disable the mirror at construction time with `mirrorAuthorizationHeader: false`, sending `Authorization` only. The default remains `true` (mirror on); making the mirror off by default is _planned_ for a future major release. See the README → **Transport headers** section for the code example.
