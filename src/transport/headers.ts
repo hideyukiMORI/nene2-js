@@ -2,15 +2,16 @@
  * Single choke point for auth headers (issue #102; the nene-deal #83 pattern).
  *
  * Every transport path — JSON verbs, blob downloads, multipart uploads, raw
- * CSV/bytes POSTs — builds its headers here. The bearer token rides on both
- * `Authorization` and the `X-Authorization` mirror: some shared-hosting front
- * proxies (Tier A; observed on HETEML) strip the standard `Authorization`
- * header before it reaches PHP, so the backend falls back to the mirror when
- * the standard header is missing (nene-deal #67/#68, nene-clear #265,
- * nene-vault #118).
+ * CSV/bytes POSTs — builds its headers here. By default the bearer token rides
+ * on both `Authorization` and the `X-Authorization` mirror: some shared-hosting
+ * front proxies (Tier A) strip the standard `Authorization` header before it
+ * reaches the backend, so it falls back to the mirror when the standard header
+ * is missing (nene-deal #67/#68, nene-clear #265, nene-vault #118). Deployments
+ * behind proxies that keep `Authorization` intact can drop the mirror at
+ * construction time with `mirrorAuthorizationHeader: false` (#119).
  *
  * Auth headers are applied **after** static and per-request headers, so no
- * caller can drop or overwrite the mirror.
+ * per-request caller can drop or overwrite the mirror when it is enabled.
  */
 
 /** @internal */
@@ -23,6 +24,8 @@ export interface TransportHeaderInput {
   readonly apiKey: string | undefined;
   /** Bearer token from the token store, or `null` when signed out. */
   readonly token: string | null;
+  /** Mirror the bearer onto `X-Authorization` (default posture; see file header). */
+  readonly mirrorAuthorization: boolean;
 }
 
 /** @internal */
@@ -39,7 +42,9 @@ export function buildTransportHeaders(input: TransportHeaderInput): Headers {
   }
   if (input.token !== null) {
     headers.set('Authorization', `Bearer ${input.token}`);
-    headers.set('X-Authorization', `Bearer ${input.token}`);
+    if (input.mirrorAuthorization) {
+      headers.set('X-Authorization', `Bearer ${input.token}`);
+    }
   }
   return headers;
 }

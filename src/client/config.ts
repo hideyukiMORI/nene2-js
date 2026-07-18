@@ -8,6 +8,14 @@ export interface Nene2ClientConfig {
   readonly apiKey?: string | undefined;
   /** Bearer JWT for protected routes. */
   readonly bearer?: string | undefined;
+  /**
+   * Mirror the bearer onto a non-standard `X-Authorization` header alongside the
+   * standard `Authorization`. Default `true` (fleet posture): some shared-hosting
+   * / reverse proxies strip `Authorization` before it reaches the backend, and
+   * NENE2 falls back to the mirror. Set `false` when you control the edge and
+   * know `Authorization` survives. See the README **Transport headers** section.
+   */
+  readonly mirrorAuthorizationHeader?: boolean | undefined;
   /** Custom fetch implementation (tests, Node 18 polyfill). */
   readonly fetch?: typeof fetch | undefined;
   /** Optional abort signal forwarded to every request (Persona A: cancel in-flight calls). */
@@ -24,6 +32,7 @@ export interface ResolvedNene2ClientConfig {
   readonly baseUrl: string;
   readonly apiKey: string | undefined;
   readonly bearer: string | undefined;
+  readonly mirrorAuthorizationHeader: boolean;
   readonly fetch: typeof fetch;
   readonly signal: AbortSignal | undefined;
   readonly timeoutMs: number | undefined;
@@ -43,6 +52,7 @@ export function resolveConfig(config: Nene2ClientConfig): ResolvedNene2ClientCon
     baseUrl,
     apiKey: config.apiKey,
     bearer: config.bearer,
+    mirrorAuthorizationHeader: config.mirrorAuthorizationHeader ?? true,
     fetch: fetchFn,
     signal: config.signal,
     timeoutMs: config.timeoutMs,

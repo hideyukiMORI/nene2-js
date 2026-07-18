@@ -56,6 +56,16 @@ export interface Nene2TransportConfig {
   readonly apiKey?: string | undefined;
   /** Static headers sent on every request (e.g. `X-Organization-Slug`). */
   readonly headers?: Readonly<Record<string, string>> | undefined;
+  /**
+   * Mirror the bearer token onto a non-standard `X-Authorization` header in
+   * addition to the standard `Authorization`. Default `true` (fleet posture):
+   * some shared-hosting / reverse proxies strip `Authorization` before it
+   * reaches the backend, and NENE2 falls back to the mirror. Set `false` when
+   * you control the edge and know `Authorization` survives — the transport then
+   * sends `Authorization` only. Construction-time only; there is no per-request
+   * override. See the README **Transport headers** section (#119).
+   */
+  readonly mirrorAuthorizationHeader?: boolean | undefined;
   /** Forwarded to `fetch` (e.g. `'include'` for cookie-based CSRF pairing). */
   readonly credentials?: RequestCredentials | undefined;
   /** Custom fetch implementation (tests, SSR). */
@@ -128,7 +138,8 @@ export interface BlobDownload {
 /**
  * Generic authenticated transport. Every method routes through one internal
  * `send()` whose headers come from the single auth-header choke point, so no
- * path can drop the `X-Authorization` mirror.
+ * per-request path can drop the `X-Authorization` mirror when it is enabled
+ * (see {@link Nene2TransportConfig.mirrorAuthorizationHeader}).
  */
 export interface Nene2Transport {
   /** `GET` JSON. */
@@ -180,6 +191,7 @@ interface ResolvedTransportConfig {
   readonly tokenStore: TokenStore | undefined;
   readonly apiKey: string | undefined;
   readonly headers: Readonly<Record<string, string>>;
+  readonly mirrorAuthorizationHeader: boolean;
   readonly credentials: RequestCredentials | undefined;
   readonly fetch: typeof fetch;
   readonly timeoutMs: number | undefined;
@@ -199,6 +211,7 @@ function resolveTransportConfig(config: Nene2TransportConfig): ResolvedTransport
     tokenStore: config.tokenStore,
     apiKey: config.apiKey,
     headers: config.headers ?? {},
+    mirrorAuthorizationHeader: config.mirrorAuthorizationHeader ?? true,
     credentials: config.credentials,
     // Bind so an extracted browser `window.fetch` keeps its required receiver.
     fetch: fetchFn.bind(globalThis),
@@ -282,6 +295,7 @@ async function send(
     requestHeaders: init.options?.headers,
     apiKey: config.apiKey,
     token,
+    mirrorAuthorization: config.mirrorAuthorizationHeader,
   });
   if (init.accept !== undefined && !headers.has('Accept')) {
     headers.set('Accept', init.accept);
