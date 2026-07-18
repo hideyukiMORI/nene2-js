@@ -141,7 +141,7 @@ By default, every authenticated request carries the bearer token on **two** head
 
 **Operational note — please read.** Because the bearer is duplicated onto a non-standard header, add **`X-Authorization`** to the credential-masking rules of anything that records or inspects requests: application logs, access logs, WAF rules, and proxy log pipelines. An environment that masks only `Authorization` will otherwise record the bearer token in clear text.
 
-**Opting out (available since 1.3.0).** If you control the edge and know `Authorization` reaches the backend intact, disable the mirror at construction time with `mirrorAuthorizationHeader: false` — the client then sends `Authorization` only. This is a construction-time switch; there is no per-request override.
+**Opting out (available in the next minor release).** If you control the edge and know `Authorization` reaches the backend intact, disable the mirror at construction time with `mirrorAuthorizationHeader: false` — the client then sends `Authorization` only. This is a construction-time switch; there is no per-request override.
 
 ```ts
 // Authorization only — no X-Authorization mirror

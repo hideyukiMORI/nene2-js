@@ -12,7 +12,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Documentation
 
-- README / SECURITY **Transport headers**: document the opt-out flag and mark it available since 1.3.0; generalize the mirror rationale (no specific hosting-vendor name).
+- README / SECURITY **Transport headers**: document the opt-out flag and its default-on posture; generalize the mirror rationale (no specific hosting-vendor name).
 
 ## [1.2.0] - 2026-07-16
 
