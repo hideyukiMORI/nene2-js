@@ -16,6 +16,7 @@ Entry point for AI agents working on **nene2-js**.
 - Roadmap: `docs/roadmap.md`
 - Releases (semver, tags, GitHub Release): `docs/development/releases.md`
 - Current work: `docs/todo/current.md`
+- Daily reports: `docs/daily/` (fleet convention `_work/daily-report-convention.md`)
 
 ## Operating rules
 
