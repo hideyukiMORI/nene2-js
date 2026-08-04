@@ -171,6 +171,7 @@ import { runTransportContract } from '@hideyukimori/nene2-client/testing';
 
 runTransportContract({
   product: 'nene-payout',
+  surface: 'adapter', // or 'transport' — required; see the how-to
   runner: { describe, it },
   createWiring: ({ storage }) => {
     const tokenStore = createSessionTokenStore({ key: 'nene_payout_token', storage });
@@ -181,6 +182,8 @@ runTransportContract({
   },
 });
 ```
+
+`surface` declares how your features reach the transport: pass `createTransport` from `createWiring` when they go through your own `apiClient`. Four required cases can only see a failure through that seam — measured, not assumed.
 
 It registers **12 required cases** in five groups — the `X-Authorization` mirror on every path, `sessionStorage`-only token handling, 401/403 policy, and single-flight recovery — plus an empty-run guard so a suite that shrinks to nothing cannot report success. Differences are declared as `exemptions` with a reason and a ref, never skipped silently. Individual `expect*` helpers are exported too, for products that need finer control.
 

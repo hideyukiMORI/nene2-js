@@ -90,7 +90,31 @@ export interface ContractRunner {
   it(name: string, fn: () => void | Promise<void>): void;
 }
 
+/**
+ * How the product's feature code reaches the transport. Only the product knows
+ * this, and the answer decides whether five of the cases measure anything.
+ *
+ * - `'adapter'` — features call your own `apiClient`. You **must** supply
+ *   {@link ContractWiring.createTransport}; otherwise the contract builds a
+ *   clean transport of its own and your adapter is never exercised.
+ * - `'transport'` — features call the transport returned by
+ *   `createNene2Transport` directly. There is no adapter to bypass, so the
+ *   transport the contract builds *is* your call path.
+ *
+ * Measured (issue #125): with no `createTransport`, **C1-2, C3-9, C4-11, C4-12**
+ * (and optional C5-13) stay green against a deliberately broken adapter. Their
+ * real-world failure modes live in adapter code — one path bypassing the
+ * transport, every 401 treated as a session expiry, a home-grown retry-on-401, a
+ * transport rebuilt per request — none of which a config value can express.
+ */
+export type ContractSurface = 'transport' | 'adapter';
+
 export interface TransportContractDeps {
+  /**
+   * Declare how features reach the transport. Required: an undeclared surface
+   * would let four required cases pass for free. See {@link ContractSurface}.
+   */
+  readonly surface: ContractSurface;
   /**
    * Build the product's wiring. Called once per case so token state and hook
    * spies never leak between assertions.

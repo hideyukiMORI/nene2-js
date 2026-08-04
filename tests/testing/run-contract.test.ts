@@ -37,6 +37,21 @@ function recordingRunner(): Recorded {
   };
 }
 
+const REQUIRED_IDS = [
+  'C1-1',
+  'C1-2',
+  'C1-3',
+  'C1-4',
+  'C2-5',
+  'C2-6',
+  'C2-7',
+  'C3-8',
+  'C3-9',
+  'C3-10',
+  'C4-11',
+  'C4-12',
+] as const satisfies readonly ContractExemption['caseId'][];
+
 const RECORDS_EXEMPTION: ContractExemption = {
   caseId: 'C2-5',
   reason: 'cookie-based session (recognised fleet difference)',
@@ -242,5 +257,49 @@ describe('empty-run guard', () => {
     expect(() =>
       assertContractCoverage(11, 11, { required: 12, optional: 0, exempted: 1 }),
     ).not.toThrow();
+  });
+});
+
+describe('the empty-run guard is unaffected by the adapter seam (fleet re-check, #125)', () => {
+  it('registers the same 12 cases whether or not a createTransport builder is supplied', () => {
+    const withSeam = runTransportContract({
+      ...createFixtureDeps(),
+      runner: recordingRunner().runner,
+    });
+    const withoutSeam = runTransportContract({
+      ...createFixtureDeps({ omitCreateTransport: true }),
+      runner: recordingRunner().runner,
+    });
+
+    expect(withSeam.surface).toBe('adapter');
+    expect(withoutSeam.surface).toBe('transport');
+    // The seam changes what a case can observe, never how many cases exist —
+    // so the counting the guard does is untouched by it.
+    expect(withoutSeam.registered).toStrictEqual(withSeam.registered);
+    expect(withoutSeam.expectedCount).toBe(withSeam.expectedCount);
+  });
+
+  it('still fires when cases are exempted away, with either surface', () => {
+    const recorded = recordingRunner();
+    runTransportContract({
+      ...createFixtureDeps({ omitCreateTransport: true }),
+      runner: recorded.runner,
+      exemptions: REQUIRED_IDS.map((caseId) => ({
+        caseId,
+        reason: 'exempt everything',
+        ref: '#125',
+      })),
+    });
+    expect(() => recorded.cases[recorded.cases.length - 1]?.fn()).toThrow(/registered zero cases/);
+  });
+
+  it('reports the declared surface on stdout so a fleet audit can question it', () => {
+    const info = vi.spyOn(console, 'info').mockImplementation(() => undefined);
+    try {
+      runTransportContract({ ...createFixtureDeps(), runner: recordingRunner().runner });
+      expect(info).toHaveBeenCalledWith(expect.stringContaining('surface:adapter'));
+    } finally {
+      info.mockRestore();
+    }
   });
 });
