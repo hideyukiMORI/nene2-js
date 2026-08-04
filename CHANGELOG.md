@@ -16,12 +16,24 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
   - Cases are selected by whether a **product-supplied** value can break them; package internals are deliberately not shipped. Each of the twelve is proven to go red against a wiring that breaks that one thing.
   - `npm run pack:smoke` now resolves `./testing` from the installed tarball, so the `files` boundary that caused this gap is checked where it is actually enforced.
   - **`surface: 'transport' | 'adapter'` is required** ([#125](https://github.com/hideyukiMORI/nene2-js/issues/125)). Measured: with no adapter seam, **C1-2, C3-9, C4-11, C4-12** (and optional C5-13) stay green against a deliberately broken adapter — their real failure modes are one path bypassing the transport, every 401 treated as a session expiry, a home-grown retry-on-401, and a transport rebuilt per request. None is expressible as a config value, so the contract must be able to reach the product's own client. Declaring `'adapter'` without `createTransport` (or `'transport'` with one) is rejected, and the declared surface is reported in the result and the run's version line so a fleet audit can question it. `tests/testing/seam-coverage.test.ts` keeps the measurement, one assertion per case, so removing the seam re-surfaces the hole instead of shipping silently.
+
+### Documentation
+
+- `howto/transport-contract` — product-side setup for `./testing`: the one-file integration, the thin-adapter form (`createTransport`), the jsdom requirement for C2-5, exemptions as declarations, and **how to ask for the check to become required** (branch protection is a hub seam; the trigger is "green on your own default branch", not a fleet-wide event).
+
+## [1.3.0] - 2026-08-05
+
+Opt out of the non-standard `X-Authorization` mirror (generality audit **A-3**). Additive — the default stays mirror-on, so existing consumers see no behavior change.
+
+> **Published from the `release/1.3.0` branch, not from `main`** ([#122](https://github.com/hideyukiMORI/nene2-js/issues/122)). The branch was cut from `3dac48c`, before `./testing` landed, so **1.3.0 differs from `main` by not containing `./testing`** — verified on the published tarball (`exports` = `.` + `./package.json`, no `dist/testing`). Releasing `main` would have shipped `./testing` too, which was the thing this split existed to avoid. `./testing` follows in 1.4.0. The branch is kept, tagged `archive/1.3.0-release-branch`.
+
+### Added
+
 - `mirrorAuthorizationHeader?: boolean` on both `Nene2TransportConfig` and `Nene2ClientConfig` — opt out of the non-standard `X-Authorization` mirror ([#119](https://github.com/hideyukiMORI/nene2-js/issues/119), audit A-3). Default `true` keeps the existing fleet posture (bearer on both `Authorization` and `X-Authorization`, for proxies that strip the standard header); `false` sends `Authorization` only. Construction-time switch — no per-request override, no behavior change for existing consumers. See the README **Transport headers** section.
 
 ### Documentation
 
 - README / SECURITY **Transport headers**: document the opt-out flag and its default-on posture; generalize the mirror rationale (no specific hosting-vendor name).
-- `howto/transport-contract` — product-side setup for `./testing`: the one-file integration, the thin-adapter form (`createTransport`), the jsdom requirement for C2-5, exemptions as declarations, and **how to ask for the check to become required** (branch protection is a hub seam; the trigger is "green on your own default branch", not a fleet-wide event).
 
 ## [1.2.0] - 2026-07-16
 
