@@ -1,6 +1,6 @@
 # How to run the transport contract in a product
 
-`@hideyukimori/nene2-client/testing` ships a **contract test**: a suite you run
+`@hideyukimori/nene2-client/testing` (since **1.4.0**) ships a **contract test**: a suite you run
 in your own repository, against your own transport wiring, from your own
 `npm run check`.
 
@@ -156,7 +156,7 @@ nene-records' cookie session (C2-5).
 Every run prints one line:
 
 ```
-[nene2-client/testing] transport contract v1.2.0 · nene-payout — 12 registered, 0 exempted
+[nene2-client/testing] transport contract v1.4.0 · nene-payout — surface:adapter, 12 registered, 0 exempted
 ```
 
 A contract test is a device whose job is to be green, so an **old** contract and

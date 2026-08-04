@@ -10,4 +10,4 @@
  * Kept in sync with `package.json` by `tests/testing/version.test.ts` — bumping
  * the package without bumping this constant fails the build.
  */
-export const NENE2_CLIENT_VERSION = '1.2.0';
+export const NENE2_CLIENT_VERSION = '1.4.0';

@@ -6,6 +6,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-08-05
+
+The transport **contract test**, distributed on `./testing` — the half the package could not previously prove: that a _product's_ wiring matches what the fleet assumes. Additive; nothing in the existing surface changes.
+
 ### Added
 
 - **`@hideyukimori/nene2-client/testing`** — a transport **contract test** products run against their own wiring ([#123](https://github.com/hideyukiMORI/nene2-js/issues/123), [fleet #232](https://github.com/hideyukiMORI/nene2-fleet-tooling/issues/232)). The package's own unit tests live in `tests/`, outside `files`; a fleet audit measured **0** test files in every product's `node_modules`, so what was guaranteed was "the package is not broken", never "this product's integration is correct".
