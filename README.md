@@ -157,6 +157,35 @@ const transport = createNene2Transport({ tokenStore, mirrorAuthorizationHeader: 
 
 The default remains `true` (mirror on) to keep working behind `Authorization`-stripping proxies. Making the mirror **off by default** is _planned_ for a future major release; until then, deployments that keep the default should continue to mask `X-Authorization`.
 
+## Transport contract for consumers (`/testing`)
+
+The package's own unit tests prove that **the package** works. They cannot tell you whether **your product's** wiring — token store, `onUnauthorized`, `recoverAuth`, per-request headers — matches what the fleet assumes, and they are not distributed (they live in `tests/`, outside `files`).
+
+The `./testing` subpath ships a contract you run in your own repository:
+
+```ts
+// frontend/src/shared/api/transport.contract.test.ts
+import { describe, it } from 'vitest';
+import { createSessionTokenStore } from '@hideyukimori/nene2-client';
+import { runTransportContract } from '@hideyukimori/nene2-client/testing';
+
+runTransportContract({
+  product: 'nene-payout',
+  runner: { describe, it },
+  createWiring: ({ storage }) => {
+    const tokenStore = createSessionTokenStore({ key: 'nene_payout_token', storage });
+    return {
+      config: buildTransportConfig(tokenStore), // your own config
+      seedToken: (token) => tokenStore.setToken(token),
+    };
+  },
+});
+```
+
+It registers **12 required cases** in five groups — the `X-Authorization` mirror on every path, `sessionStorage`-only token handling, 401/403 policy, and single-flight recovery — plus an empty-run guard so a suite that shrinks to nothing cannot report success. Differences are declared as `exemptions` with a reason and a ref, never skipped silently. Individual `expect*` helpers are exported too, for products that need finer control.
+
+Setup, exemptions, the jsdom requirement, and **how to ask for the check to become required** are in [`docs/howto/transport-contract.md`](docs/howto/transport-contract.md).
+
 ## Documentation site (local)
 
 ```bash

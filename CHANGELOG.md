@@ -8,11 +8,19 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
+- **`@hideyukimori/nene2-client/testing`** — a transport **contract test** products run against their own wiring ([#123](https://github.com/hideyukiMORI/nene2-js/issues/123), [fleet #232](https://github.com/hideyukiMORI/nene2-fleet-tooling/issues/232)). The package's own unit tests live in `tests/`, outside `files`; a fleet audit measured **0** test files in every product's `node_modules`, so what was guaranteed was "the package is not broken", never "this product's integration is correct".
+  - `runTransportContract(deps)` (layer **L-b**) registers `describe`/`it` for **12 required cases** in 5 groups — C1 `X-Authorization` mirror on every path (4), C2 `sessionStorage`-only token handling (3), C3 401/403 policy (3), C4 single-flight recovery (2) — plus optional C5 (token never in a URL). Registering real cases is what makes "ran, skip 0" visible to a job log; an assertion helper nobody calls is indistinguishable from one that passes.
+  - `expect*` helpers (layer **L-a**) run one case each, the same shape as `nene2-i18n`'s `expectCatalogParity`.
+  - **Empty-run guard**: the suite fails when it registers zero cases _or_ fewer than expected. Differences are declared as `exemptions` carrying a `reason` and a `ref` (AU-2 shape) and are subtracted visibly — an exemption without either is rejected.
+  - The run stamps the contract **version** (`result.version` and one stdout line). Caret ranges permit an upgrade but nothing moves until a lockfile does, and an old contract is green exactly like a current one.
+  - Cases are selected by whether a **product-supplied** value can break them; package internals are deliberately not shipped. Each of the twelve is proven to go red against a wiring that breaks that one thing.
+  - `npm run pack:smoke` now resolves `./testing` from the installed tarball, so the `files` boundary that caused this gap is checked where it is actually enforced.
 - `mirrorAuthorizationHeader?: boolean` on both `Nene2TransportConfig` and `Nene2ClientConfig` — opt out of the non-standard `X-Authorization` mirror ([#119](https://github.com/hideyukiMORI/nene2-js/issues/119), audit A-3). Default `true` keeps the existing fleet posture (bearer on both `Authorization` and `X-Authorization`, for proxies that strip the standard header); `false` sends `Authorization` only. Construction-time switch — no per-request override, no behavior change for existing consumers. See the README **Transport headers** section.
 
 ### Documentation
 
 - README / SECURITY **Transport headers**: document the opt-out flag and its default-on posture; generalize the mirror rationale (no specific hosting-vendor name).
+- `howto/transport-contract` — product-side setup for `./testing`: the one-file integration, the thin-adapter form (`createTransport`), the jsdom requirement for C2-5, exemptions as declarations, and **how to ask for the check to become required** (branch protection is a hub seam; the trigger is "green on your own default branch", not a fleet-wide event).
 
 ## [1.2.0] - 2026-07-16
 

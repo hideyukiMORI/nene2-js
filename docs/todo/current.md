@@ -1,15 +1,24 @@
 # Current work
 
-Last updated: 2026-07-14 (JST)
+Last updated: 2026-08-04 (JST)
 
 ## Active
 
-- [ ] [#109](https://github.com/hideyukiMORI/nene2-js/issues/109) — docs: `howto/migrate-product-client` — migrate a product `apiClient` onto the transport seam (W2b). Draft on `docs/109-migrate-product-client`; invoice リナ read-only review pending. Division of labor (agreed): nene2-js owns the guide, the product repo owns the apply-PR/CI.
-- [x] [#107](https://github.com/hideyukiMORI/nene2-js/issues/107) — transport: opt-in `recoverAuth` seam (silent-refresh + single replay on 401) — [ADR 0008](../adr/0008-recover-auth-seam.md) Accepted; merged [#108](https://github.com/hideyukiMORI/nene2-js/pull/108). Unblocks invoice W2b (board (B), due 2026-08-08). Opt-in (default `undefined` = unchanged); promotion to fleet default is gated on W2b completion **and** the `_work/issues.md #38` path-mode cookie-Path root fix.
-- [ ] [#102](https://github.com/hideyukiMORI/nene2-js/issues/102) — fleet-standard frontend transport (`createNene2Transport` + `createSessionTokenStore`, X-Authorization mirror, 401/403 hooks) — **v1.1.0** release-candidate PR open; publish is done by the maintainer after merge
+- [ ] [#123](https://github.com/hideyukiMORI/nene2-js/issues/123) — testing: `./testing` subpath ships the transport **contract test** (fleet phase 2 **P2-2**; design of record [fleet #232](https://github.com/hideyukiMORI/nene2-fleet-tooling/issues/232), work order `_work/handoff-nene2js-l2-contract-testing-2026-08-05-work-order.md`). L-a helpers + L-b `runTransportContract`, 12 required cases, empty-run guard with AU-2 exemptions, every case proven red against a broken wiring. **Implemented; PR open.** Remaining: publish (owner seam) → one product (payout) runs it green → then request the required check from hub.
+- [ ] [#122](https://github.com/hideyukiMORI/nene2-js/issues/122) — release **1.3.0**: the `X-Authorization` opt-out (#119 / #120, audit A-3) is on `main` but not on npm, so products still cannot turn the mirror off. Open question for hub: ship it alone now, or bundle with `./testing`.
+- [ ] [#121](https://github.com/hideyukiMORI/nene2-js/issues/121) — chore: governance-doc sync after 1.2.0 (this file, `AGENTS.md` version wording) + retire merged remote branches. Branch cleanup **done** 2026-08-04 (7 retired behind `archive/*` tags; `test/42-ft-marathon-500` kept for reference).
+- [ ] [#106](https://github.com/hideyukiMORI/nene2-js/issues/106) — transport: relative `baseUrl` is concatenated, not resolved — breaks under Node/jsdom.
+- [ ] [#105](https://github.com/hideyukiMORI/nene2-js/issues/105) — transport: `fetch` is bound at construction, so a global swap (msw) is not picked up. Shapes the `./testing` deps: the contract takes a product's _wiring_, not a built client, because a built client can no longer be observed.
+- [ ] [#104](https://github.com/hideyukiMORI/nene2-js/issues/104) — shared ESLint config: distribute the no-raw-`fetch` rule (phase 2 stage 3, follows #102).
 
 ## Completed (recent)
 
+- [x] [#109](https://github.com/hideyukiMORI/nene2-js/issues/109) — docs: `howto/migrate-product-client` (W2b). Shipped by [#110](https://github.com/hideyukiMORI/nene2-js/pull/110) → [#111](https://github.com/hideyukiMORI/nene2-js/pull/111) (invoice review folded in) → [#114](https://github.com/hideyukiMORI/nene2-js/pull/114) (per-mode promotion gate). Closed 2026-08-04 after checking each acceptance item against `main`.
+- [x] [#119](https://github.com/hideyukiMORI/nene2-js/issues/119) / [#120](https://github.com/hideyukiMORI/nene2-js/pull/120) — `mirrorAuthorizationHeader` opt-out (audit A-3); [#117](https://github.com/hideyukiMORI/nene2-js/issues/117) / [#118](https://github.com/hideyukiMORI/nene2-js/pull/118) — README/SECURITY **Transport headers**. Merged 2026-07-18, **not yet published** — see #122.
+- [x] [#115](https://github.com/hideyukiMORI/nene2-js/issues/115) / [#116](https://github.com/hideyukiMORI/nene2-js/pull/116) — fleet `docs/daily/` convention + 07-17 / 07-18 reports
+- [x] [#112](https://github.com/hideyukiMORI/nene2-js/issues/112) / [#113](https://github.com/hideyukiMORI/nene2-js/pull/113) — npm **1.2.0** (`recoverAuth` seam; W2b unblock)
+- [x] [#107](https://github.com/hideyukiMORI/nene2-js/issues/107) — transport: opt-in `recoverAuth` seam (silent-refresh + single replay on 401) — [ADR 0008](../adr/0008-recover-auth-seam.md) Accepted; merged [#108](https://github.com/hideyukiMORI/nene2-js/pull/108). Opt-in (default `undefined` = unchanged); promotion to the fleet default is gated on W2b completion **and** the `_work/issues.md #38` path-mode cookie-`Path` root fix.
+- [x] [#102](https://github.com/hideyukiMORI/nene2-js/issues/102) — fleet-standard frontend transport (`createNene2Transport` + `createSessionTokenStore`, X-Authorization mirror, 401/403 hooks) — published as **1.1.0**
 - [x] [#100](https://github.com/hideyukiMORI/nene2-js/issues/100) — 全ロケール doc 鮮度監査（de/fr/zh/pt-br getting-started、maintainer docs）
 - [x] [#99](https://github.com/hideyukiMORI/nene2-js/pull/99) — README consumer vs contributor install; en/ja getting-started `@^1.0.0`
 - [x] [#98](https://github.com/hideyukiMORI/nene2-js/pull/98) — SECURITY 1.x, README badge, roadmap/releases links

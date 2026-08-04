@@ -35,7 +35,8 @@ TypeScript companion to NENE2:
 - OpenAPI-aligned types and client helpers
 - RFC 9457 Problem Details utilities
 - strict, testable, AI-readable modules
-- Published package `@hideyukimori/nene2-client` **1.0.0** stable; see `docs/development/releases.md` and `publish.md`
+- Published package `@hideyukimori/nene2-client` **1.2.0** (stable since 1.0.0); see `docs/development/releases.md` and `publish.md`
+- Consumer-facing test asset: `./testing` ships the transport contract — `docs/howto/transport-contract.md`
 
 PHP runtime and OpenAPI authoring stay in [NENE2](https://github.com/hideyukiMORI/NENE2).
 
