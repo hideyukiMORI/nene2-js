@@ -4,7 +4,7 @@ Last updated: 2026-08-04 (JST)
 
 ## Active
 
-- [ ] [#122](https://github.com/hideyukiMORI/nene2-js/issues/122) — release **1.3.0**: the `X-Authorization` opt-out (#119 / #120, audit A-3) is on `main` but not on npm, so products still cannot turn the mirror off. Open question for hub: ship it alone now, or bundle with `./testing`.
+- [ ] [#122](https://github.com/hideyukiMORI/nene2-js/issues/122) — release. **1.3.0 published 2026-08-05** (A-3 opt-out alone, owner ruling (a)) from `release/1.3.0` — cut before `./testing` landed, so it does **not** contain `./testing`; branch kept as `archive/1.3.0-release-branch`. Remaining: **1.4.0 = `./testing`** from `main` (release PR open; publish is the owner's seam).
 - [ ] [#106](https://github.com/hideyukiMORI/nene2-js/issues/106) — transport: relative `baseUrl` is concatenated, not resolved — breaks under Node/jsdom.
 - [ ] [#105](https://github.com/hideyukiMORI/nene2-js/issues/105) — transport: `fetch` is bound at construction, so a global swap (msw) is not picked up. Shapes the `./testing` deps: the contract takes a product's _wiring_, not a built client, because a built client can no longer be observed.
 - [ ] [#104](https://github.com/hideyukiMORI/nene2-js/issues/104) — shared ESLint config: distribute the no-raw-`fetch` rule (phase 2 stage 3, follows #102).
