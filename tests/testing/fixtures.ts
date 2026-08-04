@@ -55,6 +55,8 @@ export interface FixtureKnobs {
   readonly transportPerRequest?: boolean;
   /** C5-13: append the bearer to the request URL. */
   readonly tokenInUrl?: boolean;
+  /** Measurement: omit the `createTransport` seam entirely. */
+  readonly omitCreateTransport?: boolean;
 }
 
 /** Store that reads and writes without guarding against storage exceptions. */
@@ -226,6 +228,7 @@ export function createFixtureDeps(knobs: FixtureKnobs = {}): Fixture {
 
     return {
       config,
+      ...(knobs.omitCreateTransport === true ? {} : { createTransport }),
       seedToken: (token: string): void => {
         if (knobs.cacheToken !== true) {
           cached = undefined;
@@ -235,12 +238,12 @@ export function createFixtureDeps(knobs: FixtureKnobs = {}): Fixture {
           local.setItem(STORAGE_KEY, token);
         }
       },
-      createTransport,
     };
   }
 
   return {
     product: 'fixture-product',
+    surface: knobs.omitCreateTransport === true ? 'transport' : 'adapter',
     createWiring,
     sessionStorage: session,
     localStorage: local,

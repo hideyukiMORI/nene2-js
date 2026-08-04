@@ -48,6 +48,7 @@ import { buildTransportConfig } from './client'; // your own config factory
 
 runTransportContract({
   product: 'nene-payout',
+  surface: 'adapter', // or 'transport' — see below; it is required
   runner: { describe, it },
   createWiring: ({ storage }) => {
     // `storage` is present only when the contract is forcing a storage failure.
@@ -64,21 +65,56 @@ runTransportContract({
 That is the whole integration. The suite registers as ordinary `describe`/`it`,
 so it runs under your existing `npm test` and shows up in the job log.
 
-### If your `apiClient` is a thin adapter
+## `surface` — how your features reach the transport
 
-Pass `createTransport` as well, and the contract exercises **the surface your
-features actually call**:
+This one is required, and it is not paperwork. **Five cases can only see a
+failure if the contract can reach your adapter**, because their real-world
+failure modes live in adapter code, not in a config value:
+
+| Case      | The adapter mistake it catches                                                |
+| --------- | ----------------------------------------------------------------------------- |
+| **C1-2**  | one path bypasses the transport and merges caller headers itself              |
+| **C3-9**  | every 401 is treated as a session expiry (the login screen tears itself down) |
+| **C4-11** | a home-grown retry-on-401 stacked on top of the recovery seam                 |
+| **C4-12** | a transport rebuilt per call, so nothing shares the single-flight             |
+| C5-13     | the bearer appended to a URL                                                  |
+
+Measured (issue #125): with no adapter seam, **all five stay green against a
+deliberately broken adapter**. `tests/testing/seam-coverage.test.ts` in this
+repository keeps that measurement, one assertion per case.
+
+Only you know which you are, so declare it:
+
+### `surface: 'adapter'` — features call your own `apiClient`
+
+Also return `createTransport` from `createWiring`. The contract then drives the
+surface your features actually call:
 
 ```ts
-createWiring: ({ storage }) => ({
-  config: buildTransportConfig(tokenStore),
-  seedToken: (token) => tokenStore.setToken(token),
-  createTransport: (config) => makeApiClient(config), // your adapter
-}),
+runTransportContract({
+  surface: 'adapter',
+  createWiring: ({ storage }) => ({
+    config: buildTransportConfig(tokenStore),
+    seedToken: (token) => tokenStore.setToken(token),
+    createTransport: (config) => makeApiClient(config), // your adapter
+  }),
+  // …
+});
 ```
 
-This is the only way an adapter that bypasses the transport on one path — the
-failure mode a package-internal test can never see — becomes visible.
+### `surface: 'transport'` — features call the transport directly
+
+No adapter exists, so the transport the contract builds **is** your call path
+and the five cases are honest rather than vacuous. Do not pass
+`createTransport`.
+
+Declaring one and supplying the other is rejected, as is leaving `surface` out.
+
+> 🔴 **One limit, stated plainly.** Even under `surface: 'transport'`, **C4-12 is
+> only partly measured**: if your code builds a _new_ transport per request
+> (inside a hook, say), that construction pattern is invisible from a config.
+> Products that do this should expose it through `createTransport` and declare
+> `'adapter'`.
 
 ### C2-5 needs a browser-like environment
 

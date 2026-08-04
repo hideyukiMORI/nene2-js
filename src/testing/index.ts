@@ -17,7 +17,11 @@
  * See `docs/howto/transport-contract.md` for the product-side setup, including
  * how to ask for the check to become required.
  */
-export { runTransportContract, type TransportContractResult } from './contract.js';
+export {
+  runTransportContract,
+  SEAM_DEPENDENT_CASE_IDS,
+  type TransportContractResult,
+} from './contract.js';
 export {
   expectAuthHeaderMirror,
   expectAuthHeadersUnoverridable,
@@ -40,6 +44,7 @@ export { NENE2_CLIENT_VERSION } from './version.js';
 export { createHostileStorage, createMemoryStorage, type RecordedCall } from './harness.js';
 export type {
   ContractCaseId,
+  ContractSurface,
   ContractExemption,
   ContractGroup,
   ContractRunner,

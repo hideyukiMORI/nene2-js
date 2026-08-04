@@ -15,6 +15,7 @@ import type {
   ContractCaseId,
   ContractExemption,
   ContractRunner,
+  ContractSurface,
   TransportContractDeps,
 } from './deps.js';
 import { TransportContractError } from './errors.js';
@@ -29,6 +30,8 @@ export interface TransportContractResult {
    */
   readonly version: string;
   readonly product: string | undefined;
+  /** Declared call path. Lets a fleet audit ask whether `'transport'` is true. */
+  readonly surface: ContractSurface;
   /** Case ids actually registered as `it()`s. */
   readonly registered: readonly ContractCaseId[];
   /** Declared, reasoned exemptions that removed cases from the run. */
@@ -93,6 +96,56 @@ function validateExemptions(exemptions: readonly ContractExemption[]): void {
   }
 }
 
+/** Cases whose real failure mode lives in adapter code (measured — issue #125). */
+export const SEAM_DEPENDENT_CASE_IDS: readonly ContractCaseId[] = [
+  'C1-2',
+  'C3-9',
+  'C4-11',
+  'C4-12',
+  'C5-13',
+];
+
+/**
+ * Check the declared surface against what the wiring actually supplies.
+ *
+ * Without `createTransport` the contract builds its own clean transport, and the
+ * five seam-dependent cases then assert against the package rather than the
+ * product — green for free, which is the exact failure this whole contract
+ * exists to stop. So the product has to say which it is; nobody else can know.
+ *
+ * @internal
+ */
+export function assertSurfaceMatchesWiring(
+  surface: ContractSurface | undefined,
+  hasCreateTransport: boolean,
+): void {
+  const measured = SEAM_DEPENDENT_CASE_IDS.join(', ');
+  if (surface === undefined) {
+    throw new TransportContractError(
+      'runTransportContract needs `surface`. Declare how your feature code reaches the ' +
+        "transport: `surface: 'adapter'` (features call your own apiClient — then also pass " +
+        "`createTransport` in the wiring) or `surface: 'transport'` (features call the " +
+        'transport directly). This is not paperwork: without the adapter seam, ' +
+        `${measured} stay green against a deliberately broken adapter (measured, #125).`,
+    );
+  }
+  if (surface === 'adapter' && !hasCreateTransport) {
+    throw new TransportContractError(
+      "surface: 'adapter' was declared but the wiring supplies no `createTransport`. The " +
+        'contract would build its own transport and never touch your adapter, so ' +
+        `${measured} would pass without measuring anything. Return ` +
+        '`createTransport: (config) => makeApiClient(config)` from `createWiring`.',
+    );
+  }
+  if (surface === 'transport' && hasCreateTransport) {
+    throw new TransportContractError(
+      "surface: 'transport' was declared but the wiring supplies a `createTransport` " +
+        "builder. Pick the one that is true: declare 'adapter' if features call that " +
+        'builder, or drop it if they call the transport directly.',
+    );
+  }
+}
+
 /**
  * The empty-run guard, as a plain function so it can be tested directly — a
  * guard that is only reachable through a passing suite is itself unguarded.
@@ -135,6 +188,7 @@ export function assertContractCoverage(
  *
  * runTransportContract({
  *   product: 'nene-payout',
+ *   surface: 'adapter', // features call the product's apiClient
  *   runner: { describe, it },
  *   createWiring: ({ storage }) => {
  *     const tokenStore = createSessionTokenStore({ key: 'nene_payout_token', storage });
@@ -148,6 +202,7 @@ export function assertContractCoverage(
  */
 export function runTransportContract(deps: TransportContractDeps): TransportContractResult {
   const runner = resolveRunner(deps.runner);
+  assertSurfaceMatchesWiring(deps.surface, deps.createWiring({}).createTransport !== undefined);
   const exemptions = deps.exemptions ?? [];
   validateExemptions(exemptions);
 
@@ -201,6 +256,7 @@ export function runTransportContract(deps: TransportContractDeps): TransportCont
   const result: TransportContractResult = {
     version: NENE2_CLIENT_VERSION,
     product: deps.product,
+    surface: deps.surface,
     registered,
     exempted: exemptions,
     expectedCount,
@@ -211,7 +267,7 @@ export function runTransportContract(deps: TransportContractDeps): TransportCont
   // actually ran. Old contract and new contract are both green; only this differs.
   console.info(
     `[nene2-client/testing] transport contract v${NENE2_CLIENT_VERSION}` +
-      `${label} — ${String(registered.length)} registered, ` +
+      `${label} — surface:${deps.surface}, ${String(registered.length)} registered, ` +
       `${String(exemptions.length)} exempted`,
   );
 
