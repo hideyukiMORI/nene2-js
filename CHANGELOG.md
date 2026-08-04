@@ -6,6 +6,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-08-05
+
+Opt out of the non-standard `X-Authorization` mirror (generality audit **A-3**). Additive — the default stays mirror-on, so existing consumers see no behavior change.
+
 ### Added
 
 - `mirrorAuthorizationHeader?: boolean` on both `Nene2TransportConfig` and `Nene2ClientConfig` — opt out of the non-standard `X-Authorization` mirror ([#119](https://github.com/hideyukiMORI/nene2-js/issues/119), audit A-3). Default `true` keeps the existing fleet posture (bearer on both `Authorization` and `X-Authorization`, for proxies that strip the standard header); `false` sends `Authorization` only. Construction-time switch — no per-request override, no behavior change for existing consumers. See the README **Transport headers** section.
