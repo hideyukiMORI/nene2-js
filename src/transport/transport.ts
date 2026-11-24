@@ -15,6 +15,7 @@ import { parseProblemDetailsResponse } from '../problem/guards.js';
 import type { ProblemDetailsDocument } from '../problem/types.js';
 import { buildTransportHeaders } from './headers.js';
 import type { TokenStore } from './token-store.js';
+import { resolveRequestUrl } from './url.js';
 
 /**
  * Context passed to the 401/403 hooks. The package only clears the token and
@@ -282,6 +283,15 @@ function createRecoveryController(
   };
 }
 
+/**
+ * Read `location.origin` at call time — never cache it, since a harness
+ * (jsdom, tests) may install or change it after the transport is created.
+ */
+function currentOrigin(): string | undefined {
+  const origin = (globalThis as { location?: { origin?: unknown } }).location?.origin;
+  return typeof origin === 'string' ? origin : undefined;
+}
+
 interface SendInit {
   readonly method: string;
   readonly path: string;
@@ -310,7 +320,7 @@ async function send(
   init: SendInit,
   isReplay = false,
 ): Promise<Response> {
-  const url = `${config.baseUrl}${init.path}`;
+  const url = resolveRequestUrl(config.baseUrl, init.path, currentOrigin());
   const token = config.tokenStore?.getToken() ?? null;
   const headers = buildTransportHeaders({
     staticHeaders: config.headers,

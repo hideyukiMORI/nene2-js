@@ -5,7 +5,7 @@ Last updated: 2026-08-04 (JST)
 ## Active
 
 - [ ] **P2-2 completion condition, layer ③** — `./testing` is published (1.4.0), so the remaining steps are: nene-payout adopts the contract (hub work order `_work/handoff-payout-l2-contract-adopt-2026-08-05-work-order.md`, unblocked by the 1.4.0 publish) → green on our own default branch → **then ask hub to add the required check**. The trigger is a state we can observe ourselves, not a fleet-wide event ([fleet #232](https://github.com/hideyukiMORI/nene2-fleet-tooling/issues/232), EX-3).
-- [ ] [#106](https://github.com/hideyukiMORI/nene2-js/issues/106) — transport: relative `baseUrl` is concatenated, not resolved — breaks under Node/jsdom.
+- [x] [#106](https://github.com/hideyukiMORI/nene2-js/issues/106) — transport: relative `baseUrl` is concatenated, not resolved — breaks under Node/jsdom. Fixed: a relative baseUrl is resolved against `location.origin` at each request.
 - [x] [#105](https://github.com/hideyukiMORI/nene2-js/issues/105) — transport: `fetch` is bound at construction, so a global swap (msw) is not picked up. Shapes the `./testing` deps: the contract takes a product's _wiring_, not a built client, because a built client can no longer be observed. Fixed: the default fetch is now read at each request.
 - [ ] [#104](https://github.com/hideyukiMORI/nene2-js/issues/104) — shared ESLint config: distribute the no-raw-`fetch` rule (phase 2 stage 3, follows #102).
 

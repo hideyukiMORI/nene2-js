@@ -9,6 +9,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 ### Fixed
 
 - `createNene2Transport` and `createNene2Client` no longer bind `globalThis.fetch` at creation: when `fetch` is not passed, the global is read at each request, so msw and other harnesses that replace it later are picked up. A passed `fetch` is still used as-is (#105).
+- `createNene2Transport` resolves a relative `baseUrl` (e.g. `/api/v1`) against `location.origin` at each request, so browsers and jsdom no longer fail to parse the URL. Plain Node, which has no origin, passes the URL as given (#106).
 
 ## [1.4.0] - 2026-08-05
 
