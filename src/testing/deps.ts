@@ -1,11 +1,11 @@
 /**
  * What a product hands the contract (issue #123).
  *
- * The contract does **not** take a built `apiClient`: the transport binds its
- * `fetch` at construction (see issue #105), so a pre-built client can no longer
- * be observed. It takes the product's *wiring* instead — the same values fleet
- * #232 identified as the ones a product can get wrong: client config, token
- * store, `onUnauthorized`, `recoverAuth`, per-request headers.
+ * The contract does **not** take a built `apiClient`: it replaces `fetch` with
+ * a recording double when it builds the transport, so it needs the product's
+ * *wiring* — the same values fleet #232 identified as the ones a product can
+ * get wrong: client config, token store, `onUnauthorized`, `recoverAuth`,
+ * per-request headers.
  */
 import type { Nene2Transport, Nene2TransportConfig } from '../transport/transport.js';
 
