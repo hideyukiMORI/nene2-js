@@ -6,6 +6,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `createNene2Transport` and `createNene2Client` no longer bind `globalThis.fetch` at creation: when `fetch` is not passed, the global is read at each request, so msw and other harnesses that replace it later are picked up. A passed `fetch` is still used as-is (#105).
+
 ## [1.4.0] - 2026-08-05
 
 The transport **contract test**, distributed on `./testing` — the half the package could not previously prove: that a _product's_ wiring matches what the fleet assumes. Additive; nothing in the existing surface changes.

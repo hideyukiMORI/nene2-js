@@ -154,3 +154,33 @@ describe('createNene2Client', () => {
     } satisfies Partial<Nene2ClientError>);
   });
 });
+
+describe('lazy default fetch (#105)', () => {
+  const body = loadFixture('health-ok.json');
+
+  it('reads globalThis.fetch at call time, so a stub installed after creation is used', async () => {
+    const client = createNene2Client({ baseUrl: 'http://localhost:8080' });
+    const stub = vi.fn().mockResolvedValue(jsonResponse(body));
+    vi.stubGlobal('fetch', stub);
+    try {
+      await expect(client.health()).resolves.toEqual({ status: 'ok', service: 'NENE2' });
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(stub).toHaveBeenCalledTimes(1);
+  });
+
+  it('uses the provided config.fetch even when globalThis.fetch is replaced after creation', async () => {
+    const provided = vi.fn().mockResolvedValue(jsonResponse(body));
+    const client = createNene2Client({ baseUrl: 'http://localhost:8080', fetch: provided });
+    const decoy = vi.fn().mockResolvedValue(jsonResponse(body));
+    vi.stubGlobal('fetch', decoy);
+    try {
+      await client.health();
+    } finally {
+      vi.unstubAllGlobals();
+    }
+    expect(provided).toHaveBeenCalledTimes(1);
+    expect(decoy).not.toHaveBeenCalled();
+  });
+});

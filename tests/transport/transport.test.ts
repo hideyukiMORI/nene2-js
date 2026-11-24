@@ -3,7 +3,7 @@
  * bytes), Problem Details mapping (API errors are never surfaced as HTML),
  * and the token never appearing in any request URL.
  */
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   createNene2Transport,
   createSessionTokenStore,
@@ -241,5 +241,49 @@ describe('config forwarding', () => {
       name: 'Nene2ClientError',
       status: 0,
     });
+  });
+});
+
+describe('lazy default fetch (#105)', () => {
+  it('reads globalThis.fetch at call time, so a stub installed after creation is used', async () => {
+    const transport = createNene2Transport({ baseUrl: '' });
+    const recorder = recordingFetch(jsonResponse({ ok: true }));
+    const prev = globalThis.fetch;
+    vi.stubGlobal('fetch', recorder.fetch);
+    try {
+      await transport.get('/items');
+    } finally {
+      vi.stubGlobal('fetch', prev);
+    }
+
+    expect(recorder.fetch).toHaveBeenCalledTimes(1);
+    expect(recorder.calls[0]?.url).toBe('/items');
+  });
+
+  it('throws the fetch-missing error when globalThis.fetch is removed after creation', async () => {
+    const transport = createNene2Transport({ baseUrl: '' });
+    const prev = globalThis.fetch;
+    vi.stubGlobal('fetch', undefined);
+    try {
+      await expect(transport.get('/items')).rejects.toThrow(/fetch is not available/);
+    } finally {
+      vi.stubGlobal('fetch', prev);
+    }
+  });
+
+  it('uses the provided config.fetch even when globalThis.fetch is replaced after creation', async () => {
+    const recorder = recordingFetch(jsonResponse({ ok: true }));
+    const transport = createNene2Transport({ baseUrl: '', fetch: recorder.fetch });
+    const decoy = recordingFetch(jsonResponse({ swapped: true }));
+    const prev = globalThis.fetch;
+    vi.stubGlobal('fetch', decoy.fetch);
+    try {
+      await expect(transport.get<{ ok: boolean }>('/items')).resolves.toEqual({ ok: true });
+    } finally {
+      vi.stubGlobal('fetch', prev);
+    }
+
+    expect(recorder.fetch).toHaveBeenCalledTimes(1);
+    expect(decoy.fetch).not.toHaveBeenCalled();
   });
 });

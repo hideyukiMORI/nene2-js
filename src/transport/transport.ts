@@ -68,7 +68,12 @@ export interface Nene2TransportConfig {
   readonly mirrorAuthorizationHeader?: boolean | undefined;
   /** Forwarded to `fetch` (e.g. `'include'` for cookie-based CSRF pairing). */
   readonly credentials?: RequestCredentials | undefined;
-  /** Custom fetch implementation (tests, SSR). */
+  /**
+   * Custom fetch implementation (tests, SSR). Always used as-is when present.
+   * When omitted, `globalThis.fetch` is read **at every request** (never bound
+   * at construction), so a harness that replaces it later (msw, a test runner)
+   * is still picked up (#105).
+   */
   readonly fetch?: typeof fetch | undefined;
   /** Per-request timeout in milliseconds (`AbortSignal.timeout`). */
   readonly timeoutMs?: number | undefined;
@@ -202,10 +207,28 @@ interface ResolvedTransportConfig {
 }
 
 function resolveTransportConfig(config: Nene2TransportConfig): ResolvedTransportConfig {
-  const fetchFn = config.fetch ?? (globalThis as { fetch?: typeof fetch }).fetch;
-  if (typeof fetchFn !== 'function') {
+  const providedFetch = config.fetch;
+  // Keep the fail-fast check for the no-fetch environment (same message), then
+  // resolve the global lazily so a harness (msw, a test runner) that installs
+  // a `globalThis.fetch` stub *after* the transport was created is picked up
+  // (#105). A caller-provided `fetch` is always used as-is.
+  if (
+    providedFetch === undefined &&
+    typeof (globalThis as { fetch?: typeof fetch }).fetch !== 'function'
+  ) {
     throw new Error('fetch is not available; pass Nene2TransportConfig.fetch');
   }
+  const fetchFn: typeof fetch = (input, init) => {
+    if (providedFetch !== undefined) {
+      // Bind so an extracted browser `window.fetch` keeps its required receiver.
+      return providedFetch.call(globalThis, input, init);
+    }
+    const globalFetch = (globalThis as { fetch?: typeof fetch }).fetch;
+    if (typeof globalFetch !== 'function') {
+      throw new Error('fetch is not available; pass Nene2TransportConfig.fetch');
+    }
+    return globalFetch.call(globalThis, input, init);
+  };
   return {
     baseUrl: (config.baseUrl ?? '').replace(/\/+$/, ''),
     tokenStore: config.tokenStore,
@@ -213,8 +236,7 @@ function resolveTransportConfig(config: Nene2TransportConfig): ResolvedTransport
     headers: config.headers ?? {},
     mirrorAuthorizationHeader: config.mirrorAuthorizationHeader ?? true,
     credentials: config.credentials,
-    // Bind so an extracted browser `window.fetch` keeps its required receiver.
-    fetch: fetchFn.bind(globalThis),
+    fetch: fetchFn,
     timeoutMs: config.timeoutMs,
     onUnauthorized: config.onUnauthorized,
     onForbidden: config.onForbidden,
